@@ -108,18 +108,21 @@ export const logout = (req, res) => {
 
 export const updateUser = (req, res) => {
   const userid = req.params.id;
+  const { username, password, email, dob, status } = req.body;
+
+  // Check if password is provided before hashing
+  let hashedPassword = "";
+  if (password) {
+    const salt = bcrypt.genSaltSync(10);
+    hashedPassword = bcrypt.hashSync(password, salt);
+  }
+
   const q =
     'UPDATE users SET "username" = $2, "password" = $3, "email" = $4, "dob" = $5, "status" = $6 WHERE "userid" = $1';
 
-  const values = [
-    req.body.username,
-    req.body.password,
-    req.body.email,
-    req.body.dob,
-    req.body.status,
-  ];
+  const values = [userid, username, hashedPassword, email, dob, status];
 
-  db.query(q, [userid, ...values], (err, data) => {
+  db.query(q, values, (err, data) => {
     if (err) return res.json(err);
     return res.json("User has been updated successfully");
   });
