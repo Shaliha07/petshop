@@ -9,6 +9,7 @@ import serviceRoutes from "./routes/services.js";
 import appointmentRoutes from "./routes/appointments.js";
 import salesOrderRoutes from "./routes/salesorders.js";
 import salesOrderDetailsRoutes from "./routes/salesorderdetails.js";
+import chatBotRoutes from "./routes/chatbotroute.js";
 
 // Create an Express application
 const app = express();
@@ -52,6 +53,7 @@ app.use("/api/service", serviceRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/salesorder", salesOrderRoutes);
 app.use("/api/salesorderdetails", salesOrderDetailsRoutes);
+app.use("/api/ask", chatBotRoutes);
 
 // Testing route to set a cookie
 app.get("/set-cookie", (req, res) => {
@@ -62,5 +64,5 @@ app.get("/set-cookie", (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
