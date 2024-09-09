@@ -15,4 +15,4 @@ router.get("/:id", getSalesOrderDetail);
 router.get("/", getSalesOrderDetails);
 router.delete("/:id", deleteSalesOrderDetail);
 
-export default router;
+export default router;
