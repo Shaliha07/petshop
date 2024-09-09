@@ -1,12 +1,15 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken"
 
+// Load environment variables from .env file
 dotenv.config();
+
 const JWT_SECRET = process.env.JWT_SECRET;
+
 export const register = (req, res) => {
-  const { userid, username, password, email, dob } = req.body;
+  const { userid, username, password, email, dob, role } = req.body;
 
   // Check if the User already exists
   const checkQuery = "SELECT * FROM users WHERE userid = $1 OR username = $2";
@@ -21,15 +24,68 @@ export const register = (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, salt);
 
     const insertQuery =
-      "INSERT INTO users (username, password, email, dob, status) VALUES ($1, $2, $3, $4, $5)";
+      "INSERT INTO users (username, password, email, dob, role, status) VALUES ($1, $2, $3, $4, $5, $6)";
 
-    const values = [username, hashedPassword, email, dob, "active"];
+    const values = [username, hashedPassword, email, dob, role, "active"];
 
     db.query(insertQuery, values, (err, result) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json("User has been created!");
     });
   });
+};
+
+// Login with email and password (local strategy)
+export const login = (req, res) => {
+  // Check if the user exists
+  const checkQuery =
+    "SELECT * FROM users WHERE username = $1 AND status = 'active'";
+
+  db.query(checkQuery, [req.body.username], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.rows.length === 0) return res.status(404).json("User not found!");
+
+    const user = data.rows[0];
+
+    // Check the password
+    const checkPassword = bcrypt.compareSync(req.body.password, user.password);
+
+    if (!checkPassword)
+      return res.status(400).json("Wrong Password or Username!");
+
+    // Generate a JWT token
+    const token = jwt.sign(
+      { userid: user.userid, username: user.username, role: user.role },
+      JWT_SECRET,
+      { expiresIn: "1h" } // Token expiry time
+    );
+
+    // Exclude password from the response
+    const { password: userPassword, ...userData } = user;
+
+    // Set the token as an HTTP-only cookie
+    res
+      .cookie("accessToken", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json(userData);
+  });
+};
+
+// Google OAuth login (after authentication)
+export const googleLogin = (req, res) => {
+  // Generate JWT token for Google login
+  const token = jwt.sign(
+    {
+      userid: req.user.userid,
+      username: req.user.username,
+    },
+    JWT_SECRET,
+    { expiresIn: "1h" }
+  );
+
+  res.json({ token });
 };
 
 // export const login = (req, res) => {
@@ -43,7 +99,6 @@ export const register = (req, res) => {
 
 //     const user = data.rows[0];
 
-//     // Check the password
 //     const checkPassword = bcrypt.compareSync(req.body.password, user.password);
 
 //     if (!checkPassword)
@@ -56,45 +111,9 @@ export const register = (req, res) => {
 //       { expiresIn: "1h" } // Token expiry time
 //     );
 
-//     // Exclude password from the response
-//     const { password: userPassword, ...userData } = user;
-
-//     // Set the token as an HTTP-only cookie
-//     res
-//       .cookie("accessToken", token, {
-//         httpOnly: true,
-//       })
-//       .status(200)
-//       .json(userData);
+//     return res.status(200).json({ token });
 //   });
 // };
-
-export const login = (req, res) => {
-  // Check if the user exists
-  const checkQuery =
-    "SELECT * FROM users WHERE username = $1 AND status = 'active'";
-
-  db.query(checkQuery, [req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.rows.length === 0) return res.status(404).json("User not found!");
-
-    const user = data.rows[0];
-
-    const checkPassword = bcrypt.compareSync(req.body.password, user.password);
-
-    if (!checkPassword)
-      return res.status(400).json("Wrong Password or Username!");
-
-    // Generate a JWT token
-    const token = jwt.sign(
-      { userid: user.userid, username: user.username },
-      JWT_SECRET,
-      { expiresIn: "1h" } // Token expiry time
-    );
-
-    return res.status(200).json({ token });
-   });
- };
 
 export const logout = (req, res) => {
   res
@@ -103,11 +122,19 @@ export const logout = (req, res) => {
       sameSite: "none",
     })
     .status(200)
-    .json("User has been logged out!");
+    .json("User has been logged out!");
 };
 
 export const updateUser = (req, res) => {
   const userid = req.params.id;
+  const loggedInUser = req.user.userid; // ID of the logged-in user
+  const loggedInUserRole = req.user.role; // Role of the logged-in user (admin or user)
+
+  // Check if the logged-in user is an admin or updating their own profile
+  if (loggedInUser !== userid && loggedInUserRole !== "admin") {
+    return res.status(403).json("You can only update your own profile.");
+  }
+
   const { username, password, email, dob, status } = req.body;
 
   // Check if password is provided before hashing
