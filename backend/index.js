@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import passport from "./config/passport.js";
 import userRoutes from "./routes/users.js";
-import employeeRoutes from "./routes/employees.js";
 import categoryRoutes from "./routes/categories.js";
 import goodRoutes from "./routes/goods.js";
 import serviceRoutes from "./routes/services.js";
@@ -36,22 +36,28 @@ dotenv.config();
 // });
 
 // Middlewares
+app.use(express.json());
+app.use(cookieParser());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", true);
   next();
 });
-app.use(express.json());
-app.use(cookieParser());
+app.use(passport.initialize());
 
 // Routes
 app.use("/api/users", userRoutes);
-app.use("/api/employees", employeeRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/goods", goodRoutes);
 app.use("/api/service", serviceRoutes);
 app.use("/api/appointment", appointmentRoutes);
 app.use("/api/salesorder", salesOrderRoutes);
 app.use("/api/salesorderdetails", salesOrderDetailsRoutes);
+
+// Testing route to set a cookie
+app.get("/set-cookie", (req, res) => {
+  res.cookie("accessToken", "dummy-token", { httpOnly: true, secure: false });
+  res.send("Cookie has been set");
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
