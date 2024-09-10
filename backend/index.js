@@ -10,6 +10,7 @@ import appointmentRoutes from "./routes/appointments.js";
 import salesOrderRoutes from "./routes/salesorders.js";
 import salesOrderDetailsRoutes from "./routes/salesorderdetails.js";
 import chatBotRoutes from "./routes/chatbotroute.js";
+import paymentRoutes from "./routes/payments.js";
 
 // Create an Express application
 const app = express();
@@ -54,6 +55,7 @@ app.use("/api/appointment", appointmentRoutes);
 app.use("/api/salesorder", salesOrderRoutes);
 app.use("/api/salesorderdetails", salesOrderDetailsRoutes);
 app.use("/api/ask", chatBotRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // Testing route to set a cookie
 app.get("/set-cookie", (req, res) => {
