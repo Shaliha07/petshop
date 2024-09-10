@@ -1,62 +1,70 @@
 import { db } from "../connect.js";
 
-// Create
+// Create sales order detail
 export const createSalesOrderDetail = (req, res) => {
-  const {orderdetailsid, salesorderid, goodid, qty, total, status } = req.body;
+  const { salesorderid, goodid, qty, unitprice } = req.body;
 
-  const q =
-    "INSERT INTO salesorderdetails(salesorderid, goodid, qty, total, status) VALUES ($1, $2, $3, $4, $5)";
+  // Calculate subtotal for the good
+  const subtotal = qty * unitprice;
 
-  const values = [salesorderid, goodid, qty, total, "active"];
+  const q = `
+    INSERT INTO salesorderdetails (salesorderid, goodid, qty, total, status)
+    VALUES ($1, $2, $3, $4, $5)
+  `;
+  const values = [salesorderid, goodid, qty, subtotal, "active"];
 
   db.query(q, values, (err, result) => {
     if (err) return res.status(500).json(err);
-    return res.status(200).json("Sales Order Details has been created!");
+    return res.status(200).json("Sales Order Detail has been created!");
   });
 };
 
-// Update
-export const updateSalesOrderDetail = (req, res) => {
-  const orderdetailsid = req.params.id;
-  const { salesorderid, goodid, qty, total, status } = req.body;
-
-  const q =
-    'UPDATE salesorderdetails SET "salesorderid"=$2, "goodid"=$3, "qty"=$4, "total"=$5, "status"=$6 WHERE "orderdetailsid" = $1';
-
-  const values = [orderdetailsid, salesorderid, goodid, qty, total, status];
-
-  db.query(q, values, (err, data) => {
-    if (err) return res.json(err);
-    return res.json("Sales Order Details has been updated successfully");
-  });
-};
-
-// Get SalesOrderDetail
+// Fetch a single sales order detail by ID
 export const getSalesOrderDetail = (req, res) => {
-  const orderdetailsid = req.params.id;
+  const { id } = req.params;
   const q = "SELECT * FROM salesorderdetails WHERE orderdetailsid = $1";
-  db.query(q, [orderdetailsid], (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
+
+  db.query(q, [id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data.rows);
   });
 };
 
-// Get SalesOrderDetails
+// Fetch all sales order details
 export const getSalesOrderDetails = (req, res) => {
   const q = "SELECT * FROM salesorderdetails";
+
   db.query(q, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data.rows);
   });
 };
 
-// Delete SalesOrderDetail
+// Update sales order detail by ID
+export const updateSalesOrderDetail = (req, res) => {
+  const { id } = req.params;
+  const { salesorderid, goodid, qty, total, status } = req.body;
+
+  const q = `
+    UPDATE salesorderdetails 
+    SET salesorderid = $2, goodid = $3, qty = $4, total = $5, status = $6 
+    WHERE orderdetailsid = $1
+  `;
+  const values = [id, salesorderid, goodid, qty, total, status];
+
+  db.query(q, values, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json("Sales Order Detail has been updated successfully");
+  });
+};
+
+// Delete sales order detail by ID
 export const deleteSalesOrderDetail = (req, res) => {
-  const orderdetailsid = req.params.id;
+  const { id } = req.params;
   const q = "DELETE FROM salesorderdetails WHERE orderdetailsid = $1";
 
-  db.query(q, [orderdetailsid], (err, data) => {
-    if (err) return res.json(err);
-    return res.json("Sales Order Details has been deleted");
+  db.query(q, [id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json("Sales Order Detail has been deleted");
   });
 };
