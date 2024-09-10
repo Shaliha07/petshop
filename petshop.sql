@@ -75,3 +75,15 @@ CREATE TABLE salesorderdetails (
     FOREIGN KEY (salesorderid) REFERENCES salesorder (salesorderid),
     FOREIGN KEY (goodid) REFERENCES goods (goodid)
 );
+
+--  Table: paymentdetails
+CREATE TABLE payments (
+    paymentid SERIAL PRIMARY KEY,
+    salesorderid INT NOT NULL, -- Foreign key to link payment to sales order
+    paymentmethod VARCHAR(50) NOT NULL, -- e.g., 'credit_card', 'paypal', etc.
+    paymentstatus VARCHAR(50) NOT NULL, -- e.g., 'pending', 'completed', 'failed'
+    amount DOUBLE PRECISION NOT NULL, -- The amount paid
+    paymentdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date and time of payment
+    FOREIGN KEY (salesorderid) REFERENCES salesorder (salesorderid)
+);
+
