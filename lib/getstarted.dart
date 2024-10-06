@@ -8,6 +8,8 @@ class GetStartedPage extends StatelessWidget {
       backgroundColor: Color(0xFFF2E9E2), // Background color for the whole page
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Top icon and text
             Expanded(
@@ -17,20 +19,20 @@ class GetStartedPage extends StatelessWidget {
                   children: [
                     // Logo
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 200,
+                      height: 200,
                       child: Center(
                         child: Image.asset(
                           'images/logo.png', // Local asset path
-                          height: 50,
+                          height: 200,
                         ),
                       ),
                     ),
                     SizedBox(height: 20),
                     // Slogan with background image
                     Container(
-                      width: 297, // Matches the given layout width
-                      height: 108, // Matches the given layout height
+                      width: 300, // Matches the given layout width
+                      height: 260, // Matches the given layout height
                       alignment: Alignment.center, // Centered text
                       child: Stack(
                         children: [
@@ -47,9 +49,9 @@ class GetStartedPage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               text: TextSpan(
                                 style: TextStyle(
-                                  fontFamily: 'Manrope',
-                                  fontSize: 24,
-                                  height: 1.52, // Equivalent to 36.48px line height
+                                  fontSize: 30,
+                                  height:
+                                      1.52, // Equivalent to 36.48px line height
                                   letterSpacing: 0.035,
                                   color: Colors.black, // Default text color
                                 ),
@@ -58,28 +60,33 @@ class GetStartedPage extends StatelessWidget {
                                   TextSpan(
                                     text: 'Helping you\n',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w400, // Regular weight
+                                      fontWeight:
+                                          FontWeight.w400, // Regular weight
                                     ),
                                   ),
                                   // Second line: "to keep your bestie"
                                   TextSpan(
                                     text: 'to keep ',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w400, // Regular weight
+                                      fontWeight:
+                                          FontWeight.w400, // Regular weight
                                     ),
                                   ),
                                   TextSpan(
                                     text: 'your bestie',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w800, // Bold weight
-                                      color: const Color.fromARGB(255, 39, 120, 186), // Blue color
+                                      fontWeight:
+                                          FontWeight.w800, // Bold weight
+                                      color: const Color.fromARGB(
+                                          255, 39, 120, 186), // Blue color
                                     ),
                                   ),
                                   // Third line: "stay healthy!"
                                   TextSpan(
                                     text: '\nstay healthy!',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w400, // Regular weight
+                                      fontWeight:
+                                          FontWeight.w400, // Regular weight
                                     ),
                                   ),
                                 ],
@@ -98,20 +105,19 @@ class GetStartedPage extends StatelessWidget {
               height: 300,
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(60)),
               ),
               child: Column(
                 children: [
                   SizedBox(height: 20),
                   // Get Started Button
                   GetStartedButton(),
-                  SizedBox(height: 30),
                   // Illustration Image
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  Positioned(
                     child: Image.asset(
                       'images/People caring for their pets.png', // Local asset path
-                      height: 150,
+                      height: 300,
+                      width: 300,
                     ),
                   ),
                 ],
@@ -131,7 +137,7 @@ class GetStartedButton extends StatefulWidget {
 }
 
 class _GetStartedButtonState extends State<GetStartedButton> {
-  Color _buttonColor = Color(0xFF00B4D8); // Initial color
+  Color _buttonColor = Color(0xFF0077B6); // Initial color
 
   @override
   Widget build(BuildContext context) {
@@ -144,12 +150,14 @@ class _GetStartedButtonState extends State<GetStartedButton> {
       },
       onTapDown: (_) {
         setState(() {
-          _buttonColor = const Color.fromARGB(255, 10, 108, 164); // Change color when pressed
+          _buttonColor = const Color.fromARGB(
+              255, 10, 108, 164); // Change color when pressed
         });
       },
       onTapUp: (_) {
         setState(() {
-          _buttonColor = Color(0xFF00B4D8); // Revert to original color when released
+          _buttonColor =
+              Color(0xFF00B4D8); // Revert to original color when released
         });
       },
       child: Stack(
@@ -174,13 +182,15 @@ class _GetStartedButtonState extends State<GetStartedButton> {
               ),
             ),
           ),
+
           // Paw image overlay
           Positioned(
             right: 10,
             child: Image.asset(
               'images/Dog Paw.png', // Local asset path for the paw image
               height: 30, // Adjust the height as needed
-              color: Colors.white, // Optional: Change color to match button text
+              color:
+                  Colors.white, // Optional: Change color to match button text
             ),
           ),
         ],

@@ -1,245 +1,254 @@
 import 'package:flutter/material.dart';
+import 'home.dart';
 
-class ChatbotPage extends StatefulWidget {
+class ChatBotPage extends StatefulWidget {
   @override
-  _ChatbotPageState createState() => _ChatbotPageState();
+  _ChatBotPageState createState() => _ChatBotPageState();
 }
 
-class _ChatbotPageState extends State<ChatbotPage> {
-  final TextEditingController _controller = TextEditingController();
-  final List<Map<String, dynamic>> _messages = [
-    {'text': "Hi Max, How can I help you today?", 'isBot': true},
-    {'text': "Hi, I’m looking for a dog food recommendation", 'isBot': false},
-    {'text': "Can you please tell me the breed and age of your dog?", 'isBot': true},
+class _ChatBotPageState extends State<ChatBotPage> {
+  List<Map<String, dynamic>> messages = [
+    {"isBot": true, "text": "Hi Max, How can I help you today ?"},
+    {"isBot": false, "text": "Hi, I'm looking for a dog food recommendation"},
+    {
+      "isBot": true,
+      "text": "Can you please tell me the breed and age of your dog?"
+    },
   ];
 
-  void _sendMessage() {
-    if (_controller.text.isEmpty) return;
-
-    setState(() {
-      _messages.add({'text': _controller.text, 'isBot': false});
-      _controller.clear();
-    });
-
-    // Simulate a response from the bot after a delay
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        _messages.add({
-          'text': "Here's a response to '${_messages.last['text']}'",
-          'isBot': true
-        });
-      });
-    });
-  }
-
-  // Function to show a bottom sheet with attachment options
-  void _showAttachmentOptions(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          padding: EdgeInsets.all(10),
-          height: 250,
-          child: Column(
-            children: [
-              Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1,
-                  ),
-                  children: [
-                    _buildAttachmentOption(Icons.insert_photo, "Gallery", () {
-                      Navigator.pop(context);
-                    }),
-                    _buildAttachmentOption(Icons.camera_alt, "Camera", () {
-                      Navigator.pop(context);
-                    }),
-                    _buildAttachmentOption(Icons.insert_drive_file, "Document", () {
-                      Navigator.pop(context);
-                    }),
-                    _buildAttachmentOption(Icons.location_on, "Location", () {
-                      Navigator.pop(context);
-                    }),
-                    _buildAttachmentOption(Icons.person, "Contact", () {
-                      Navigator.pop(context);
-                    }),
-                    _buildAttachmentOption(Icons.audiotrack, "Audio", () {
-                      Navigator.pop(context);
-                    }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildAttachmentOption(IconData icon, String label, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            backgroundColor: Colors.grey[200],
-            radius: 30,
-            child: Icon(icon, size: 28, color: Colors.blue),
-          ),
-          SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(fontSize: 12, color: Colors.black),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChatBubble(String text, bool isBot) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Row(
-        mainAxisAlignment: isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
-        children: [
-          if (isBot)
-            CircleAvatar(
-              backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('images/chatbot.png'), // Path to the image
-            ),
-          if (!isBot) SizedBox(width: 40),
-          SizedBox(width: 10),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
-            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
-            decoration: BoxDecoration(
-              color: isBot ? const Color(0xFF54D8F7) : const Color(0xFFE6F4F8),
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Text(
-              text,
-              style: TextStyle(
-                color: isBot ? Colors.black : Colors.black,
-                fontSize: 16.0,
-              ),
-            ),
-          ),
-          SizedBox(width: 10),
-          if (!isBot)
-            CircleAvatar(
-              backgroundImage: AssetImage('images/dognew.png'), // Path to user avatar
-            ),
-          if (isBot) SizedBox(width: 40),
-        ],
-      ),
-    );
-  }
+  bool showAttachments = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF00B4D8), // Color of the AppBar
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context), // Back to HomePage
-          color: Colors.white,
-        ),
-        title: TextField(
-          decoration: InputDecoration(
-            prefixIcon: Icon(Icons.search, color: Colors.white),
-            hintText: 'Search',
-            hintStyle: TextStyle(color: Colors.white60),
-            filled: true,
-            fillColor: Color(0xFF90E0EF),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          // Search Bar and Icon Section
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Image.asset(
-                  'images/chatbot.png', // Path to the chatbot icon
-                  width: 100,
-                  height: 100,
-                ),
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              reverse: true,
-              child: Column(
-                children: _messages.map((message) => _buildChatBubble(message['text'], message['isBot'])).toList(),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _controller,
-                            decoration: InputDecoration(
-                              hintText: "Type Message",
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                            ),
-                          ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            // Search Bar
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(username: 'Max'),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.attach_file),
-                          onPressed: () => _showAttachmentOptions(context),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        shape: BoxShape.circle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.grey[900],
                         ),
-                      ],
+                      ),
                     ),
                   ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Chatbot Icon at the Top
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Image.asset(
+                'images/chatbot.png', // Replace with your actual asset path
+                height: 100,
+              ),
+            ),
+
+            // Expanded Chat Section with Vertical Scroll
+            Expanded(
+              child: SingleChildScrollView(
+                reverse: true, // Aligns chat messages to the bottom
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                child: Column(
+                  children: List.generate(messages.length, (index) {
+                    return buildMessage(messages[index]);
+                  }),
                 ),
-                SizedBox(width: 8),
-                GestureDetector(
-                  onTap: _sendMessage,
-                  child: CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Color(0xFF00B4D8),
-                    child: Icon(Icons.send, color: Colors.white),
+              ),
+            ),
+
+            // Message Input Field and Attachments
+            Column(
+              children: [
+                if (showAttachments)
+                  buildAttachments(), // Display attachments when attachment icon is pressed
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Type Message",
+                                    hintStyle:
+                                        TextStyle(color: Color(0xff65558F)),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showAttachments = !showAttachments;
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.attach_file,
+                                  color: Color(0xff65558F),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10.0),
+                      Container(
+                        padding: EdgeInsets.all(12),
+                        child: Icon(
+                          Icons.send,
+                          color: Color(0xff65558F),
+                          size: 30,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Chat Bubbles Layout with Avatars Outside
+  Widget buildMessage(Map<String, dynamic> message) {
+    bool isBot = message["isBot"];
+    return Align(
+      alignment: isBot ? Alignment.centerLeft : Alignment.centerRight,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (isBot) ...[
+            // Bot Avatar Outside Chat Bubble
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'images/chatbot.png', // Replace with your actual asset path
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(width: 8),
+          ],
+          Flexible(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5.0),
+              padding: EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: isBot ? Colors.lightBlueAccent : Colors.grey[300],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(
+                message["text"],
+                textAlign: isBot
+                    ? TextAlign.left
+                    : TextAlign.right, // Text alignment change
+                style: TextStyle(
+                  color: isBot ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
           ),
+          if (!isBot) ...[
+            SizedBox(width: 8),
+            // User Avatar Outside Chat Bubble
+            CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage(
+                'images/dognew.png', // Replace with your actual asset path
+              ),
+            ),
+          ],
         ],
       ),
+    );
+  }
+
+  // Build Attachments
+  Widget buildAttachments() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          buildAttachmentIcon(Icons.photo, "Gallery"),
+          buildAttachmentIcon(Icons.camera_alt, "Camera"),
+          buildAttachmentIcon(Icons.audiotrack, "Audio"),
+        ],
+      ),
+    );
+  }
+
+  // Attachment Icon Widget
+  Widget buildAttachmentIcon(IconData icon, String label) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            // Placeholder for functionality
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: Color(0xff65558F)),
+          ),
+        ),
+        SizedBox(height: 5.0),
+        Text(
+          label,
+          style: TextStyle(color: Color(0xff65558F)),
+        ),
+      ],
     );
   }
 }
