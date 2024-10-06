@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'login.dart'; // Import the LoginPage
 
 class GetStartedPage extends StatelessWidget {
+  const GetStartedPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF2E9E2), // Background color for the whole page
+      backgroundColor:
+          const Color(0xFFF2E9E2), // Background color for the whole page
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -18,7 +21,7 @@ class GetStartedPage extends StatelessWidget {
                 child: Column(
                   children: [
                     // Logo
-                    Container(
+                    SizedBox(
                       width: 200,
                       height: 200,
                       child: Center(
@@ -28,7 +31,7 @@ class GetStartedPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Slogan with background image
                     Container(
                       width: 300, // Matches the given layout width
@@ -47,7 +50,7 @@ class GetStartedPage extends StatelessWidget {
                           Center(
                             child: RichText(
                               textAlign: TextAlign.center,
-                              text: TextSpan(
+                              text: const TextSpan(
                                 style: TextStyle(
                                   fontSize: 30,
                                   height:
@@ -77,7 +80,7 @@ class GetStartedPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontWeight:
                                           FontWeight.w800, // Bold weight
-                                      color: const Color.fromARGB(
+                                      color: Color.fromARGB(
                                           255, 39, 120, 186), // Blue color
                                     ),
                                   ),
@@ -102,23 +105,33 @@ class GetStartedPage extends StatelessWidget {
             ),
             // Get Started Button with Paw Image and Illustration Image
             Container(
-              height: 300,
+              height: 317,
+              padding: const EdgeInsets.only(top: 5),
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.vertical(top: Radius.circular(60)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(65)),
               ),
-              child: Column(
+              child: Stack(
+                alignment: Alignment.center, // Center the content horizontally
                 children: [
-                  SizedBox(height: 20),
-                  // Get Started Button
-                  GetStartedButton(),
-                  // Illustration Image
-                  Positioned(
+                  // Pets illustration (background image)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: Image.asset(
-                      'images/People caring for their pets.png', // Local asset path
-                      height: 300,
-                      width: 300,
+                      'images/People caring for their pets.png', // Image asset path
+                      height: 450, // Adjust height if necessary
+                      width: 430,
+                      fit: BoxFit
+                          .cover, // Ensures the image fills the space without distortion
                     ),
+                  ),
+                  // Positioned Get Started Button (moved to bottom)
+                  const Positioned(
+                    bottom:
+                        240, // Position the button closer to the bottom of the section
+                    child:
+                        GetStartedButton(), // Get Started button overlays at the bottom of the section
                   ),
                 ],
               ),
@@ -132,12 +145,14 @@ class GetStartedPage extends StatelessWidget {
 
 // GetStartedButton Widget (StatefulWidget for color-changing effect)
 class GetStartedButton extends StatefulWidget {
+  const GetStartedButton({super.key});
+
   @override
   _GetStartedButtonState createState() => _GetStartedButtonState();
 }
 
 class _GetStartedButtonState extends State<GetStartedButton> {
-  Color _buttonColor = Color(0xFF0077B6); // Initial color
+  Color _buttonColor = const Color(0xFF0077B6); // Initial color
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +172,7 @@ class _GetStartedButtonState extends State<GetStartedButton> {
       onTapUp: (_) {
         setState(() {
           _buttonColor =
-              Color(0xFF00B4D8); // Revert to original color when released
+              const Color(0xFF00B4D8); // Revert to original color when released
         });
       },
       child: Stack(
@@ -171,7 +186,7 @@ class _GetStartedButtonState extends State<GetStartedButton> {
               color: _buttonColor,
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 "Get Started",
                 style: TextStyle(

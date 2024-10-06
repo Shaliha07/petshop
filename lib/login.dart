@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
                       'images/logo.png', // Replace with your app logo path
                       height: 150,
                     ),
-                    SizedBox(height: 50),
 
                     // Infographic image added below the logo
                     Image.asset(
@@ -50,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
                       height: 150, // Adjust the size accordingly
                       fit: BoxFit.cover,
                     ),
-                    SizedBox(height: 40),
 
                     // Username text field
                     TextFormField(
@@ -62,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
-                        fillColor: const Color.fromARGB(255, 215, 228, 250),
+                        fillColor: const Color(0xffE5E5E5),
                       ),
                       onChanged: (value) {
                         setState(() {
@@ -101,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
-                        fillColor: const Color.fromARGB(255, 215, 228, 250),
+                        fillColor: const Color(0xffE5E5E5),
                       ),
                       onChanged: (value) {
                         setState(() {
@@ -145,9 +143,10 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
+                          foregroundColor: Color(0xFF00B4D8),
                           backgroundColor: _isLoginEnabled
-                              ? Color(0xFF00B4D8)
-                              : const Color.fromARGB(255, 118, 203, 250),
+                              ? const Color(0xFF00B4D8)
+                              : const Color(0xFF00B4D8),
                           // Button color depends on validation
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -175,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 20),
 
                     // Sign up link
                     Row(
@@ -204,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 4),
 
                     // Login with Google or Apple
                     Column(
@@ -216,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: 4),
                         Text(
                           'Login with',
                           style: TextStyle(
@@ -227,12 +226,12 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 70,
+                          height: 50,
                         ),
                         // Google login button
                         GestureDetector(
