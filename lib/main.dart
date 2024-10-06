@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/getstarted',
       routes: {
-        '/getstarted': (context) => GetStartedPage(),
+        '/getstarted': (context) => const GetStartedPage(),
         '/login': (context) => LoginPage(),
-        '/signup': (context) => SignUpPage(),
+        '/signup': (context) => const SignUpPage(),
       },
       // Remove HomePage from the routes map because it requires a dynamic parameter
     );
