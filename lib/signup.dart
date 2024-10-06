@@ -19,9 +19,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-  Color _googleButtonColor = Color(0xFF00B4D8);
-  Color _appleButtonColor = Color(0xFF00B4D8);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
