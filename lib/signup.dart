@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart'; // Import HomePage to navigate to it
+import 'home.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

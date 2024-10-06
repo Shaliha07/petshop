@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'home.dart'; // Import HomePage for navigation
+import 'home.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -11,13 +13,8 @@ class _LoginPageState extends State<LoginPage> {
   String? _username;
   String? _password;
 
-  // State variables to track if Google or Apple buttons are pressed
-  bool _isGooglePressed = false;
-  bool _isApplePressed = false;
-
   final _formKey = GlobalKey<FormState>();
 
-  // Function to check if the login button should be enabled
   bool get _isLoginEnabled =>
       _username != null &&
       _username!.isNotEmpty &&
@@ -34,19 +31,18 @@ class _LoginPageState extends State<LoginPage> {
           child: Center(
             child: SingleChildScrollView(
               child: Form(
-                key: _formKey, // Wrap the form fields inside a Form widget
+                key: _formKey,
                 child: Column(
                   children: [
                     // App logo
                     Image.asset(
-                      'images/logo.png', // Replace with your app logo path
+                      'images/logo.png',
                       height: 150,
                     ),
 
-                    // Infographic image added below the logo
                     Image.asset(
-                      'images/infographics.png', // Path to your infographic image
-                      height: 150, // Adjust the size accordingly
+                      'images/infographics.png',
+                      height: 150,
                       fit: BoxFit.cover,
                     ),
 
@@ -54,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Username',
-                        prefixIcon: Icon(Icons.person_outline),
+                        prefixIcon: const Icon(Icons.person_outline),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
@@ -74,14 +70,14 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Password text field
                     TextFormField(
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock_outline),
+                        prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscureText
@@ -113,18 +109,15 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                    // Login button
                     SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: _isLoginEnabled
                             ? () {
-                                // Validate the form
                                 if (_formKey.currentState!.validate()) {
-                                  // Navigate to HomePage and pass the username
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -134,63 +127,58 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 }
                               }
-                            : null, // Disable button if validation fails
-                        child: Text(
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: const Color(0xFF00B4D8),
+                          backgroundColor: _isLoginEnabled
+                              ? const Color(0xFF00B4D8)
+                              : const Color.fromARGB(255, 118, 203, 250),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: const Text(
                           'Login',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Color(0xFF00B4D8),
-                          backgroundColor: _isLoginEnabled
-                              ? const Color(0xFF00B4D8)
-                              : const Color(0xFF00B4D8),
-                          // Button color depends on validation
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                    // Forgot password link
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {
-                          // Handle forgot password
-                        },
-                        child: Text(
+                        onPressed: () {},
+                        child: const Text(
                           'Forgot Password?',
                           style: TextStyle(
-                            color: Color(
-                                0xFF0077B6), // Replace with your custom color
-
+                            color: Color(0xFF0077B6),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Sign up link
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Don't Have an Account? ",
                           style: TextStyle(
-                            fontSize: 15, // Set font to Poppins
+                            fontSize: 15,
                           ),
                         ),
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, '/signup');
                           },
-                          child: Text(
+                          splashColor: Colors.lightBlueAccent,
+                          child: const Text(
                             'Sign Up',
                             style: TextStyle(
                               color: Color(0xFF0077B6),
@@ -198,15 +186,12 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 15,
                             ),
                           ),
-                          splashColor: Colors
-                              .lightBlueAccent, // Highlight color when tapped
                         ),
                       ],
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
 
-                    // Login with Google or Apple
-                    Column(
+                    const Column(
                       children: [
                         Text(
                           'Or',
@@ -226,97 +211,59 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const SizedBox(height: 5),
+                    Stack(
+                      alignment: Alignment.center,
                       children: [
-                        SizedBox(
-                          height: 50,
+                        Image.asset(
+                          'images/ink-shape.png',
+                          height: 200,
+                          fit: BoxFit.cover,
                         ),
-                        // Google login button
-                        GestureDetector(
-                          onTapDown: (_) {
-                            setState(() {
-                              _isGooglePressed =
-                                  true; // Change color when pressed
-                            });
-                          },
-                          onTapUp: (_) {
-                            setState(() {
-                              _isGooglePressed =
-                                  false; // Revert to original color when released
-                            });
-                            // Handle Google login
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    HomePage(username: "GoogleUser"),
+                        Positioned(
+                          top: -2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomePage(
+                                          username: "GoogleUser"),
+                                    ),
+                                  );
+                                },
+                                child: const CircleAvatar(
+                                  radius: 70,
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage:
+                                      AssetImage('images/Google.png'),
+                                ),
                               ),
-                            );
-                          },
-                          onTapCancel: () {
-                            setState(() {
-                              _isGooglePressed =
-                                  false; // Revert to original color if gesture is canceled
-                            });
-                          },
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 70,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: AssetImage('images/Google.png'),
-                            ),
-                          ),
-                        ),
-
-                        // Apple login button
-                        GestureDetector(
-                          onTapDown: (_) {
-                            setState(() {
-                              _isApplePressed =
-                                  true; // Change color when pressed
-                            });
-                          },
-                          onTapUp: (_) {
-                            setState(() {
-                              _isApplePressed =
-                                  false; // Revert to original color when released
-                            });
-                            // Handle Apple login
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    HomePage(username: "AppleUser"),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomePage(username: "AppleUser"),
+                                    ),
+                                  );
+                                },
+                                child: const CircleAvatar(
+                                  radius: 70,
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage:
+                                      AssetImage('images/Apple Logo.png'),
+                                ),
                               ),
-                            );
-                          },
-                          onTapCancel: () {
-                            setState(() {
-                              _isApplePressed =
-                                  false; // Revert to original color if gesture is canceled
-                            });
-                          },
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 70,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage:
-                                  AssetImage('images/Apple Logo.png'),
-                            ),
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          width: 70,
                         ),
                       ],
-                    ),
-
-                    // Illustration image at the bottom
-                    Image.asset(
-                      'images/ink-shape.png', // Replace with your illustration path
-                      height: 200,
                     ),
                   ],
                 ),
