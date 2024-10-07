@@ -195,7 +195,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
             const CircleAvatar(
               radius: 20,
               backgroundImage: AssetImage(
-                'images/dognew.png',
+                'images/user_avatar.png',
               ),
             ),
           ],
