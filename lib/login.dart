@@ -40,10 +40,13 @@ class _LoginPageState extends State<LoginPage> {
                       height: 150,
                     ),
 
-                    Image.asset(
-                      'images/infographics.png',
-                      height: 150,
-                      fit: BoxFit.cover,
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Image.asset(
+                        'images/infographics.png',
+                        height: 125,
+                        fit: BoxFit.cover,
+                      ),
                     ),
 
                     // Username text field

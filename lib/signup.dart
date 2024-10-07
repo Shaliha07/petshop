@@ -30,11 +30,14 @@ class _SignUpPageState extends State<SignUpPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Image.asset('images/logo.png', height: 100),
-                  Image.asset(
-                    'images/inforgraphics2.png',
-                    height: 150,
-                    fit: BoxFit.cover,
+                  Image.asset('images/logo.png', height: 150),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Image.asset(
+                      'images/inforgraphics2.png',
+                      height: 125,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Form(
                     key: _formKey,
@@ -201,102 +204,111 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const SizedBox(height: 30),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Already Have an Account? ",
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/login');
-                              },
-                              splashColor: Colors.lightBlueAccent,
-                              child: const Text(
-                                'Login',
+                        Column(children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Already Have an Account? ",
                                 style: TextStyle(
-                                  color: Color(0xFF0077B6),
-                                  fontWeight: FontWeight.bold,
                                   fontSize: 15,
                                 ),
                               ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/login');
+                                },
+                                splashColor: Colors.lightBlueAccent,
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: Color(0xFF0077B6),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Text(
+                            'Or',
+                            style: TextStyle(
+                              fontSize: 15,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Sign Up With',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          )
+                        ]),
 
-                        Column(
+                        Stack(
+                          alignment: Alignment.center,
                           children: [
-                            const Text(
-                              'Or',
-                              style: TextStyle(
-                                fontSize: 15,
+                            Positioned(
+                              child: Container(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  'images/ink.png',
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Sign Up With',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const HomePage(
-                                          username: "Google User",
+                            Positioned(
+                              top: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Google icon
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const HomePage(
+                                            username: "Google User",
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  child: const Center(
-                                    child: CircleAvatar(
-                                      radius: 60,
+                                      );
+                                    },
+                                    child: const CircleAvatar(
+                                      radius: 60, // Adjust the size of the icon
                                       backgroundColor: Colors.transparent,
                                       backgroundImage:
                                           AssetImage('images/Google.png'),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 20),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const HomePage(
-                                          username: "Apple User",
+                                  const SizedBox(
+                                      width: 20), // Space between icons
+
+                                  // Apple icon
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const HomePage(
+                                            username: "Apple User",
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  child: const Center(
-                                    child: CircleAvatar(
-                                      radius: 60,
+                                      );
+                                    },
+                                    child: const CircleAvatar(
+                                      radius: 60, // Adjust the size of the icon
                                       backgroundColor: Colors.transparent,
                                       backgroundImage:
                                           AssetImage('images/Apple Logo.png'),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
-                        ),
-
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Image.asset('images/ink.png', height: 200),
-                        ),
+                        )
                       ],
                     ),
                   ),
