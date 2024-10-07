@@ -14,82 +14,75 @@ class GetStartedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: Column(
-                  children: [
-                    // Logo
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Center(
-                        child: Image.asset(
-                          'images/logo.png',
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Column(
+                      children: [
+                        // Logo
+                        SizedBox(
+                          width: 200,
                           height: 200,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    Container(
-                      width: 300,
-                      height: 260,
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
+                          child: Center(
                             child: Image.asset(
-                              'images/lines.png',
-                              fit: BoxFit.cover,
+                              'images/logo.png',
+                              height: 200,
                             ),
                           ),
-                          Center(
-                            child: RichText(
-                              textAlign: TextAlign.center,
-                              text: const TextSpan(
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  height: 1.52,
-                                  letterSpacing: 0.035,
-                                  color: Colors.black,
+                        ),
+                        const SizedBox(height: 20),
+
+                        Container(
+                            width: 300,
+                            height: 260,
+                            alignment: Alignment.center,
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: Image.asset(
+                                    'images/get_started_decoration.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Helping you\n',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'to keep ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'your bestie',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      color: Color.fromARGB(255, 39, 120, 186),
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: '\nstay healthy!',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                                Center(
+                                    child: RichText(
+                                        textAlign: TextAlign.center,
+                                        text: const TextSpan(
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                height: 1.52,
+                                                letterSpacing: 0.035,
+                                                color: Colors.black),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: 'Helping you\n',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              TextSpan(
+                                                text: 'to keep ',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                  text: 'your bestie',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Color.fromARGB(
+                                                          255, 39, 120, 186))),
+                                              TextSpan(
+                                                text: '\nstay healthy!',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              )
+                                            ])))
+                              ],
+                            ))
+                      ],
+                    ))),
             Container(
               height: 317,
               padding: const EdgeInsets.only(top: 5),
@@ -104,7 +97,7 @@ class GetStartedPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: Image.asset(
-                      'images/People caring for their pets.png',
+                      'images/get_started_banner.png',
                       height: 450,
                       width: 430,
                       fit: BoxFit.cover,
@@ -132,7 +125,7 @@ class GetStartedButton extends StatefulWidget {
 }
 
 class _GetStartedButtonState extends State<GetStartedButton> {
-  Color _buttonColor = const Color(0xFF0077B6);
+  final Color _buttonColor = const Color(0xFF0077B6);
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +133,7 @@ class _GetStartedButtonState extends State<GetStartedButton> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
+          MaterialPageRoute(builder: (context) => const LoginPage()),
         );
       },
       child: Stack(
@@ -167,7 +160,7 @@ class _GetStartedButtonState extends State<GetStartedButton> {
           Positioned(
             right: 10,
             child: Image.asset(
-              'images/Dog Paw.png',
+              'images/Dog paw_icon.png',
               height: 30,
               color: Colors.white,
             ),

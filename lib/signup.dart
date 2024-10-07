@@ -34,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     alignment: Alignment.centerRight,
                     child: Image.asset(
-                      'images/inforgraphics2.png',
+                      'images/hexagon_right.png',
                       height: 125,
                       fit: BoxFit.cover,
                     ),
@@ -43,7 +43,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // Username field
                         TextFormField(
                           controller: _usernameController,
                           decoration: InputDecoration(
@@ -64,8 +63,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        // Email field
                         TextFormField(
                           controller: _emailController,
                           decoration: InputDecoration(
@@ -89,8 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        // Password field
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscureText,
@@ -122,8 +117,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        // Confirm Password field
                         TextFormField(
                           controller: _confirmPasswordController,
                           obscureText: _obscureConfirmText,
@@ -158,7 +151,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
@@ -173,8 +165,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-
-                        // Sign Up button
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -192,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF00B4D8),
+                              backgroundColor: const Color(0xFF00B4D8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -203,7 +193,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         const SizedBox(height: 30),
-
                         Column(children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -244,7 +233,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           )
                         ]),
-
                         Stack(
                           alignment: Alignment.center,
                           children: [
@@ -252,7 +240,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Container(
                                 alignment: Alignment.bottomRight,
                                 child: Image.asset(
-                                  'images/ink.png',
+                                  'images/signup_banner.png',
                                   height: 200,
                                   fit: BoxFit.cover,
                                 ),
@@ -263,7 +251,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // Google icon
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.push(
@@ -276,14 +263,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                       );
                                     },
                                     child: const CircleAvatar(
-                                      radius: 60, // Adjust the size of the icon
+                                      radius: 60,
                                       backgroundColor: Colors.transparent,
                                       backgroundImage:
-                                          AssetImage('images/Google.png'),
+                                          AssetImage('images/google_logo.png'),
                                     ),
                                   ),
-                                  const SizedBox(
-                                      width: 20), // Space between icons
+                                  const SizedBox(width: 20),
 
                                   // Apple icon
                                   GestureDetector(
@@ -298,10 +284,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                       );
                                     },
                                     child: const CircleAvatar(
-                                      radius: 60, // Adjust the size of the icon
+                                      radius: 60,
                                       backgroundColor: Colors.transparent,
                                       backgroundImage:
-                                          AssetImage('images/Apple Logo.png'),
+                                          AssetImage('images/apple_logo.png'),
                                     ),
                                   ),
                                 ],

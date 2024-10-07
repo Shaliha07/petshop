@@ -36,7 +36,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
             );
           }
-          // Add navigation for other indexes as needed
         });
       },
       items: [
@@ -65,7 +64,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 }
 
-// Separate BottomNavIcon widget
 class BottomNavIcon extends StatelessWidget {
   final String assetPath;
   final bool isSelected;
