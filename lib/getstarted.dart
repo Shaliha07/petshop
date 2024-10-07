@@ -160,8 +160,8 @@ class _GetStartedButtonState extends State<GetStartedButton> {
           Positioned(
             right: 10,
             child: Image.asset(
-              'images/Dog paw_icon.png',
-              height: 30,
+              'images/paw_icon.png',
+              height: 20,
               color: Colors.white,
             ),
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shane_and_shawn_petshop/home.dart';
+import 'package:shane_and_shawn_petshop/products_page.dart';
+import 'package:shane_and_shawn_petshop/services_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;
@@ -33,6 +35,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
               context,
               MaterialPageRoute(
                 builder: (context) => const HomePage(username: 'Max'),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProductsPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ServicesPage(),
               ),
             );
           }
