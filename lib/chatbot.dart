@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 
 class ChatBotPage extends StatefulWidget {
+  const ChatBotPage({super.key});
+
   @override
   _ChatBotPageState createState() => _ChatBotPageState();
 }
@@ -53,12 +55,12 @@ class _ChatBotPageState extends State<ChatBotPage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search',
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide.none,
@@ -72,20 +74,18 @@ class _ChatBotPageState extends State<ChatBotPage> {
               ),
             ),
 
-            // Chatbot Icon at the Top
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Image.asset(
-                'images/chatbot.png', // Replace with your actual asset path
+                'images/chatbot.png',
                 height: 100,
               ),
             ),
 
-            // Expanded Chat Section with Vertical Scroll
             Expanded(
               child: SingleChildScrollView(
-                reverse: true, // Aligns chat messages to the bottom
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                reverse: true,
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
                   children: List.generate(messages.length, (index) {
                     return buildMessage(messages[index]);
@@ -94,25 +94,23 @@ class _ChatBotPageState extends State<ChatBotPage> {
               ),
             ),
 
-            // Message Input Field and Attachments
             Column(
               children: [
-                if (showAttachments)
-                  buildAttachments(), // Display attachments when attachment icon is pressed
+                if (showAttachments) buildAttachments(),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
                             children: [
-                              Expanded(
+                              const Expanded(
                                 child: TextField(
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -128,7 +126,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                                     showAttachments = !showAttachments;
                                   });
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.attach_file,
                                   color: Color(0xff65558F),
                                 ),
@@ -137,10 +135,10 @@ class _ChatBotPageState extends State<ChatBotPage> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10.0),
+                      const SizedBox(width: 10.0),
                       Container(
-                        padding: EdgeInsets.all(12),
-                        child: Icon(
+                        padding: const EdgeInsets.all(12),
+                        child: const Icon(
                           Icons.send,
                           color: Color(0xff65558F),
                           size: 30,
@@ -157,7 +155,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
     );
   }
 
-  // Chat Bubbles Layout with Avatars Outside
   Widget buildMessage(Map<String, dynamic> message) {
     bool isBot = message["isBot"];
     return Align(
@@ -166,30 +163,27 @@ class _ChatBotPageState extends State<ChatBotPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (isBot) ...[
-            // Bot Avatar Outside Chat Bubble
             CircleAvatar(
               radius: 20,
               backgroundColor: Colors.white,
               child: Image.asset(
-                'images/chatbot.png', // Replace with your actual asset path
+                'images/chatbot.png',
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
           ],
           Flexible(
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 5.0),
-              padding: EdgeInsets.all(12.0),
+              margin: const EdgeInsets.symmetric(vertical: 5.0),
+              padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: isBot ? Colors.lightBlueAccent : Colors.grey[300],
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Text(
                 message["text"],
-                textAlign: isBot
-                    ? TextAlign.left
-                    : TextAlign.right, // Text alignment change
+                textAlign: isBot ? TextAlign.left : TextAlign.right,
                 style: TextStyle(
                   color: isBot ? Colors.white : Colors.black,
                 ),
@@ -197,12 +191,11 @@ class _ChatBotPageState extends State<ChatBotPage> {
             ),
           ),
           if (!isBot) ...[
-            SizedBox(width: 8),
-            // User Avatar Outside Chat Bubble
-            CircleAvatar(
+            const SizedBox(width: 8),
+            const CircleAvatar(
               radius: 20,
               backgroundImage: AssetImage(
-                'images/dognew.png', // Replace with your actual asset path
+                'images/dognew.png',
               ),
             ),
           ],
@@ -211,7 +204,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
     );
   }
 
-  // Build Attachments
   Widget buildAttachments() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -226,27 +218,25 @@ class _ChatBotPageState extends State<ChatBotPage> {
     );
   }
 
-  // Attachment Icon Widget
   Widget buildAttachmentIcon(IconData icon, String label) {
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            // Placeholder for functionality
-          },
+          onTap: () {},
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
             decoration: BoxDecoration(
               color: Colors.grey[200],
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: Color(0xff65558F)),
+            child: Icon(icon, color: const Color(0xff65558F)),
           ),
         ),
-        SizedBox(height: 5.0),
+        const SizedBox(height: 5.0),
         Text(
           label,
-          style: TextStyle(color: Color(0xff65558F)),
+          style: const TextStyle(color: Color(0xff65558F)),
         ),
       ],
     );

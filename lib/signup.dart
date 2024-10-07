@@ -30,17 +30,19 @@ class _SignUpPageState extends State<SignUpPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Image.asset('images/logo.png', height: 100),
-                  Image.asset(
-                    'images/inforgraphics2.png',
-                    height: 150,
-                    fit: BoxFit.cover,
+                  Image.asset('images/logo.png', height: 150),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Image.asset(
+                      'images/hexagon_right.png',
+                      height: 125,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Form(
                     key: _formKey,
                     child: Column(
                       children: [
-                        // Username field
                         TextFormField(
                           controller: _usernameController,
                           decoration: InputDecoration(
@@ -61,8 +63,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        // Email field
                         TextFormField(
                           controller: _emailController,
                           decoration: InputDecoration(
@@ -86,8 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        // Password field
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscureText,
@@ -119,8 +117,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        // Confirm Password field
                         TextFormField(
                           controller: _confirmPasswordController,
                           obscureText: _obscureConfirmText,
@@ -155,7 +151,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
@@ -170,8 +165,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-
-                        // Sign Up button
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -189,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF00B4D8),
+                              backgroundColor: const Color(0xFF00B4D8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -200,103 +193,108 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         const SizedBox(height: 30),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Already Have an Account? ",
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/login');
-                              },
-                              splashColor: Colors.lightBlueAccent,
-                              child: const Text(
-                                'Login',
+                        Column(children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Already Have an Account? ",
                                 style: TextStyle(
-                                  color: Color(0xFF0077B6),
-                                  fontWeight: FontWeight.bold,
                                   fontSize: 15,
                                 ),
                               ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/login');
+                                },
+                                splashColor: Colors.lightBlueAccent,
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: Color(0xFF0077B6),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Text(
+                            'Or',
+                            style: TextStyle(
+                              fontSize: 15,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-
-                        Column(
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Sign Up With',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          )
+                        ]),
+                        Stack(
+                          alignment: Alignment.center,
                           children: [
-                            const Text(
-                              'Or',
-                              style: TextStyle(
-                                fontSize: 15,
+                            Positioned(
+                              child: Container(
+                                alignment: Alignment.bottomRight,
+                                child: Image.asset(
+                                  'images/signup_banner.png',
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Sign Up With',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const HomePage(
-                                          username: "Google User",
+                            Positioned(
+                              top: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const HomePage(
+                                            username: "Google User",
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  child: const Center(
-                                    child: CircleAvatar(
+                                      );
+                                    },
+                                    child: const CircleAvatar(
                                       radius: 60,
                                       backgroundColor: Colors.transparent,
                                       backgroundImage:
-                                          AssetImage('images/Google.png'),
+                                          AssetImage('images/google_logo.png'),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 20),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const HomePage(
-                                          username: "Apple User",
+                                  const SizedBox(width: 20),
+
+                                  // Apple icon
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const HomePage(
+                                            username: "Apple User",
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  child: const Center(
-                                    child: CircleAvatar(
+                                      );
+                                    },
+                                    child: const CircleAvatar(
                                       radius: 60,
                                       backgroundColor: Colors.transparent,
                                       backgroundImage:
-                                          AssetImage('images/Apple Logo.png'),
+                                          AssetImage('images/apple_logo.png'),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
-                        ),
-
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Image.asset('images/ink.png', height: 200),
-                        ),
+                        )
                       ],
                     ),
                   ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'bottom_navbar.dart'; // Import the chatbot page
+import 'bottom_navbar.dart';
 import 'chatbot.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
 
-  const HomePage({Key? key, required this.username}) : super(key: key);
+  const HomePage({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -15,25 +15,29 @@ class HomePage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  'Welcome , $username !', // Use the username here
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    'Welcome , $username !',
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
-                margin: EdgeInsets.symmetric(vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 11),
                 decoration: BoxDecoration(
                   color: Colors.blue[100],
                   borderRadius: BorderRadius.circular(40),
                   image: DecorationImage(
-                    image: AssetImage('images/background with paw.png'),
+                    image: const AssetImage('images/paw_background.png'),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
                       const Color.fromARGB(255, 154, 210, 255).withOpacity(0.2),
@@ -47,10 +51,9 @@ class HomePage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        // Text with two lines and different font sizes
                         RichText(
                           textAlign: TextAlign.center,
-                          text: TextSpan(
+                          text: const TextSpan(
                             children: [
                               TextSpan(
                                 text: 'UNIQUE PICKS TO ENTERTAIN YOUR\n',
@@ -66,17 +69,17 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.w900,
-                                  color: const Color.fromARGB(255, 202, 41, 29),
+                                  color: Color.fromARGB(255, 202, 41, 29),
                                   height: 1.2,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         RichText(
                           textAlign: TextAlign.right,
-                          text: TextSpan(
+                          text: const TextSpan(
                             children: [
                               TextSpan(
                                 text:
@@ -100,22 +103,26 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         SizedBox(
+                          height: 50,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 122, 89, 171),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                              SizedBox(
+                                width: 220,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 122, 89, 171),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
+                                  child: const Text('CHECK IT NOW',
+                                      style: TextStyle(color: Colors.white)),
                                 ),
-                                child: Text('CHECK IT NOW',
-                                    style: TextStyle(color: Colors.white)),
                               ),
                             ],
                           ),
@@ -126,33 +133,33 @@ class HomePage extends StatelessWidget {
                       bottom: -35,
                       left: 0,
                       child: Image.asset(
-                        'images/Banner Cat.png',
+                        'images/cat_banner.png',
                         height: 160,
                       ),
                     ),
                   ],
                 ),
               ),
-              // Grid of pet-related items
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: GridView.count(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 4,
-                  padding: EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(25),
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  children: <Widget>[
+                  children: const <Widget>[
                     IconItem(
-                        title: 'Pet Toys', imagePath: 'images/Tennis Ball.png'),
+                        title: 'Pet Toys', imagePath: 'images/pet_toys.png'),
                     IconItem(
-                        title: 'Pet Food', imagePath: 'images/Pet Bone.png'),
+                        title: 'Pet Food', imagePath: 'images/pet_food.png'),
                     IconItem(
-                        title: 'Pet Treats', imagePath: 'images/Dog Bowl.png'),
+                        title: 'Pet Treats',
+                        imagePath: 'images/pet_treats.png'),
                     IconItem(
                         title: 'Pet Pharmacy',
-                        imagePath: 'images/Insulin Pen.png'),
+                        imagePath: 'images/pet_pharmacy.png'),
                   ],
                 ),
               ),
@@ -161,28 +168,26 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(width: 5),
-                    // Rectangle image
+                    const SizedBox(width: 5),
                     Expanded(
                       child: Image.asset(
-                        'images/Rectangle 3780.png',
+                        'images/home_banner_brands.png',
                       ),
                     ),
-                    // SizedBox with minimal width to reduce the space
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                   ],
                 ),
               ),
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavBar(currentIndex: 0),
+        bottomNavigationBar: const BottomNavBar(currentIndex: 0),
         floatingActionButton: GestureDetector(
           onTap: () {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => ChatBotPage(),
+                builder: (context) => const ChatBotPage(),
               ),
             );
           },
@@ -207,13 +212,11 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Stateful widget for icon items
 class IconItem extends StatefulWidget {
   final String title;
   final String imagePath;
 
-  const IconItem({Key? key, required this.title, required this.imagePath})
-      : super(key: key);
+  const IconItem({super.key, required this.title, required this.imagePath});
 
   @override
   _IconItemState createState() => _IconItemState();
@@ -229,10 +232,10 @@ class _IconItemState extends State<IconItem> {
           Center(
             child: Image.asset(widget.imagePath, height: 61),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             widget.title,
-            style: TextStyle(fontSize: 11),
+            style: const TextStyle(fontSize: 11),
             textAlign: TextAlign.center,
           ),
         ],

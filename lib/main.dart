@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'login.dart'; // Import the LoginPage
-import 'signup.dart'; // Import the SignUpPage
-import 'getstarted.dart'; // Import the GetStartedPage
+import 'login.dart';
+import 'signup.dart';
+import 'getstarted.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +20,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/getstarted',
       routes: {
         '/getstarted': (context) => const GetStartedPage(),
-        '/login': (context) => LoginPage(),
+        '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignUpPage(),
       },
-      // Remove HomePage from the routes map because it requires a dynamic parameter
     );
   }
 }
