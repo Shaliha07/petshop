@@ -120,7 +120,7 @@ class _ServicesPageState extends State<ServicesPage> {
       bottomNavigationBar: const BottomNavBar(currentIndex: 2),
       floatingActionButton: GestureDetector(
         onTap: () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const ChatBotPage(),

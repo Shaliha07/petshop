@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'bottom_navbar.dart';
 import 'chatbot.dart';
+import 'products_page.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -112,7 +113,15 @@ class HomePage extends StatelessWidget {
                               SizedBox(
                                 width: 220,
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ProductsPage(),
+                                      ),
+                                    );
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
                                         const Color.fromARGB(255, 122, 89, 171),
@@ -163,19 +172,29 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: Image.asset(
-                        'images/home_banner_brands.png',
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProductsPage(),
                     ),
-                    const SizedBox(width: 5),
-                  ],
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: Image.asset(
+                          'images/home_banner_brands.png',
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -184,7 +203,7 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: const BottomNavBar(currentIndex: 0),
         floatingActionButton: GestureDetector(
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const ChatBotPage(),
@@ -226,7 +245,14 @@ class _IconItemState extends State<IconItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProductsPage(),
+          ),
+        );
+      },
       child: Column(
         children: <Widget>[
           Center(

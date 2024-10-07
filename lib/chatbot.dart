@@ -34,12 +34,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(username: 'Max'),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(

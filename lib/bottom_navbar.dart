@@ -31,21 +31,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
         setState(() {
           currentIndex = index;
           if (index == 0) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const HomePage(username: 'Max'),
               ),
             );
           } else if (index == 1) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const ProductsPage(),
               ),
             );
           } else if (index == 2) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const ServicesPage(),
