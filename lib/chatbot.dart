@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({super.key});
@@ -34,12 +33,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(username: 'Max'),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(

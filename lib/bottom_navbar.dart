@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/appointment.dart';
 import 'package:shane_and_shawn_petshop/home.dart';
 import 'package:shane_and_shawn_petshop/products_page.dart';
+import 'package:shane_and_shawn_petshop/profile_page.dart';
 import 'package:shane_and_shawn_petshop/services_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -31,24 +33,38 @@ class _BottomNavBarState extends State<BottomNavBar> {
         setState(() {
           currentIndex = index;
           if (index == 0) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const HomePage(username: 'Max'),
               ),
             );
           } else if (index == 1) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const ProductsPage(),
               ),
             );
           } else if (index == 2) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const ServicesPage(),
+              ),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AppointmentPage(),
+              ),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfilePage(),
               ),
             );
           }

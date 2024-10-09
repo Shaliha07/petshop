@@ -211,7 +211,7 @@ class _ItemPageState extends State<ItemPage> {
       bottomNavigationBar: const BottomNavBar(currentIndex: 1),
       floatingActionButton: GestureDetector(
         onTap: () {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const ChatBotPage(),
