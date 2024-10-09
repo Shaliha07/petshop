@@ -32,41 +32,48 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: Scaffold(
         body: Stack(
           children: [
+            Container(
+              height: 350,
+              width: 900,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/gradient.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
               child: Column(
                 children: [
                   const SizedBox(height: 100),
                   Stack(
                     alignment: Alignment.center,
                     children: [
-                      Container(
-                        height: 150,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Colors.red, Colors.blue, Colors.purple],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                      ),
                       const CircleAvatar(
-                        radius: 50,
+                        radius: 70,
                         backgroundImage: AssetImage('images/user_avatar.png'),
                       ),
-                      const Positioned(
-                        bottom: 10,
-                        right: 140,
-                        child: CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.edit, color: Colors.black),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: const CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              Icons.edit,
+                              size: 18,
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 100),
                   buildProfileTextField(
                       label: 'Username', controller: usernameController),
                   buildProfileTextField(
@@ -75,36 +82,50 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       label: 'Contact Number', controller: contactController),
                   buildProfileTextField(
                       label: 'Address', controller: addressController),
-                  const SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: () {
-                      print('Username: ${usernameController.text}');
-                      print('Email: ${emailController.text}');
-                      print('Contact: ${contactController.text}');
-                      print('Address: ${addressController.text}');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey[700],
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 80, vertical: 15),
-                    ),
-                    child: const Text(
-                      'Save Profile',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                  const SizedBox(height: 20),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Text('Username: ${usernameController.text}');
+                        Text('Email: ${emailController.text}');
+                        Text('Contact: ${contactController.text}');
+                        Text('Address: ${addressController.text}');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffC6C6C6),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 13),
+                      ),
+                      child: const Text(
+                        'Save Profile',
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            // Custom Back Button
             Positioned(
-              top: 40,
-              left: 16,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () {
+              top: 20,
+              left: 20,
+              child: GestureDetector(
+                onTap: () {
                   Navigator.pop(context);
                 },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    shape: BoxShape.circle,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.grey[900],
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -128,9 +149,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           TextField(
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.grey[200],
+              fillColor: const Color(0xffE5E5E5),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide.none,
               ),
             ),
