@@ -18,45 +18,76 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          toolbarHeight: 80,
-          title: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Icon(Icons.access_time, color: Colors.black),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Open Hours', style: TextStyle(color: Colors.black)),
-                    Text(
-                      'Everyday from 09:00 - 20:30',
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                    Text(
-                      'Open Now',
-                      style: TextStyle(color: Colors.green, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 9.0, vertical: 16.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffF1F1F1),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.access_time,
+                          size: 40,
+                          color: Colors.black,
+                        ),
+                        SizedBox(width: 15),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Open Hours',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Everyday from 09:00 - 20:30',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Open Now',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const Text('Select date',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black54)),
+                        color: Colors.black)),
                 const SizedBox(height: 10),
                 Card(
                   color: const Color.fromARGB(255, 236, 230, 240),
@@ -126,7 +157,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               },
                               style: TextButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 15),
+                                    horizontal: 35, vertical: 12),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                   side: const BorderSide(color: Colors.purple),
@@ -143,6 +174,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 10,
+                        )
                       ],
                     ),
                   ),
@@ -152,7 +186,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black54)),
+                        color: Colors.black)),
                 const SizedBox(height: 10),
                 Card(
                   color: const Color.fromARGB(255, 236, 230, 240),
@@ -160,7 +194,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: const Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(40.0),
                     child: Row(
                       children: [
                         Text(

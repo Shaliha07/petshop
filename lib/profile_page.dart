@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shane_and_shawn_petshop/contact_us_page.dart';
 import 'package:shane_and_shawn_petshop/edit_profile_page.dart';
 import 'bottom_navbar.dart';
-import 'chatbot.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
