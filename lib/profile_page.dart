@@ -17,24 +17,6 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        shape: BoxShape.circle,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.grey[900],
-                        ),
-                      ),
-                    ),
-                  ),
                   Row(
                     children: [
                       const CircleAvatar(
@@ -42,24 +24,38 @@ class ProfilePage extends StatelessWidget {
                         backgroundImage: AssetImage('images/user_avatar.png'),
                       ),
                       const SizedBox(width: 20),
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Username',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            'Max',
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.black54),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 80, vertical: 7),
+                            decoration: BoxDecoration(
+                              color: const Color(0xffECE6F0),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Text(
+                              'Max',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const Spacer(),
                       IconButton(
-                        icon: const Icon(Icons.edit_square),
+                        icon: const Icon(Icons.mode_edit_outline_rounded),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -78,34 +74,135 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Card(
-                    color: Colors.purple[50],
+                    color: const Color(0xffECE6F0),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(18.0),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const CircleAvatar(
-                            radius: 30,
+                            radius: 50,
                             backgroundImage:
-                                AssetImage('images/dog_profile.png'),
+                                AssetImage('images/pet_avatar.jpg'),
                           ),
                           const SizedBox(width: 20),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Pet Name: Roxy',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Species: Dog',
-                                  style: TextStyle(color: Colors.black54)),
-                              Text('Age: 4 Years Old',
-                                  style: TextStyle(color: Colors.black54)),
-                              Text('Breed: Siberian Husky',
-                                  style: TextStyle(color: Colors.black54)),
-                              Text('Birthday: April 12, 2020',
-                                  style: TextStyle(color: Colors.black54)),
-                              Text('Microchip: 123-456-789',
-                                  style: TextStyle(color: Colors.black54)),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Pet Name: ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'Roxy',
+                                      style: TextStyle(
+                                        color: Color(0xFF65558F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Species: ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'Dog',
+                                      style: TextStyle(
+                                        color: Color(0xFF65558F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Age: ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '4 Years Old',
+                                      style: TextStyle(
+                                        color: Color(0xFF65558F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Breed: ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'Siberian Husky',
+                                      style: TextStyle(
+                                        color: Color(0xFF65558F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Birthday: ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'April 12, 2020',
+                                      style: TextStyle(
+                                        color: Color(0xFF65558F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Microchip: ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '123-456-789',
+                                      style: TextStyle(
+                                        color: Color(0xFF65558F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                           const Spacer(),
@@ -116,7 +213,7 @@ class ProfilePage extends StatelessWidget {
                                 onPressed: () {},
                               ),
                               IconButton(
-                                icon: const Icon(Icons.remove_circle_outline),
+                                icon: const Icon(Icons.remove_circle),
                                 onPressed: () {},
                               ),
                             ],
@@ -133,7 +230,7 @@ class ProfilePage extends StatelessWidget {
                       label: const Text('Add another pet'),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.black,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: const Color(0xffECE6F0),
                         side: const BorderSide(color: Colors.black),
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         shape: RoundedRectangleBorder(
@@ -146,11 +243,11 @@ class ProfilePage extends StatelessWidget {
                   buildExpandableHistoryCard(
                       'Rabies Vaccination',
                       'Date: March 15, 2023\nType: 1 Year Rabies Vaccine\nManufacturer: IMRAB 3',
-                      'Detailed information about the rabies vaccination, including side effects and follow-up recommendations.'),
+                      'Extra Notes :'),
                   buildExpandableHistoryCard(
                       'Apoquel (Medication)',
                       'Purpose: Allergy relief\nDosage: 4.5 mg, once daily\nStart Date: August 1, 2024\nEnd Date: Ongoing',
-                      'Apoquel is used to manage allergy symptoms in pets. It is administered daily and monitored for any side effects.'),
+                      'Extra Notes :'),
                   buildSectionTitle('Appointment History'),
                   buildExpandableHistoryCard(
                       'April 5, 2024',
@@ -227,7 +324,7 @@ class ProfilePage extends StatelessWidget {
   Widget buildExpandableHistoryCard(
       String title, String summary, String details) {
     return Card(
-      color: Colors.purple[50],
+      color: const Color(0xffECE6F0),
       child: ExpansionTile(
         title: Text(
           title,
@@ -235,14 +332,14 @@ class ProfilePage extends StatelessWidget {
         ),
         subtitle: Text(
           summary,
-          style: const TextStyle(color: Colors.black54),
+          style: const TextStyle(color: Color(0xff65558F)),
         ),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
               details,
-              style: const TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Color(0xff65558F)),
             ),
           ),
         ],
@@ -252,7 +349,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget buildPaymentHistoryCard(String date, String description) {
     return Card(
-      color: Colors.purple[50],
+      color: const Color(0xffECE6F0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -260,7 +357,7 @@ class ProfilePage extends StatelessWidget {
           children: [
             Text(date, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 5),
-            Text(description, style: const TextStyle(color: Colors.black54)),
+            Text(description, style: const TextStyle(color: Color(0xff65558F))),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -268,7 +365,7 @@ class ProfilePage extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () {},
                     icon: const Icon(Icons.receipt_long_sharp),
-                    label: const Text('Upload Receipt'),
+                    label: const Text('View Receipt'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.grey[200],
@@ -292,28 +389,46 @@ class ProfilePage extends StatelessWidget {
   Widget buildPaymentMethodCard(
       String cardType, String cardNumber, String expiryDate) {
     return Card(
-      color: Colors.purple[50],
+      color: const Color(0xffECE6F0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Image.asset('images/credit_card.png', width: 60),
+            Image.asset('images/credit_card.png', height: 55),
             const SizedBox(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Card Type: $cardType',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text('Card Number: $cardNumber',
-                    style: const TextStyle(color: Colors.black54)),
-                Text('Expiry Date: $expiryDate',
-                    style: const TextStyle(color: Colors.black54)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff65558F))),
+                Text(
+                  'Card Number: $cardNumber',
+                  style: const TextStyle(
+                    color: Color(0xff65558F),
+                  ),
+                ),
+                Text(
+                  'Expiry Date: $expiryDate',
+                  style: const TextStyle(
+                    color: Color(0xff65558F),
+                  ),
+                )
               ],
             ),
             const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.edit_square),
-              onPressed: () {},
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.edit_square),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.remove_circle),
+                  onPressed: () {},
+                ),
+              ],
             ),
           ],
         ),
