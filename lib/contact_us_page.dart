@@ -36,11 +36,12 @@ class ContactUsPage extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.videocam, color: Colors.black),
+                      icon:
+                          const Icon(Icons.videocam, color: Color(0xff65558F)),
                       onPressed: () {},
                     ),
                     IconButton(
-                      icon: const Icon(Icons.phone, color: Colors.black),
+                      icon: const Icon(Icons.phone, color: Color(0xff65558F)),
                       onPressed: () {},
                     ),
                   ],
