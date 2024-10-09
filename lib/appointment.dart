@@ -90,7 +90,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         color: Colors.black)),
                 const SizedBox(height: 10),
                 Card(
-                  color: const Color.fromARGB(255, 236, 230, 240),
+                  color: const Color(0xffECE6F0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

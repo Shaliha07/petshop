@@ -47,29 +47,26 @@ class SchedulingPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 30, horizontal: 20),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 236, 230, 240),
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.purple[200]!),
+                        color: const Color(0xffECE6F0),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const Text(
+                          Text(
                             'Selected Date',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.black54,
+                              color: Colors.grey[800],
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Center(
-                            child: Text(
-                              selectedDate,
-                              style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Text(
+                            selectedDate,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -85,7 +82,7 @@ class SchedulingPage extends StatelessWidget {
                     buildTextField(label: 'Special Notes', maxLines: 3),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Expanded(
                           child: Padding(
@@ -95,7 +92,7 @@ class SchedulingPage extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple[50],
+                                backgroundColor: const Color(0xffECE6F0),
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 10),
                                 shape: RoundedRectangleBorder(
@@ -105,7 +102,7 @@ class SchedulingPage extends StatelessWidget {
                               child: const Text(
                                 'Cancel',
                                 style: TextStyle(
-                                  color: Colors.red,
+                                  color: Color(0xffE53B3B),
                                   fontSize: 14,
                                 ),
                               ),
@@ -116,16 +113,16 @@ class SchedulingPage extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purple[50],
+                              backgroundColor: const Color(0xffECE6F0),
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Confirm',
                               style: TextStyle(
-                                  color: Colors.purple[150], fontSize: 14),
+                                  color: Color(0xff65558F), fontSize: 14),
                             ),
                           ),
                         ),
@@ -154,12 +151,12 @@ class SchedulingPage extends StatelessWidget {
         TextField(
           maxLines: maxLines ?? 1,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: Colors.purple[200]!),
             ),
             filled: true,
-            fillColor: const Color.fromARGB(255, 236, 230, 240),
+            fillColor: const Color(0xffECE6F0),
           ),
         ),
       ],
