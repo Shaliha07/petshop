@@ -8,50 +8,52 @@ class ContactUsPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100), // Adjust AppBar height
+          preferredSize: const Size.fromHeight(70),
           child: AppBar(
-            backgroundColor: Colors.grey[850],
-            elevation: 0,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            title: Row(
+            backgroundColor: Colors.grey[300],
+            elevation: 5,
+            flexibleSpace: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CircleAvatar(
-                  backgroundImage: AssetImage('images/vet_avatar.png'),
+                const Expanded(
+                  child: Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('images/vet_avatar.png'),
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Shane & Shawn (Vet)',
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Shane & Shawn (Vet)',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                // Action Icons
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.videocam, color: Colors.black),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.phone, color: Colors.black),
+                      onPressed: () {},
                     ),
                   ],
                 ),
               ],
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.call, color: Colors.white),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.videocam, color: Colors.white),
-                onPressed: () {},
-              ),
-            ],
           ),
         ),
         body: Column(
           children: [
             Expanded(
               child: ListView(
-                reverse: true, // Start showing messages from the bottom
+                reverse: true,
                 padding: const EdgeInsets.all(16.0),
                 children: [
                   Align(
