@@ -87,3 +87,38 @@ CREATE TABLE payments (
     FOREIGN KEY (salesorderid) REFERENCES salesorder (salesorderid)
 );
 
+CREATE TABLE sales(
+    salesid SERIAL PRIMARY KEY,
+	userid INT NOT NULL,
+	goodid INT NOT NULL,
+	amount DOUBLE PRECISION NOT NULL,
+	salesdate TIMESTAMP DEFAULT NOW(),
+	payment_method VARCHAR(50) NOT NULL,
+	FOREIGN KEY(goodid) REFERENCES goods(goodid),
+	FOREIGN KEY(userid) REFERENCES users(userid)
+);
+
+-- Create salesdetails table to track sales transactions
+CREATE TABLE salesdetails (
+    salesdetailsid SERIAL PRIMARY KEY,
+    goodid INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    sellingprice DOUBLE PRECISION NOT NULL,
+    total_amount DOUBLE PRECISION  GENERATED ALWAYS AS (quantity * sellingprice) STORED,
+    salesdate TIMESTAMP DEFAULT NOW(),
+    userid INTEGER NOT NULL,  -- User making the sale
+	payment_method VARCHAR(50),
+    FOREIGN KEY (goodid) REFERENCES goods (goodid),
+    FOREIGN KEY (userid) REFERENCES users (userid)
+);
+
+ CREATE TABLE restock (
+    restockid SERIAL PRIMARY KEY,
+    goodid INT REFERENCES goods(goodid),
+    restockqty INT,
+    restockdate TIMESTAMP DEFAULT NOW()
+);
+
+
+
+
