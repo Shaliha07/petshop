@@ -4,21 +4,17 @@ import 'bottom_navbar.dart';
 import 'chatbot.dart';
 
 class ItemPage extends StatefulWidget {
+  final String productID;
   final String productName;
   final String imageUrl;
   final double productPrice;
-  final int stockQuantity;
-  final double rating;
-  final int soldQuantity;
 
   const ItemPage({
     super.key,
+    required this.productID,
     required this.productName,
     required this.productPrice,
     required this.imageUrl,
-    required this.stockQuantity,
-    required this.rating,
-    required this.soldQuantity,
   });
 
   @override
@@ -28,6 +24,14 @@ class ItemPage extends StatefulWidget {
 class _ItemPageState extends State<ItemPage> {
   int quantity = 1;
   bool isFavorite = false;
+  int stockQuantity = 0;
+  double rating = 0;
+  int soldQuantity = 0;
+
+  String categoryName = 'Medicine';
+  String description =
+      'Vetzyme High Strength Flexible Joint has been specifically formulated to help maintain supple and mobile joints, helping to ensure your dog has a better quality of life as it enters its golden years';
+  bool status = false;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +133,7 @@ class _ItemPageState extends State<ItemPage> {
                         ),
                         const SizedBox(height: 1),
                         Text(
-                          '${widget.stockQuantity} in Stock',
+                          '$stockQuantity in Stock',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.green,
@@ -143,9 +147,7 @@ class _ItemPageState extends State<ItemPage> {
                         Row(
                           children: List.generate(5, (index) {
                             return Icon(
-                              index < widget.rating
-                                  ? Icons.star
-                                  : Icons.star_border,
+                              index < rating ? Icons.star : Icons.star_border,
                               color: Colors.amber,
                               size: 18,
                             );
@@ -156,12 +158,12 @@ class _ItemPageState extends State<ItemPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              '(${widget.soldQuantity} Reviews)',
+                              '($soldQuantity Reviews)',
                               style: const TextStyle(fontSize: 12),
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              '| ${widget.soldQuantity} Sold',
+                              '| $soldQuantity Sold',
                               style: const TextStyle(
                                   fontSize: 12, color: Colors.green),
                             ),
@@ -178,7 +180,7 @@ class _ItemPageState extends State<ItemPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'Vetzyme High Strength Flexible Joint has been specifically formulated to help maintain supple and mobile joints, helping to ensure your dog has a better quality of life as it enters its golden years.',
+                  description,
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
                 ),
               ),
@@ -189,13 +191,13 @@ class _ItemPageState extends State<ItemPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'SKU: 5026234058605',
+                      'SKU: ${widget.productID}',
                       style:
                           const TextStyle(fontSize: 14, color: Colors.black54),
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      'Categories: Medicine',
+                      'Categories: $categoryName',
                       style:
                           const TextStyle(fontSize: 14, color: Colors.black54),
                     ),
@@ -349,7 +351,6 @@ class _ItemPageState extends State<ItemPage> {
 }
 
 Widget buildSimilarProducts() {
-  // Replace with your actual similar product data
   final List<Map<String, String>> similarProducts = [
     {'image': 'images/product.jpg', 'name': 'Cat Food'},
     {'image': 'images/product.jpg', 'name': 'Dog Food'},
