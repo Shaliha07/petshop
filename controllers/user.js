@@ -1,6 +1,4 @@
 const User = require("../models/User.js");
-const bcrypt = require("bcryptjs");
-const op = require("sequelize");
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;

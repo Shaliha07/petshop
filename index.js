@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const sequelize = require("./connect.js");
 require("./models/Associations.js");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -23,6 +24,12 @@ initializeDatabase();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Middleware to parse JSON requests
+app.use(express.json());
+
+// Middleware to parse cookies
+app.use(cookieParser());
 
 // Start the server
 app.listen(PORT, () => {
