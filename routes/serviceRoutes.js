@@ -18,6 +18,6 @@ const {
   router.get("/:id", getService);
   
   // Delete a Service
-  router.delete("/id", deleteService);
+  router.delete("/:id", deleteService);
   
   module.exports = router;

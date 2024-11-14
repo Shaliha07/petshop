@@ -1,4 +1,5 @@
 const User = require("../models/User.js");
+const logger = require("../middlewares/logger.js");
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
@@ -15,7 +16,7 @@ exports.updateUser = async (req, res) => {
 
   try {
     //Find the user by ID
-    const user = await User.findByPK(id);
+    const user = await User.findByPk(id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -26,8 +27,8 @@ exports.updateUser = async (req, res) => {
       user.username = username;
     }
     if (email) {
-        user.email = email;
-      }
+      user.email = email;
+    }
     if (password) {
       user.password = password;
     }
@@ -50,12 +51,12 @@ exports.updateUser = async (req, res) => {
     //Save the updated user
     await user.save();
 
-    console.log("User updated succesfully:${user.username}(${user.email})");
+    logger.info("User updated succesfully:${user.username}(${user.email})");
     return res
       .status(200)
       .json({ message: "User updated successfully!", user });
   } catch (error) {
-    console.error("Error updating user:", error);
+    logger.error("Error updating user:", error);
     return res
       .status(500)
       .json({ message: "Unable to update user", error: error.message });
@@ -69,10 +70,10 @@ exports.getUsers = async (req, res) => {
     //Find all user with the status filter
     const users = await User.findAll({ where: { status: true } });
 
-    console.log("Users fetched successfully");
+    logger.info("Users fetched successfully");
     return res.status(200).json({ users });
   } catch (error) {
-    console.error("Error getting users:", error);
+    logger.error("Error getting users:", error);
     return res
       .status(500)
       .json({ message: "Unable to update user", error: error.message });
@@ -92,12 +93,10 @@ exports.getUserById = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(
-      "User fetched successfully : ${user.username} (${user.email})"
-    );
+    logger.info("User fetched successfully : ${user.username} (${user.email})");
     return res.status(200).json({ user });
   } catch (error) {
-    console.error("Error fetching user:", error);
+    logger.error("Error fetching user:", error);
   }
 };
 
@@ -117,10 +116,10 @@ exports.deleteUser = async (req, res) => {
     user.status = false;
     await user.save();
 
-    console.log("User deleted successfully: ${user.username} (${user.email})");
+    logger.info("User deleted successfully: ${user.username} (${user.email})");
     return res.status(200).json({ message: "User deleted successfully!" });
   } catch (error) {
-    console.error("Error deleting user:", error);
+    logger.error("Error deleting user:", error);
     return res
       .status(500)
       .json({ message: "Unable to delete user", error: error.message });

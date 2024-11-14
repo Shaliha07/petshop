@@ -3,6 +3,15 @@ const dotenv = require("dotenv");
 const sequelize = require("./connect.js");
 require("./models/Associations.js");
 const cookieParser = require("cookie-parser");
+const logger = require("./middlewares/logger.js");
+const globalRateLimiter = require("./middlewares/rateLimit.js");
+const authRoutes = require("./routes/authRoutes.js");
+const userRoutes = require("./routes/userRoutes.js");
+const categoryRoutes = require("./routes/categoryRoutes.js");
+const productRotes = require("./routes/productRoutes.js");
+const serviceRoutes = require("./routes/serviceRoutes.js");
+const appointmentRoutes = require("./routes/appointmentRoutes.js");
+
 
 dotenv.config();
 
@@ -25,11 +34,30 @@ initializeDatabase();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+//Middleware to log errors
+app.use((err, req, res, next) => {
+  logger.error(err.message, err);
+  res.status(500).json({
+    message: "Something went wrong. Please try again later.",
+  });
+});
+
+// Middleware to rate limit requests
+app.use(globalRateLimiter);
+
 // Middleware to parse JSON requests
 app.use(express.json());
 
 // Middleware to parse cookies
 app.use(cookieParser());
+
+//Middleware to routes
+app.use("/auth",authRoutes);
+app.use("/users",userRoutes);
+app.use("/categories",categoryRoutes);
+app.use("/products",productRotes);
+app.use("/services",serviceRoutes);
+app.use("/appointments",appointmentRoutes);
 
 // Start the server
 app.listen(PORT, () => {

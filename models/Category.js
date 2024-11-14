@@ -3,7 +3,7 @@ const sequelize = require('../connect.js');
 
 const Category = sequelize.define('Category', {
   categoryName: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM("Pet Foods","Toys","Medicine"),
     allowNull: false,
   },
   status: {

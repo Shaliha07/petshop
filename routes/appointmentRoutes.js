@@ -18,6 +18,6 @@ const {
   router.get("/:id", getAppointment);
   
   // Delete a Appointment
-  router.delete("/id", deleteAppointment);
+  router.delete("/:id", deleteAppointment);
   
   module.exports = router;

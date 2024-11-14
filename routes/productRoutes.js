@@ -18,6 +18,6 @@ const {
   router.get("/:id", getProduct);
   
   // Delete a Product
-  router.delete("/id", deleteProduct);
+  router.delete("/:id", deleteProduct);
   
   module.exports = router;
