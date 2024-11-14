@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/appointment.dart';
 import 'bottom_navbar.dart';
 import 'chatbot.dart';
 
@@ -11,6 +12,8 @@ class ServicesPage extends StatefulWidget {
 
 class _ServicesPageState extends State<ServicesPage> {
   int currentIndex = 2;
+  int serviceID = 1;
+  String serviceName = "service";
 
   @override
   Widget build(BuildContext context) {
@@ -37,78 +40,200 @@ class _ServicesPageState extends State<ServicesPage> {
                 ),
                 const SizedBox(height: 10),
                 // Services Section
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service1.png'),
-                        fit: BoxFit.cover,
+                      child: GestureDetector(
+                        child: const Image(
+                          image: AssetImage('images/service1.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AppointmentPage(
+                                serviceID: 1,
+                                serviceName: "Treatment and Surgery",
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service2.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service2.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 2,
+                                  serviceName: "Radiography (X-Ray)",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 180,
-                      child: Image(
-                        image: AssetImage('images/service3.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service3.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 3,
+                                  serviceName: "Ultra Sound Scanning",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 158,
-                      child: Image(
-                        image: AssetImage('images/service4.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service4.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 4,
+                                  serviceName: "Laboratory facility",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service5.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service5.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 5,
+                                  serviceName: "Hospitalization",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service6.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service6.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 6,
+                                  serviceName: "Boarding/Day care",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 165,
-                      child: Image(
-                        image: AssetImage('images/service7.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service7.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 7,
+                                  serviceName: "Microchipping",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service8.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service8.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 8,
+                                  serviceName:
+                                      "Artificial Insemination for Dog",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service9.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service9.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 9,
+                                  serviceName: "Blood Transfusion",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                     SizedBox(
                       height: 150,
-                      child: Image(
-                        image: AssetImage('images/service10.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: GestureDetector(
+                          child: const Image(
+                            image: AssetImage('images/service10.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AppointmentPage(
+                                  serviceID: 10,
+                                  serviceName: "Emergency Care Facility",
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                   ],
                 ),

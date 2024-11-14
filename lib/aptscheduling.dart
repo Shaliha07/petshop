@@ -4,7 +4,13 @@ import 'bottom_navbar.dart';
 class SchedulingPage extends StatelessWidget {
   final String selectedDate;
 
-  const SchedulingPage({super.key, required this.selectedDate});
+  SchedulingPage(
+      {super.key,
+      required this.selectedDate,
+      required this.serviceName,
+      required this.serviceID});
+  String serviceName;
+  int serviceID;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +83,29 @@ class SchedulingPage extends StatelessWidget {
                     const SizedBox(height: 10),
                     buildTextField(label: 'Pet Name'),
                     const SizedBox(height: 10),
-                    buildTextField(label: 'Appointment Type / Service'),
+                    const Text('Appointment Type / Service',
+                        style: TextStyle(color: Colors.black, fontSize: 16)),
                     const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 13),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffECE6F0),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      height: 55,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            serviceName,
+                            style: const TextStyle(fontSize: 17),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 5),
                     buildTextField(label: 'Special Notes', maxLines: 3),
                     const SizedBox(height: 20),
                     Row(

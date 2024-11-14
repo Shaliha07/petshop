@@ -4,18 +4,18 @@ import 'bottom_navbar.dart';
 import 'chatbot.dart';
 
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key});
+  ProductsPage({super.key, required this.activeFilter});
+  String activeFilter = 'All';
 
   @override
   _ProductsPageState createState() => _ProductsPageState();
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  String categoryID = 'Med';
+  int categoryID = 1;
   String categoryName = 'Medicine';
   bool categoryStatus = false;
 
-  String activeFilter = 'All';
   final List<String> filters = ['All', 'Food', 'Toys', 'Treats', 'Medicine'];
   int currentIndex = 1;
   int gridViewCount = 3;
@@ -57,7 +57,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       padding: const EdgeInsets.only(right: 5.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: activeFilter == filter
+                          backgroundColor: widget.activeFilter == filter
                               ? const Color(0xFFC0C0C0)
                               : const Color(0xFFEFEFF0),
                           shape: RoundedRectangleBorder(
@@ -66,7 +66,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            activeFilter = filter;
+                            widget.activeFilter = filter;
                           });
                         },
                         child: Text(

@@ -19,6 +19,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  final String appleUserName = "AppleUser";
+  final String googleUserName = "GoogleUser";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,8 +259,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const HomePage(
-                                            username: "Google User",
+                                          builder: (context) => HomePage(
+                                            username: googleUserName,
                                           ),
                                         ),
                                       );
@@ -277,8 +280,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const HomePage(
-                                            username: "Apple User",
+                                          builder: (context) => HomePage(
+                                            username: appleUserName,
                                           ),
                                         ),
                                       );

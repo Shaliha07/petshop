@@ -29,6 +29,7 @@ class _ItemPageState extends State<ItemPage> {
   int soldQuantity = 0;
 
   String categoryName = 'Medicine';
+  int categoryID = 1;
   String description =
       'Vetzyme High Strength Flexible Joint has been specifically formulated to help maintain supple and mobile joints, helping to ensure your dog has a better quality of life as it enters its golden years';
   bool status = false;
@@ -351,11 +352,13 @@ class _ItemPageState extends State<ItemPage> {
 }
 
 Widget buildSimilarProducts() {
+  String similarImageUrl = 'images/product.jpg';
+
   final List<Map<String, String>> similarProducts = [
-    {'image': 'images/product.jpg', 'name': 'Cat Food'},
-    {'image': 'images/product.jpg', 'name': 'Dog Food'},
-    {'image': 'images/product.jpg', 'name': 'Rubber Ball'},
-    {'image': 'images/product.jpg', 'name': 'Cat Toy'},
+    {'image': similarImageUrl, 'name': 'Cat Food'},
+    {'image': similarImageUrl, 'name': 'Dog Food'},
+    {'image': similarImageUrl, 'name': 'Rubber Ball'},
+    {'image': similarImageUrl, 'name': 'Cat Toy'},
   ];
 
   return Padding(

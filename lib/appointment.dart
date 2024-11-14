@@ -5,7 +5,10 @@ import 'chatbot.dart';
 import 'bottom_navbar.dart';
 
 class AppointmentPage extends StatefulWidget {
-  const AppointmentPage({super.key});
+  AppointmentPage(
+      {super.key, required this.serviceName, required this.serviceID});
+  String serviceName;
+  int serviceID;
 
   @override
   _AppointmentPageState createState() => _AppointmentPageState();
@@ -149,6 +152,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => SchedulingPage(
+                                      serviceID: widget.serviceID,
+                                      serviceName: widget.serviceName,
                                       selectedDate: DateFormat('EEE, MMM d')
                                           .format(selectedDate),
                                     ),
