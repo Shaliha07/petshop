@@ -128,9 +128,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Age: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -147,9 +147,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Breed: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -166,9 +166,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Birthday: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -185,9 +185,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Microchip: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,

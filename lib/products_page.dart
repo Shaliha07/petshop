@@ -5,7 +5,7 @@ import 'chatbot.dart';
 
 class ProductsPage extends StatefulWidget {
   ProductsPage({super.key, required this.activeFilter});
-  String activeFilter = 'All';
+  String activeFilter;
 
   @override
   _ProductsPageState createState() => _ProductsPageState();

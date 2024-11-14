@@ -54,7 +54,7 @@ class _ServicesPageState extends State<ServicesPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AppointmentPage(
+                              builder: (context) => const AppointmentPage(
                                 serviceID: 1,
                                 serviceName: "Treatment and Surgery",
                               ),
@@ -74,7 +74,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 2,
                                   serviceName: "Radiography (X-Ray)",
                                 ),
@@ -93,7 +93,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 3,
                                   serviceName: "Ultra Sound Scanning",
                                 ),
@@ -112,7 +112,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 4,
                                   serviceName: "Laboratory facility",
                                 ),
@@ -131,7 +131,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 5,
                                   serviceName: "Hospitalization",
                                 ),
@@ -150,7 +150,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 6,
                                   serviceName: "Boarding/Day care",
                                 ),
@@ -169,7 +169,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 7,
                                   serviceName: "Microchipping",
                                 ),
@@ -188,7 +188,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 8,
                                   serviceName:
                                       "Artificial Insemination for Dog",
@@ -208,7 +208,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 9,
                                   serviceName: "Blood Transfusion",
                                 ),
@@ -227,7 +227,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AppointmentPage(
+                                builder: (context) => const AppointmentPage(
                                   serviceID: 10,
                                   serviceName: "Emergency Care Facility",
                                 ),

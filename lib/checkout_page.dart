@@ -136,7 +136,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         ),
                         Text(
                           'LKR $totalPrice',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Colors.red,
                             fontWeight: FontWeight.bold,

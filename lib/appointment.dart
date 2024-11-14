@@ -5,10 +5,10 @@ import 'chatbot.dart';
 import 'bottom_navbar.dart';
 
 class AppointmentPage extends StatefulWidget {
-  AppointmentPage(
+  const AppointmentPage(
       {super.key, required this.serviceName, required this.serviceID});
-  String serviceName;
-  int serviceID;
+  final String serviceName;
+  final int serviceID;
 
   @override
   _AppointmentPageState createState() => _AppointmentPageState();

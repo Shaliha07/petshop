@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'bottom_navbar.dart';
 
-class SchedulingPage extends StatelessWidget {
+class SchedulingPage extends StatefulWidget {
   final String selectedDate;
 
-  SchedulingPage(
+  const SchedulingPage(
       {super.key,
       required this.selectedDate,
       required this.serviceName,
       required this.serviceID});
-  String serviceName;
-  int serviceID;
+  final String serviceName;
+  final int serviceID;
 
+  @override
+  State<SchedulingPage> createState() => _SchedulingPageState();
+}
+
+class _SchedulingPageState extends State<SchedulingPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,7 +73,7 @@ class SchedulingPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            selectedDate,
+                            widget.selectedDate,
                             style: const TextStyle(
                               fontSize: 24,
                               color: Colors.black,
@@ -99,7 +104,7 @@ class SchedulingPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            serviceName,
+                            widget.serviceName,
                             style: const TextStyle(fontSize: 17),
                           ),
                         ],

@@ -154,7 +154,7 @@ class _CartPageState extends State<CartPage> {
                                         color: Colors.green,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Text(
                                       'LKR $productPrice',
                                       style: const TextStyle(
@@ -261,9 +261,9 @@ class _CartPageState extends State<CartPage> {
                           text: TextSpan(
                             style: const TextStyle(fontSize: 18),
                             children: [
-                              TextSpan(
+                              const TextSpan(
                                 text: 'Total ',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
