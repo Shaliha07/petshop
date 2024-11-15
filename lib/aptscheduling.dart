@@ -17,6 +17,23 @@ class SchedulingPage extends StatefulWidget {
 }
 
 class _SchedulingPageState extends State<SchedulingPage> {
+  final TextEditingController petTypeController = TextEditingController();
+  final TextEditingController petNameController = TextEditingController();
+  final TextEditingController specialNotesController = TextEditingController();
+
+  final double appointmentTime = 00.00;
+  final int appointmentID = 001;
+  final int userID = 001;
+  final String status = "success";
+
+  @override
+  void dispose() {
+    petTypeController.dispose();
+    petNameController.dispose();
+    specialNotesController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -84,9 +101,11 @@ class _SchedulingPageState extends State<SchedulingPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    buildTextField(label: 'Pet Type'),
+                    buildTextField(
+                        label: 'Pet Type', controller: petTypeController),
                     const SizedBox(height: 10),
-                    buildTextField(label: 'Pet Name'),
+                    buildTextField(
+                        label: 'Pet Name', controller: petNameController),
                     const SizedBox(height: 10),
                     const Text('Appointment Type / Service',
                         style: TextStyle(color: Colors.black, fontSize: 16)),
@@ -111,7 +130,10 @@ class _SchedulingPageState extends State<SchedulingPage> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    buildTextField(label: 'Special Notes', maxLines: 3),
+                    buildTextField(
+                        label: 'Special Notes',
+                        controller: specialNotesController,
+                        maxLines: 3),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -143,7 +165,11 @@ class _SchedulingPageState extends State<SchedulingPage> {
                         ),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final petType = petTypeController.text;
+                              final petName = petNameController.text;
+                              final specialNotes = specialNotesController.text;
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xffECE6F0),
                               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -171,7 +197,10 @@ class _SchedulingPageState extends State<SchedulingPage> {
     );
   }
 
-  Widget buildTextField({required String label, int? maxLines}) {
+  Widget buildTextField(
+      {required String label,
+      required TextEditingController controller,
+      int? maxLines}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

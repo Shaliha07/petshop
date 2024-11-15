@@ -12,8 +12,8 @@ class ServicesPage extends StatefulWidget {
 
 class _ServicesPageState extends State<ServicesPage> {
   int currentIndex = 2;
-  int serviceID = 1;
-  String serviceName = "service";
+  int serviceID = 11;
+  String serviceName = "Other Service";
 
   @override
   Widget build(BuildContext context) {
