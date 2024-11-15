@@ -99,9 +99,9 @@ class ProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Pet Name: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -118,9 +118,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Species: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
