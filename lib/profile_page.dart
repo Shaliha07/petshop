@@ -6,6 +6,15 @@ import 'bottom_navbar.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
+  final String userName = 'John';
+
+  final int paymentID = 0001;
+  final String paymentDate = 'August 25, 2023';
+  final double paidAmount = 3232.00;
+  final String paidService = 'Purchase of "Rabies Shot"';
+  final String paymentMethod = 'Credit Card';
+  final String paymentStatus = 'Paid';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,9 +52,9 @@ class ProfilePage extends StatelessWidget {
                               color: const Color(0xffECE6F0),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: const Text(
-                              'Max',
-                              style: TextStyle(
+                            child: Text(
+                              userName,
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black,
                               ),
@@ -90,9 +99,9 @@ class ProfilePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Pet Name: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -109,9 +118,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Species: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -128,9 +137,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Age: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -147,9 +156,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Breed: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -166,9 +175,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Birthday: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -185,9 +194,9 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               RichText(
-                                text: TextSpan(
+                                text: const TextSpan(
                                   children: [
-                                    const TextSpan(
+                                    TextSpan(
                                       text: 'Microchip: ',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -254,8 +263,8 @@ class ProfilePage extends StatelessWidget {
                       'Time: 11:00 AM\nService: Rabies Vaccination\nLocation: Pet Clinic\nNotes: Regular check-up and Rabies shot administered.',
                       'Follow-up appointment scheduled for April 15, 2024. No adverse reactions observed.'),
                   buildSectionTitle('Payment History'),
-                  buildPaymentHistoryCard('August 25, 2023',
-                      'Amount: 3,232 LKR\nService: Purchase of "Rabies Shot"\nPayment Method: Credit Card\n'),
+                  buildPaymentHistoryCard(paymentDate,
+                      'Amount: $paidAmount LKR\nService: $paidService\nPayment Method: $paymentMethod\n'),
                   const SizedBox(height: 10),
                   buildSectionTitle('Payment Methods'),
                   buildPaymentMethodCard('Visa', '**** 1234', '06/25'),

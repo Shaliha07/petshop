@@ -17,6 +17,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController addressController =
       TextEditingController(text: 'No. 48, Main Street, Kurunegala');
 
+  final int userID = 1;
+  final String password = "1234";
+  final String firstName = "John";
+  final String lastName = "Doe";
+  final String role = "user";
+  final String status = "online";
+
   @override
   void dispose() {
     usernameController.dispose();

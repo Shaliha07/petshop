@@ -8,6 +8,16 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  final String productName = 'Flexible Joint';
+  final int quantity = 1;
+  final double productPrice = 5500.00;
+  final double totalPrice = 5500.00;
+
+  final String cardName = 'Max BOC';
+  final String cardType = 'Visa';
+  final String cardNumber = '**** **** **** 1234';
+  final String cardExpiryDate = '08/26';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,21 +100,21 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Flexible Joint',
+                            productName,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            'x1',
+                            'x$quantity',
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            'LKR 3,322.00',
+                            'LKR $productPrice',
                             style: const TextStyle(
                               fontSize: 16,
                               color: Colors.red,
@@ -125,8 +135,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         Text(
-                          'LKR 3,322.00',
-                          style: TextStyle(
+                          'LKR $totalPrice',
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Colors.red,
                             fontWeight: FontWeight.bold,
@@ -136,7 +146,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      'Payment Method',
+                      'Payment Methods',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -173,19 +183,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Nickname: Max BOC',
+                                    'Nickname: $cardName',
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                   Text(
-                                    'Card Type: Visa',
+                                    'Card Type: $cardType',
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                   Text(
-                                    'Card Number: **** **** **** 1234',
+                                    'Card Number: $cardNumber',
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                   Text(
-                                    'Expiry Date: 08/26',
+                                    'Expiry Date: $cardExpiryDate',
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                 ],

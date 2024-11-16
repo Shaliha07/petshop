@@ -21,6 +21,9 @@ class _LoginPageState extends State<LoginPage> {
       _password != null &&
       _password!.isNotEmpty;
 
+  final String appleUserName = "AppleUser";
+  final String googleUserName = "GoogleUser";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -198,9 +201,9 @@ class _LoginPageState extends State<LoginPage> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const HomePage(
+                                                              HomePage(
                                                                   username:
-                                                                      "GoogleUser")));
+                                                                      googleUserName)));
                                                 },
                                                 child: const CircleAvatar(
                                                     radius: 70,
@@ -211,12 +214,14 @@ class _LoginPageState extends State<LoginPage> {
                                             GestureDetector(
                                                 onTap: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const HomePage(
-                                                                  username:
-                                                                      "AppleUser")));
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomePage(
+                                                              username:
+                                                                  appleUserName),
+                                                    ),
+                                                  );
                                                 },
                                                 child: const CircleAvatar(
                                                     radius: 70,

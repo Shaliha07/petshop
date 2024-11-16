@@ -43,7 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ProductsPage(),
+                builder: (context) => ProductsPage(activeFilter: 'All'),
               ),
             );
           } else if (index == 2) {
@@ -57,7 +57,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AppointmentPage(),
+                builder: (context) => const AppointmentPage(
+                  serviceID: 11,
+                  serviceName: "Other Service",
+                ),
               ),
             );
           } else if (index == 4) {

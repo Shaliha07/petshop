@@ -14,6 +14,13 @@ class _CartPageState extends State<CartPage> {
   bool isSelected = false;
   int currentIndex = 1;
 
+  final String imageUrl = 'images/product.jpg';
+  final String productID = '001';
+  final String productName = 'Flexible Joint';
+  int stockQuantity = 4;
+  final double productPrice = 5500.00;
+  final double totalPrice = 5500.00;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +88,7 @@ class _CartPageState extends State<CartPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '1 item',
+                          '$quantity item',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xff65558F),
@@ -115,7 +122,7 @@ class _CartPageState extends State<CartPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Image.asset(
-                                'images/product.jpg',
+                                imageUrl,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover,
@@ -126,14 +133,14 @@ class _CartPageState extends State<CartPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Flexible Joint',
+                                      productName,
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      'SKU: 5026234058605',
+                                      productID,
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black54,
@@ -141,15 +148,15 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      '4 in stock',
+                                      '$stockQuantity in stock',
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.green,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Text(
-                                      'LKR 3,322.00',
+                                      'LKR $productPrice',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.red,
@@ -254,15 +261,15 @@ class _CartPageState extends State<CartPage> {
                           text: TextSpan(
                             style: const TextStyle(fontSize: 18),
                             children: [
-                              TextSpan(
+                              const TextSpan(
                                 text: 'Total ',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               TextSpan(
-                                text: 'LKR 3,322.00',
+                                text: 'LKR $totalPrice',
                                 style: const TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,

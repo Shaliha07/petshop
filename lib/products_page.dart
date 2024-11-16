@@ -4,14 +4,18 @@ import 'bottom_navbar.dart';
 import 'chatbot.dart';
 
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key});
+  ProductsPage({super.key, required this.activeFilter});
+  String activeFilter;
 
   @override
   _ProductsPageState createState() => _ProductsPageState();
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  String activeFilter = 'All';
+  int categoryID = 1;
+  String categoryName = 'Medicine';
+  bool categoryStatus = false;
+
   final List<String> filters = ['All', 'Food', 'Toys', 'Treats', 'Medicine'];
   int currentIndex = 1;
   int gridViewCount = 3;
@@ -53,7 +57,7 @@ class _ProductsPageState extends State<ProductsPage> {
                       padding: const EdgeInsets.only(right: 5.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: activeFilter == filter
+                          backgroundColor: widget.activeFilter == filter
                               ? const Color(0xFFC0C0C0)
                               : const Color(0xFFEFEFF0),
                           shape: RoundedRectangleBorder(
@@ -62,7 +66,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            activeFilter = filter;
+                            widget.activeFilter = filter;
                           });
                         },
                         child: Text(
@@ -205,12 +209,10 @@ class ProductCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ItemPage(
-              productName: 'Flexible Joint',
-              productPrice: 3322.00,
-              imageUrl: 'images/product.jpg',
-              stockQuantity: 4,
-              rating: 4,
-              soldQuantity: 11,
+              productID: product.productID,
+              productName: product.name,
+              productPrice: product.price,
+              imageUrl: product.imageUrl,
             ),
           ),
         );
@@ -262,20 +264,47 @@ class ProductCard extends StatelessWidget {
 }
 
 class Product {
+  final String productID;
   final String name;
   final double price;
   final String imageUrl;
 
-  Product({required this.name, required this.price, required this.imageUrl});
+  Product(
+      {required this.productID,
+      required this.name,
+      required this.price,
+      required this.imageUrl});
 }
 
 final List<Product> products = [
   Product(
-      name: 'Flexible Joint', price: 5550.00, imageUrl: 'images/product.jpg'),
-  Product(name: 'Cat Toy', price: 3322.00, imageUrl: 'images/product.jpg'),
-  Product(name: 'Dog Treats', price: 3300.00, imageUrl: 'images/product.jpg'),
+      productID: '001',
+      name: 'Flexible Joint',
+      price: 5550.00,
+      imageUrl: 'images/product.jpg'),
   Product(
-      name: 'Flexible Joint', price: 1500.00, imageUrl: 'images/product.jpg'),
-  Product(name: 'Dog Medicine', price: 2200.00, imageUrl: 'images/product.jpg'),
-  Product(name: 'Cat Treats', price: 1300.00, imageUrl: 'images/product.jpg'),
+      productID: '002',
+      name: 'Cat Toy',
+      price: 3322.00,
+      imageUrl: 'images/product.jpg'),
+  Product(
+      productID: '003',
+      name: 'Dog Treats',
+      price: 3300.00,
+      imageUrl: 'images/product.jpg'),
+  Product(
+      productID: '004',
+      name: 'Flexible Joint',
+      price: 1500.00,
+      imageUrl: 'images/product.jpg'),
+  Product(
+      productID: '005',
+      name: 'Dog Medicine',
+      price: 2200.00,
+      imageUrl: 'images/product.jpg'),
+  Product(
+      productID: '006',
+      name: 'Cat Treats',
+      price: 1300.00,
+      imageUrl: 'images/product.jpg'),
 ];
