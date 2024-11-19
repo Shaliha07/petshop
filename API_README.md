@@ -35,6 +35,7 @@
   "password": "securePassword123"
 }
 ```
+
 #### 3. **User Logout**
 
 - **URL:** `auth/logout`
@@ -50,7 +51,6 @@
 - **URL:** `users/:id`
 - **Method:** `GET`
 
-
 #### 6. **Update User**
 
 - **URL:** `users/:id`
@@ -62,6 +62,7 @@
   "email": "newemail@example.com"
 }
 ```
+
 #### 7. **Delete a User**
 
 - **URL:** `users/:id`
@@ -73,12 +74,13 @@
 - **Method:** `POST`
 - **Request Body:**
 
-```json 
+```json
 {
   "categoryName": "Pet Foods"
 }
 ```
-#### 9. ***Retrieve Categories*
+
+#### 9. _\*\*Retrieve Categories_
 
 - **URL:** `categories/`
 - **Method:** `GET`
@@ -94,11 +96,12 @@
 - **Method:** `PUT`
 - **Request Body:**
 
-```json 
+```json
 {
   "categoryName": "Toys"
 }
 ```
+
 #### 12.**Delete a category**
 
 - **URL:** `categories/:id`
@@ -116,11 +119,12 @@
   "productName": "Dog Chew Toy",
   "description": "Durable chew toy for medium to large dogs",
   "stockQty": 100,
-  "purchasingPrice": 5.00,
-  "sellingPrice": 10.00,
+  "purchasingPrice": 5.0,
+  "sellingPrice": 10.0,
   "imageUrl": "image1.jpg"
 }
 ```
+
 #### 14.**Retrieve products**
 
 - **URL:** `products/`
@@ -144,8 +148,8 @@
   "productName": "Interactive Cat Laser Toy",
   "description": "Automatic laser toy to keep cats entertained and active",
   "stockQty": 75,
-  "purchasingPrice": 12.00,
-  "sellingPrice": 25.00,
+  "purchasingPrice": 12.0,
+  "sellingPrice": 25.0,
   "imageUrl": "http://example.com/images/cat-laser-toy.jpg"
 }
 ```
@@ -162,14 +166,15 @@
 - **Method:** `POST`
 - **Request Body:**
 
-```json 
+```json
 {
   "serviceName": "Pet Grooming",
   "description": "Complete grooming service for pets, including bathing, haircuts, and nail trimming",
-  "sellingPrice": 40.00,
+  "sellingPrice": 40.0,
   "imageUrl": "http://example.com/images/pet-grooming-service.jpg"
 }
 ```
+
 #### 19.**Retrieve services**
 
 - **URL:** `services/`
@@ -190,7 +195,7 @@
 
 ```json
 {
-  "sellingPrice": 100.00
+  "sellingPrice": 100.0
 }
 ```
 
@@ -206,7 +211,7 @@
 - **Method:** `POST`
 - **Request Body:**
 
-```json 
+```json
 {
   "userId": 1,
   "serviceId": 2,
@@ -215,6 +220,7 @@
   "appointmentTime": "10:00 AM"
 }
 ```
+
 #### 24.**Retrieve appointments**
 
 - **URL:** `appointments/`
@@ -235,7 +241,7 @@
 
 ```json
 {
-    "additionalInformation": "Routine checkup"
+  "additionalInformation": "Routine checkup"
 }
 ```
 
@@ -251,7 +257,7 @@
 - **Method:** `POST`
 - **Request Body:**
 
-```json 
+```json
 {
   "userId": 1,
   "date": "2024-11-19",
@@ -259,11 +265,10 @@
   "discount": 5,
   "amountPaid": 105,
   "paymentMethod": "Credit Card",
-  "items": [
-    { "productId": 1, "quantity": 2, "price": 20 }
-  ]
+  "items": [{ "productId": 1, "quantity": 2, "price": 20 }]
 }
 ```
+
 #### 29.**Retrieve transactions**
 
 - **URL:** `transactions/`
@@ -284,11 +289,10 @@
 
 ```json
 {
- "items": [
-    { "productId": 1, "quantity": 5, "price": 40 }
-  ]
+  "items": [{ "productId": 1, "quantity": 5, "price": 40 }]
 }
 ```
+
 #### 32.**Delete a transaction**
 
 - **URL:** `transactions/:id`
@@ -315,25 +319,6 @@
 
 ```json
 {
-    "query": "what toy is good for cat"
+  "query": "what toy is good for cat"
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
