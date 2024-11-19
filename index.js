@@ -13,6 +13,7 @@ const serviceRoutes = require("./routes/serviceRoutes.js");
 const appointmentRoutes = require("./routes/appointmentRoutes.js");
 const transactionRoutes = require("./routes/transactionRoutes.js");
 const paymenthistoryRoutes = require("./routes/paymenthistoryRoutes.js");
+const chatbotRoutes = require("./routes/chatbotRoutes.js");
 
 
 dotenv.config();
@@ -62,6 +63,7 @@ app.use("/services", serviceRoutes);
 app.use("/appointments", appointmentRoutes);
 app.use("/transactions", transactionRoutes);
 app.use("/payment",paymenthistoryRoutes);
+app.use("/chatbot",chatbotRoutes);
 
 // Start the server
 app.listen(PORT, () => {

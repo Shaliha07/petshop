@@ -78,7 +78,7 @@
   "categoryName": "Pet Foods"
 }
 ```
-#### 9. ***Retrive Categories*
+#### 9. ***Retrieve Categories*
 
 - **URL:** `categories/`
 - **Method:** `GET`
@@ -121,13 +121,13 @@
   "imageUrl": "image1.jpg"
 }
 ```
-#### 14.**Retrive products**
+#### 14.**Retrieve products**
 
 - **URL:** `products/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 15.**Retrive a product**
+#### 15.**Retrieve a product**
 
 - **URL:** `products/:id`
 - **Method:** `GET`
@@ -170,13 +170,13 @@
   "imageUrl": "http://example.com/images/pet-grooming-service.jpg"
 }
 ```
-#### 19.**Retrive services**
+#### 19.**Retrieve services**
 
 - **URL:** `services/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 20.**Retrive a service**
+#### 20.**Retrieve a service**
 
 - **URL:** `services/:id`
 - **Method:** `GET`
@@ -215,19 +215,19 @@
   "appointmentTime": "10:00 AM"
 }
 ```
-#### 19.**Retrive appointments**
+#### 24.**Retrieve appointments**
 
 - **URL:** `appointments/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 20.**Retrive a appointment**
+#### 25.**Retrieve a appointment**
 
 - **URL:** `appointments/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 21.**Update a appointment**
+#### 26.**Update a appointment**
 
 - **URL:** `appointments/:id`
 - **Method:** `PUT`
@@ -239,11 +239,95 @@
 }
 ```
 
-#### 22.**Delete a appointment**
+#### 27.**Delete a appointment**
 
 - **URL:** `appointments/:id`
 - **Method:** `DELETE`
 - **Request Body:**
+
+#### 28.**Creating a Inventory**
+
+- **URL:** `transactions/`
+- **Method:** `POST`
+- **Request Body:**
+
+```json 
+{
+  "userId": 1,
+  "date": "2024-11-19",
+  "tax": 15,
+  "discount": 5,
+  "amountPaid": 105,
+  "paymentMethod": "Credit Card",
+  "items": [
+    { "productId": 1, "quantity": 2, "price": 20 }
+  ]
+}
+```
+#### 29.**Retrieve transactions**
+
+- **URL:** `transactions/`
+- **Method:** `GET`
+- **Request Body:** `**`
+
+#### 30.**Retrieve transaction**
+
+- **URL:** `transactions/:id`
+- **Method:** `GET`
+- **Request Body:** `**`
+
+#### 31.**Update transaction**
+
+- **URL:** `transactions/:id`
+- **Method:** `PUT`
+- **Request Body:** `**`
+
+```json
+{
+ "items": [
+    { "productId": 1, "quantity": 5, "price": 40 }
+  ]
+}
+```
+#### 32.**Delete a transaction**
+
+- **URL:** `transactions/:id`
+- **Method:** `DELETE`
+- **Request Body:**
+
+#### 33.**Retrieve payment histories**
+
+- **URL:** `payments/`
+- **Method:** `GET`
+- **Request Body:** `**`
+
+#### 34.**Retrieve payment history**
+
+- **URL:** `payments/:id`
+- **Method:** `GET`
+- **Request Body:** `**`
+
+#### 35.**Communicating with Chatbot**
+
+- **URL:** `chatbot/`
+- **Method:** `POST`
+- **Request Body:**
+
+```json
+{
+    "query": "what toy is good for cat"
+}
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
