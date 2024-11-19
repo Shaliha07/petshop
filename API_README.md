@@ -255,6 +255,7 @@
 
 - **URL:** `transactions/`
 - **Method:** `POST`
+- **Explanation:** Through this endpoint data will be created on Transaction table, Transaction Details and the Payment History tables
 - **Request Body:**
 
 ```json
