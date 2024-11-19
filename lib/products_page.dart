@@ -16,7 +16,7 @@ class _ProductsPageState extends State<ProductsPage> {
   String categoryName = 'Medicine';
   bool categoryStatus = false;
 
-  final List<String> filters = ['All', 'Food', 'Toys', 'Treats', 'Medicine'];
+  final List<String> filters = ['All', 'Food', 'Toys', 'Medicine'];
   int currentIndex = 1;
   int gridViewCount = 3;
   String selectedSorting = 'Default';

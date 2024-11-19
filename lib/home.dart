@@ -154,7 +154,7 @@ class HomePage extends StatelessWidget {
                 child: GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 4,
+                  crossAxisCount: 3,
                   padding: const EdgeInsets.all(25),
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -181,20 +181,6 @@ class HomePage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) =>
                                 ProductsPage(activeFilter: 'Food'),
-                          ),
-                        );
-                      },
-                    ),
-                    GestureDetector(
-                      child: const IconItem(
-                          title: 'Pet Treats',
-                          imagePath: 'images/pet_treats.png'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ProductsPage(activeFilter: 'Treats'),
                           ),
                         );
                       },
@@ -288,18 +274,21 @@ class IconItem extends StatefulWidget {
 class _IconItemState extends State<IconItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Center(
-          child: Image.asset(widget.imagePath, height: 61),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          widget.title,
-          style: const TextStyle(fontSize: 11),
-          textAlign: TextAlign.center,
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Center(
+            child: Image.asset(widget.imagePath, height: 61),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            widget.title,
+            style: const TextStyle(fontSize: 11),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

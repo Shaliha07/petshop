@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/summary_page.dart';
 import 'checkout_page.dart';
 import 'bottom_navbar.dart';
 
@@ -285,7 +286,7 @@ class _CartPageState extends State<CartPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CheckoutPage(),
+                                  builder: (context) => const SummaryPage(),
                                 ),
                               );
                             },

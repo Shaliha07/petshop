@@ -12,7 +12,7 @@ class ServicesPage extends StatefulWidget {
 
 class _ServicesPageState extends State<ServicesPage> {
   int currentIndex = 2;
-  int serviceID = 11;
+  int serviceID = 4;
   String serviceName = "Other Service";
 
   @override
@@ -56,7 +56,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             MaterialPageRoute(
                               builder: (context) => const AppointmentPage(
                                 serviceID: 1,
-                                serviceName: "Treatment and Surgery",
+                                serviceName: "Health Checkup",
                               ),
                             ),
                           );
@@ -75,8 +75,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 2,
-                                  serviceName: "Radiography (X-Ray)",
+                                  serviceID: 1,
+                                  serviceName: "Health Checkup",
                                 ),
                               ),
                             );
@@ -94,8 +94,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 3,
-                                  serviceName: "Ultra Sound Scanning",
+                                  serviceID: 1,
+                                  serviceName: "Health Checkup",
                                 ),
                               ),
                             );
@@ -113,8 +113,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 4,
-                                  serviceName: "Laboratory facility",
+                                  serviceID: 1,
+                                  serviceName: "Health Checkup",
                                 ),
                               ),
                             );
@@ -132,8 +132,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 5,
-                                  serviceName: "Hospitalization",
+                                  serviceID: 1,
+                                  serviceName: "Health Checkup",
                                 ),
                               ),
                             );
@@ -151,8 +151,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 6,
-                                  serviceName: "Boarding/Day care",
+                                  serviceID: 2,
+                                  serviceName: "Pet Training",
                                 ),
                               ),
                             );
@@ -170,8 +170,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 7,
-                                  serviceName: "Microchipping",
+                                  serviceID: 2,
+                                  serviceName: "Pet Training",
                                 ),
                               ),
                             );
@@ -189,9 +189,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 8,
-                                  serviceName:
-                                      "Artificial Insemination for Dog",
+                                  serviceID: 2,
+                                  serviceName: "Pet Training",
                                 ),
                               ),
                             );
@@ -209,8 +208,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 9,
-                                  serviceName: "Blood Transfusion",
+                                  serviceID: 3,
+                                  serviceName: "Pet Grooming",
                                 ),
                               ),
                             );
@@ -228,8 +227,8 @@ class _ServicesPageState extends State<ServicesPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const AppointmentPage(
-                                  serviceID: 10,
-                                  serviceName: "Emergency Care Facility",
+                                  serviceID: 3,
+                                  serviceName: "Pet Grooming",
                                 ),
                               ),
                             );
