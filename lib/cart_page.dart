@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shane_and_shawn_petshop/summary_page.dart';
-import 'checkout_page.dart';
 import 'bottom_navbar.dart';
 
 class CartPage extends StatefulWidget {
