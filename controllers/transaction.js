@@ -1,5 +1,6 @@
 const Transaction = require("../models/Transaction.js");
 const Transactiondetails = require("../models/Transactiondetails.js");
+const PaymentHistory = require("../models/Paymenthistory.js")
 const logger = require("../middlewares/logger.js");
 
 exports.addTransaction = async (req, res) => {
@@ -54,6 +55,20 @@ exports.addTransaction = async (req, res) => {
       transaction: sequelizeTransaction,
     });
 
+    // Add an entry to the payment history table
+    await PaymentHistory.create(
+      {
+        userId: userId,
+        transactionId: transaction.id,
+        paymentMethod: paymentMethod,
+        paymentStatus: "completed",
+        paymentDate: new Date(),
+        amount: amountPaid,
+        status: true,
+      },
+      { transaction: sequelizeTransaction }
+    );
+
     // Commit the transaction
     await sequelizeTransaction.commit();
 
@@ -66,9 +81,10 @@ exports.addTransaction = async (req, res) => {
     // Rollback the transaction in case of an error
     if (sequelizeTransaction) await sequelizeTransaction.rollback();
 
-    return res.status(500).json({ message: "Internal server error" });
-  }
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
+
 
 // Update Transaction
 exports.updateTransaction = async (req, res) => {
@@ -156,6 +172,26 @@ exports.updateTransaction = async (req, res) => {
       }
     }
 
+    // Update the payment history if the payment-related fields are updated
+    if (amountPaid || paymentMethod) {
+      const paymentHistory = await PaymentHistory.findOne({
+        where: { transactionId: id },
+      });
+
+      if (paymentHistory) {
+        // Update the payment history record
+        if (amountPaid) {
+          paymentHistory.amount = amountPaid;
+        }
+        if (paymentMethod) {
+          paymentHistory.paymentMethod = paymentMethod;
+        }
+        paymentHistory.paymentStatus = "completed";
+        paymentHistory.paymentDate = new Date();
+        await paymentHistory.save();
+      }
+    }
+
     // Save the updated transaction
     await transaction.save();
 
@@ -164,10 +200,9 @@ exports.updateTransaction = async (req, res) => {
       .json({ message: "Transaction updated successfully" });
   } catch (error) {
     logger.error("Error updating transaction: ", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
-
 // Get Transaction by ID
 exports.getTransactionById = async (req, res) => {
   const { id } = req.params;
@@ -207,33 +242,58 @@ exports.deleteTransaction = async (req, res) => {
   const { id } = req.params;
 
   try {
+    const sequelizeTransaction = await Transaction.sequelize.transaction();
+
     const transaction = await Transaction.findByPk(id, {
       include: [Transactiondetails], // Include associated Transaction details
+      transaction: sequelizeTransaction,
     });
 
     if (!transaction) {
       return res.status(404).json({ message: "Transaction not found" });
     }
 
+    // Fetch the payment history record of this transaction
+    const paymentHistory = await PaymentHistory.findOne({
+      where: { transactionId: id },
+      transaction: sequelizeTransaction,
+    });
+
     // Update the status of the main transaction to false
     transaction.status = false;
 
     // Update the status of all associated transaction details to false
-    await Promise.all(
-      transaction.Transactiondetails.map(async (detail) => {
+    const updateDetailsPromises = transaction.Transactiondetails.map(
+      async (detail) => {
         detail.status = false;
-        await detail.save();
-      })
+        await detail.save({ transaction: sequelizeTransaction });
+      }
     );
 
+    // Update the status of the payment history record to false
+    if (paymentHistory) {
+      paymentHistory.status = false;
+      await paymentHistory.save({ transaction: sequelizeTransaction });
+    }
+
+    // Wait for all updates to complete
+    await Promise.all(updateDetailsPromises);
+
     // Save the updated transaction
-    await transaction.save();
+    await transaction.save({ transaction: sequelizeTransaction });
+
+    // Commit the transaction
+    await sequelizeTransaction.commit();
 
     return res
       .status(200)
       .json({ message: "Transaction deleted successfully" });
   } catch (error) {
     logger.error("Error deleting transaction: ", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
+
+    // Rollback the transaction in case of an error
+    if (sequelizeTransaction) await sequelizeTransaction.rollback();
+
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
