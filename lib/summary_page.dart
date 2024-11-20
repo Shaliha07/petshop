@@ -9,21 +9,20 @@ class SummaryPage extends StatefulWidget {
 }
 
 class _SummaryPageState extends State<SummaryPage> {
-  // Sample data that will later come from the backend
   final String userAddress = '123 Main Street\nCity\nCountry';
 
   final List<Map<String, dynamic>> products = [
     {
       'name': 'Flexible Joint',
       'quantity': 1,
-      'price': 5500.00, // Use double for prices
-      'discount': 0.0, // Use double for discount
+      'price': 5500.00,
+      'discount': 0.0,
     },
     {
       'name': 'Premium Dog Food',
       'quantity': 2,
-      'price': 4500.00, // Use double for prices
-      'discount': 10.0, // Use double for discount
+      'price': 4500.00,
+      'discount': 10.0,
     },
   ];
 
@@ -54,7 +53,6 @@ class _SummaryPageState extends State<SummaryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Back button and search bar
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -96,10 +94,10 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Summary title
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: const Text(
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
                   'Billing & Summary',
                   style: TextStyle(
                     fontSize: 28,
@@ -113,9 +111,7 @@ class _SummaryPageState extends State<SummaryPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: AddressCard(
                   address: userAddress,
-                  onEdit: () {
-                    // Add edit functionality here
-                  },
+                  onEdit: () {},
                 ),
               ),
               const SizedBox(height: 20),
@@ -147,11 +143,10 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Combined product card
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Container(
-                  width: double.infinity, // Make the card stretch horizontally
+                  width: double.infinity,
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
@@ -262,13 +257,11 @@ class _SummaryPageState extends State<SummaryPage> {
   }
 }
 
-// Address card widget
 class AddressCard extends StatelessWidget {
   final String address;
   final VoidCallback onEdit;
 
-  const AddressCard({required this.address, required this.onEdit, Key? key})
-      : super(key: key);
+  const AddressCard({required this.address, required this.onEdit, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +298,6 @@ class AddressCard extends StatelessWidget {
   }
 }
 
-// Billing summary widget
 class BillingSummary extends StatelessWidget {
   final int itemsTotal;
   final double deliveryFee;
@@ -315,8 +307,8 @@ class BillingSummary extends StatelessWidget {
     required this.itemsTotal,
     required this.deliveryFee,
     required this.total,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
