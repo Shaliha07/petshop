@@ -9,13 +9,44 @@ class SummaryPage extends StatefulWidget {
 }
 
 class _SummaryPageState extends State<SummaryPage> {
-  final String productName = 'Flexible Joint';
-  final int quantity = 1;
-  final double productPrice = 5500.00;
-  final double totalPrice = 5500.00;
+  // Sample data that will later come from the backend
+  final String userAddress = '123 Main Street\nCity\nCountry';
+
+  final List<Map<String, dynamic>> products = [
+    {
+      'name': 'Flexible Joint',
+      'quantity': 1,
+      'price': 5500.00, // Use double for prices
+      'discount': 0.0, // Use double for discount
+    },
+    {
+      'name': 'Premium Dog Food',
+      'quantity': 2,
+      'price': 4500.00, // Use double for prices
+      'discount': 10.0, // Use double for discount
+    },
+  ];
+
+  final double deliveryFee = 260.00;
+
+  double calculateTotal() {
+    double total = 0;
+    for (var product in products) {
+      double price = product['price'];
+      double discount = product['discount'];
+      int quantity = product['quantity'];
+
+      double discountedPrice = price - (price * discount / 100);
+      total += discountedPrice * quantity;
+    }
+    total += deliveryFee;
+    return total;
+  }
 
   @override
   Widget build(BuildContext context) {
+    double totalPrice = calculateTotal();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -23,6 +54,7 @@ class _SummaryPageState extends State<SummaryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Back button and search bar
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -64,86 +96,141 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
+              // Summary title
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Summary',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 25, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(12.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 3,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
+                child: const Text(
+                  'Billing & Summary',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Address card
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: AddressCard(
+                  address: userAddress,
+                  onEdit: () {
+                    // Add edit functionality here
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 380,
+                    height: 47,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        border: Border.all(color: Colors.black),
+                        color: Colors.white),
+                    child: const Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Store Pickup",
+                            textAlign: TextAlign.center,
                           ),
+                          SizedBox(width: 10),
                         ],
                       ),
-                      child: Row(
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Combined product card
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Container(
+                  width: double.infinity, // Make the card stretch horizontally
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 3,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: products.map((product) {
+                      double discountedPrice = product['price'] -
+                          (product['price'] * product['discount'] / 100);
+                      return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            productName,
+                            product['name'],
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            'x$quantity',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            'x${product['quantity']}',
+                            style: const TextStyle(fontSize: 14),
                           ),
-                          Text(
-                            'LKR $productPrice',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.red,
+                          if (product['discount'] > 0)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'LKR ${product['price'].toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    decoration: TextDecoration.lineThrough,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  'LKR ${discountedPrice.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            Text(
+                              'LKR ${product['price'].toStringAsFixed(2)}',
+                              style: const TextStyle(fontSize: 14),
                             ),
-                          ),
+                          const SizedBox(height: 50),
                         ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Total',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'LKR $totalPrice',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
+              // Billing summary
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: BillingSummary(
+                  itemsTotal: products.fold<int>(0, (int sum, product) {
+                    return sum + (product['quantity'] as int);
+                  }),
+                  deliveryFee: deliveryFee,
+                  total: totalPrice,
+                ),
+              ),
+
+              const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -156,7 +243,7 @@ class _SummaryPageState extends State<SummaryPage> {
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xffE53B3B), // Button color
+                    backgroundColor: const Color(0xffE53B3B),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 70, vertical: 13),
                     textStyle: const TextStyle(
@@ -171,6 +258,115 @@ class _SummaryPageState extends State<SummaryPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+// Address card widget
+class AddressCard extends StatelessWidget {
+  final String address;
+  final VoidCallback onEdit;
+
+  const AddressCard({required this.address, required this.onEdit, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Text(
+              address,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.black),
+            onPressed: onEdit,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Billing summary widget
+class BillingSummary extends StatelessWidget {
+  final int itemsTotal;
+  final double deliveryFee;
+  final double total;
+
+  const BillingSummary({
+    required this.itemsTotal,
+    required this.deliveryFee,
+    required this.total,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Order Summary',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Number of Items'),
+            Text('$itemsTotal items'),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Delivery Fee'),
+            Text('LKR $deliveryFee'),
+          ],
+        ),
+        const Divider(thickness: 3),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Total:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'LKR ${total.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
