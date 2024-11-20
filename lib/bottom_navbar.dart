@@ -58,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               context,
               MaterialPageRoute(
                 builder: (context) => const AppointmentPage(
-                  serviceID: 11,
+                  serviceID: 4,
                   serviceName: "Other Service",
                 ),
               ),
