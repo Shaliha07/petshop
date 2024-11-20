@@ -235,7 +235,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const OrderConfirmation(),
+                              builder: (context) => const OrderConfirmation(
+                                isSuccess: true,
+                                transactionNumber: "T12345678",
+                                amountPaid: 5550.00,
+                                paymentMethod: "Card Payment",
+                              ),
                             ),
                           );
                         },
