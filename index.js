@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const sequelize = require("./connect.js");
 require("./models/Associations.js");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const logger = require("./middlewares/logger.js");
 const globalRateLimiter = require("./middlewares/rateLimit.js");
 const authRoutes = require("./routes/authRoutes.js");
