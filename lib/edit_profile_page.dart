@@ -1,4 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'profile_page.dart';
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -8,21 +13,16 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final TextEditingController usernameController =
-      TextEditingController(text: 'Max');
-  final TextEditingController emailController =
-      TextEditingController(text: 'max@gmail.com');
-  final TextEditingController contactController =
-      TextEditingController(text: '037 234 5678');
-  final TextEditingController addressController =
-      TextEditingController(text: 'No. 48, Main Street, Kurunegala');
+  final _formKey = GlobalKey<FormState>();
 
-  final int userID = 1;
-  final String password = "1234";
-  final String firstName = "John";
-  final String lastName = "Doe";
-  final String role = "user";
-  final String status = "online";
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  // final storage = FlutterSecureStorage();
 
   @override
   void dispose() {
@@ -30,7 +30,73 @@ class _EditProfilePageState extends State<EditProfilePage> {
     emailController.dispose();
     contactController.dispose();
     addressController.dispose();
+    passwordController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     super.dispose();
+  }
+
+  Future<void> saveProfile() async {
+    if (_formKey.currentState!.validate()) {
+      // Get user details
+      String username = usernameController.text!;
+      String email = emailController.text!;
+      String contact = contactController.text!;
+      String address = addressController.text!;
+      String password = passwordController.text!;
+      String firstName = firstNameController.text!;
+      String lastName = lastNameController.text!;
+
+      // String? token = await storage.read(key: 'accessToken'); // Retrieve token
+      // if (token == null) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text('Please log in again.'),
+      //     backgroundColor: Colors.red,
+      //   ));
+      //   return;
+      // }
+
+      // Send a POST request to the server
+      final url = Uri.parse('${dotenv.env['LOCAL_IP']}/users/1');
+      try {
+        final response = await http.put(url,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode({
+              "username": username,
+              "email": email,
+              "password": password,
+              "firstName": firstName,
+              "lastName": lastName,
+              "contactNumber": contact,
+              "address": address,
+            })); // Check if the response is successful
+        if (response.statusCode == 200) {
+          // Parse the response
+          final responseData = jsonDecode(response.body);
+
+          // Handle success, navigate to the home page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfilePage()),
+          );
+        } else {
+          // Handle error, show a message
+          final responseData = jsonDecode(response.body);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(responseData['message'] ?? 'Failed to save the user'),
+            backgroundColor: Colors.red,
+          ));
+        }
+      } catch (error) {
+        print("Error: $error");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('An error occurred. Please try again later. : $error'),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }
   }
 
   @override
@@ -52,65 +118,137 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SingleChildScrollView(
               padding:
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
-              child: Column(
-                children: [
-                  const SizedBox(height: 100),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage('images/user_avatar.png'),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: const CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.edit,
-                              size: 18,
-                              color: Colors.black,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 100),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const CircleAvatar(
+                          radius: 70,
+                          backgroundImage: AssetImage('images/user_avatar.png'),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: const CircleAvatar(
+                              radius: 15,
+                              backgroundColor: Colors.white,
+                              child: Icon(
+                                Icons.edit,
+                                size: 18,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 100),
-                  buildProfileTextField(
-                      label: 'Username', controller: usernameController),
-                  buildProfileTextField(
-                      label: 'Email', controller: emailController),
-                  buildProfileTextField(
-                      label: 'Contact Number', controller: contactController),
-                  buildProfileTextField(
-                      label: 'Address', controller: addressController),
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Text('Username: ${usernameController.text}');
-                        Text('Email: ${emailController.text}');
-                        Text('Contact: ${contactController.text}');
-                        Text('Address: ${addressController.text}');
+                      ],
+                    ),
+                    const SizedBox(height: 100),
+                    buildProfileTextField(
+                      label: 'Username',
+                      controller: usernameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Username cannot be empty';
+                        }
+                        return null;
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffC6C6C6),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 13),
-                      ),
-                      child: const Text(
-                        'Save Profile',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                    ),
+                    buildProfileTextField(
+                      label: 'First Name',
+                      controller: firstNameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'First Name cannot be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                    buildProfileTextField(
+                      label: 'Last Name',
+                      controller: lastNameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Last Name cannot be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                    buildProfileTextField(
+                      label: 'Password',
+                      controller: passwordController,
+                      validator: (value) {
+                        if (value != null &&
+                            value.isNotEmpty &&
+                            value.length < 6) {
+                          return 'Password must be at least 6 characters long';
+                        }
+                        return null; // Allow empty passwords
+                      },
+                    ),
+                    buildProfileTextField(
+                      label: 'Email',
+                      controller: emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email cannot be empty';
+                        }
+                        if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                          return 'Enter a valid email';
+                        }
+                        return null;
+                      },
+                    ),
+                    buildProfileTextField(
+                      label: 'Contact Number',
+                      controller: contactController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Contact number cannot be empty';
+                        }
+                        if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                          return 'Enter a valid 10-digit contact number';
+                        }
+                        return null;
+                      },
+                    ),
+                    buildProfileTextField(
+                      label: 'Address',
+                      controller: addressController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Address cannot be empty';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            saveProfile();
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffC6C6C6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 13),
+                        ),
+                        child: const Text(
+                          'Save Profile',
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Positioned(
@@ -141,8 +279,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  Widget buildProfileTextField(
-      {required String label, required TextEditingController controller}) {
+  Widget buildProfileTextField({
+    required String label,
+    required TextEditingController controller,
+    required String? Function(String?)? validator,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
@@ -153,7 +294,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             style: const TextStyle(fontSize: 16, color: Colors.black),
           ),
           const SizedBox(height: 8),
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
               filled: true,
               fillColor: const Color(0xffE5E5E5),
@@ -163,6 +304,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             controller: controller,
+            validator: validator,
           ),
         ],
       ),

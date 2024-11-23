@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -21,6 +25,62 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final String appleUserName = "AppleUser";
   final String googleUserName = "GoogleUser";
+  // final storage = FlutterSecureStorage();
+
+  Future<void> register() async {
+    if (_formKey.currentState!.validate()) {
+      // Get username, email and password
+      String username = _usernameController.text!;
+      String email = _emailController.text!;
+      String password = _confirmPasswordController.text!;
+
+      // Send a POST request to the server
+      final url = Uri.parse('${dotenv.env['LOCAL_IP']}/auth/register');
+
+      try {
+        // Make the POST request
+        final response = await http.post(url,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode({
+              "username": username,
+              "email": email,
+              "password": password,
+            }));
+
+        // Check if the response is successful
+        if (response.statusCode == 201) {
+          // Parse the response
+          final responseData = jsonDecode(response.body);
+          final token = responseData['token'];
+
+          // Save the token to the local storage
+          // await storage.write(key: 'accessToken', value: token);
+
+          // Handle success, navigate to the home page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage(username: username)),
+          );
+        } else {
+          // Handle error, show a message
+          final responseData = jsonDecode(response.body);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(responseData['message'] ?? 'Register Failed'),
+            backgroundColor: Colors.red,
+          ));
+        }
+      } catch (error) {
+        print("Error: $error");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('An error occurred. Please try again later. : $error'),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,14 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomePage(
-                                      username: _usernameController.text,
-                                    ),
-                                  ),
-                                );
+                                register();
                               }
                             },
                             style: ElevatedButton.styleFrom(
