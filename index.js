@@ -15,7 +15,6 @@ const transactionRoutes = require("./routes/transactionRoutes.js");
 const paymenthistoryRoutes = require("./routes/paymenthistoryRoutes.js");
 const chatbotRoutes = require("./routes/chatbotRoutes.js");
 
-
 dotenv.config();
 
 // Initialize the database
@@ -54,6 +53,12 @@ app.use(express.json());
 // Middleware to parse cookies
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+app.use(cors());
+
 //Middleware to routes
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
@@ -62,8 +67,8 @@ app.use("/products", productRotes);
 app.use("/services", serviceRoutes);
 app.use("/appointments", appointmentRoutes);
 app.use("/transactions", transactionRoutes);
-app.use("/payment",paymenthistoryRoutes);
-app.use("/chatbot",chatbotRoutes);
+app.use("/payment", paymenthistoryRoutes);
+app.use("/chatbot", chatbotRoutes);
 
 // Start the server
 app.listen(PORT, () => {
