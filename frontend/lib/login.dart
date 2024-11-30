@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/token_manager.dart';
 import 'home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,6 +27,64 @@ class _LoginPageState extends State<LoginPage> {
 
   final String appleUserName = "AppleUser";
   final String googleUserName = "GoogleUser";
+
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      // Get username and password
+      String username = _username!;
+      String password = _password!;
+
+      // Send a POST request to the server
+      final url = Uri.parse('${dotenv.env['LOCAL_IP']}/auth/login');
+
+      try {
+        // Make the POST request
+        final response = await http.post(url,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode({
+              "username": username,
+              "password": password,
+            }));
+
+        // Check if the response is successful
+        if (response.statusCode == 200) {
+          // Parse the response
+          final responseData = jsonDecode(response.body);
+          String token = responseData['token'];
+
+          // Store token in TokenManager
+          await TokenManager.instance.setAccessToken(token);
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Login Successful'),
+            backgroundColor: Colors.green,
+          ));
+
+          // Handle success, navigate to the home page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage(username: username)),
+          );
+        } else {
+          // Handle error, show a message
+          final responseData = jsonDecode(response.body);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(responseData['message'] ?? 'Login Failed'),
+            backgroundColor: Colors.red,
+          ));
+        }
+      } catch (error) {
+        print("Error: $error");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('An error occurred. Please try again later. : $error'),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,15 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                                             ? () {
                                                 if (_formKey.currentState!
                                                     .validate()) {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          HomePage(
-                                                              username:
-                                                                  _username!),
-                                                    ),
-                                                  );
+                                                  login();
                                                 }
                                               }
                                             : null,
