@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -53,10 +53,14 @@ class _SignUpPageState extends State<SignUpPage> {
         if (response.statusCode == 201) {
           // Parse the response
           final responseData = jsonDecode(response.body);
-          final token = responseData['token'];
+          final token = responseData['token'] ?? '';
+          if (token.isEmpty) {
+            throw Exception("Token not found in response");
+          }
 
-          // Save the token to the local storage
-          // await storage.write(key: 'accessToken', value: token);
+          // Save token in shared_preferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('accessToken', token);
 
           // Handle success, navigate to the home page
           Navigator.push(

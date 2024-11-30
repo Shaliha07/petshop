@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:shane_and_shawn_petshop/token_manager.dart';
 import 'profile_page.dart';
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -22,7 +24,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
-  // final storage = FlutterSecureStorage();
 
   @override
   void dispose() {
@@ -38,6 +39,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Future<void> saveProfile() async {
     if (_formKey.currentState!.validate()) {
+      String? token = TokenManager.instance.accessToken;
+
+      if (token == null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('No access token available. Please log in again.'),
+          backgroundColor: Colors.red,
+        ));
+        return;
+      }
+
+      // Decode the JWT to get the user ID
+      Map<String, dynamic> payload = Jwt.parseJwt(token);
+      print('Decoded Payload: $payload');
+      int userId = payload['id'];
+
       // Get user details
       String username = usernameController.text!;
       String email = emailController.text!;
@@ -47,21 +63,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
       String firstName = firstNameController.text!;
       String lastName = lastNameController.text!;
 
-      // String? token = await storage.read(key: 'accessToken'); // Retrieve token
-      // if (token == null) {
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //     content: Text('Please log in again.'),
-      //     backgroundColor: Colors.red,
-      //   ));
-      //   return;
-      // }
-
       // Send a POST request to the server
-      final url = Uri.parse('${dotenv.env['LOCAL_IP']}/users/1');
+      final url = Uri.parse('${dotenv.env['LOCAL_IP']}/users/$userId');
       try {
         final response = await http.put(url,
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer $token",
             },
             body: jsonEncode({
               "username": username,

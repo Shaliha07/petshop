@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/token_manager.dart';
 import 'home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final String appleUserName = "AppleUser";
   final String googleUserName = "GoogleUser";
-  // final storage = FlutterSecureStorage();
 
   Future<void> login() async {
     if (_formKey.currentState!.validate()) {
@@ -53,10 +52,15 @@ class _LoginPageState extends State<LoginPage> {
         if (response.statusCode == 200) {
           // Parse the response
           final responseData = jsonDecode(response.body);
-          final token = responseData['token'];
+          String token = responseData['token'];
 
-          // Save the token to the local storage
-          // await storage.write(key: 'accessToken', value: token);
+          // Store token in TokenManager
+          await TokenManager.instance.setAccessToken(token);
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Login Successful'),
+            backgroundColor: Colors.green,
+          ));
 
           // Handle success, navigate to the home page
           Navigator.push(
