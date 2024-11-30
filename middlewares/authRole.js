@@ -5,7 +5,11 @@ const JWT_SECRET = process.env.JWT;
 //Middleware to verify the token and extract user information
 exports.verifyToken = (req, res, next) => {
   const token =
-    req.cookies.accessToken || req.headers.authoriztion?.split("")[1];
+    req.cookies.accessToken || req.headers.authorization?.split(" ")[1];
+
+  console.log("Token from request:", token);
+  console.log("Authorization header:", req.headers.authorization);
+  console.log("Extracted Token:", token);
 
   if (!token) {
     return res.status(403).json({ message: "Access denied.No Token provided" });

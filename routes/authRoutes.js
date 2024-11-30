@@ -1,4 +1,5 @@
 const { register, login, logout } = require("../controllers/auth.js");
+const {verifyToken}=require("../middlewares/authRole.js")
 const express = require("express");
 
 const router = express.Router();
@@ -7,9 +8,9 @@ const router = express.Router();
 router.post("/register", register);
 
 // Login route for an existing user
-router.post("/login", login);
+router.post("/login",login);
 
 // Logout route for an existing user
-router.post("/logout", logout);
+router.post("/logout",logout);
 
 module.exports = router;

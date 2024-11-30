@@ -5,19 +5,20 @@ const {
   getAllTransactions,
   deleteTransaction,
 } = require("../controllers/transaction.js");
+const { verifyToken, isOwnerOrAdmin } = require("../middlewares/authRole.js");
 const express = require("express");
 
 const router = express.Router();
 
 // Create Transaction
-router.post("/", addTransaction);
+router.post("/", verifyToken, addTransaction);
 // Update transaction
-router.put("/:id", updateTransaction);
+router.put("/:id", verifyToken,isOwnerOrAdmin, updateTransaction);
 // Get transaction by ID
-router.get("/:id", getTransactionById);
+router.get("/:id", verifyToken,isOwnerOrAdmin, getTransactionById);
 //Get all trasactions
-router.get("/", getAllTransactions);
+router.get("/", verifyToken,isOwnerOrAdmin,getAllTransactions);
 //Delete transaction
-router.delete("/:id", deleteTransaction);
+router.delete("/:id", verifyToken, isOwnerOrAdmin, deleteTransaction);
 
 module.exports = router;

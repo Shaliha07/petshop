@@ -40,9 +40,25 @@ exports.register = async (req, res) => {
       status: true,
     });
 
+    // Generate a JWT Token
+    const token = jwt.sign(
+      {
+        id: newUser.id,
+        username: newUser.username,
+        role: newUser.role,
+      },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Send the token and user details (without the password)
+    const { password: userPassword, ...userData } = newUser.toJSON();
+
+    logger.info("User created successfully!");
     return res
+      .cookie("accessToken", token, { httpOnly: true, secure: true })
       .status(201)
-      .json({ message: "User created successfully", user: newUser });
+      .json({ message: "User created successfully", token, user: userData });
   } catch (error) {
     logger.error("Error in registering a user: ", error);
     return res
@@ -83,10 +99,12 @@ exports.login = async (req, res) => {
 
     // Send the token and user details (without the password)
     const { password: userPassword, ...userData } = user.toJSON();
+
+    logger.info(`User logged in successfully: ${JSON.stringify(userData)}`);
     res
       .cookie("accessToken", token, { httpOnly: true, secure: true })
       .status(200)
-      .json({ message: "User logged in successfully!", user: userData });
+      .json({ message: "User logged in successfully!", token, user: userData });
   } catch (error) {
     logger.error("Error logging in user: ", error);
     return res

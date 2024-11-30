@@ -1,5 +1,6 @@
 const User = require("../models/User.js");
 const logger = require("../middlewares/logger.js");
+const bcrypt = require("bcryptjs");
 
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
@@ -30,7 +31,9 @@ exports.updateUser = async (req, res) => {
       user.email = email;
     }
     if (password) {
-      user.password = password;
+      const salt = bcrypt.genSaltSync(12);
+      const hashedPassword = bcrypt.hashSync(password, salt);
+      user.password = hashedPassword;
     }
     if (firstName) {
       user.firstName = firstName;
