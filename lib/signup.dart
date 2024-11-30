@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/token_manager.dart';
 import 'home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -53,14 +54,15 @@ class _SignUpPageState extends State<SignUpPage> {
         if (response.statusCode == 201) {
           // Parse the response
           final responseData = jsonDecode(response.body);
-          final token = responseData['token'] ?? '';
-          if (token.isEmpty) {
-            throw Exception("Token not found in response");
-          }
+          String token = responseData['token'];
 
-          // Save token in shared_preferences
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('accessToken', token);
+          // Store token in TokenManager
+          await TokenManager.instance.setAccessToken(token);
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Register Successful'),
+            backgroundColor: Colors.green,
+          ));
 
           // Handle success, navigate to the home page
           Navigator.push(
