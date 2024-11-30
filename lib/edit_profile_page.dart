@@ -41,6 +41,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (_formKey.currentState!.validate()) {
       String? token = TokenManager.instance.accessToken;
 
+      // Debugging: Token check
+      print('Access Token: $token');
+
       if (token == null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('No access token available. Please log in again.'),
@@ -51,20 +54,58 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       // Decode the JWT to get the user ID
       Map<String, dynamic> payload = Jwt.parseJwt(token);
-      print('Decoded Payload: $payload');
+      print('Decoded JWT Payload: $payload');
       int userId = payload['id'];
 
-      // Get user details
-      String username = usernameController.text!;
-      String email = emailController.text!;
-      String contact = contactController.text!;
-      String address = addressController.text!;
-      String password = passwordController.text!;
-      String firstName = firstNameController.text!;
-      String lastName = lastNameController.text!;
+      // Get user details from form fields
+      String username = usernameController.text.trim();
+      String email = emailController.text.trim();
+      String contact = contactController.text.trim();
+      String address = addressController.text.trim();
+      String password = passwordController.text.trim();
+      String firstName = firstNameController.text.trim();
+      String lastName = lastNameController.text.trim();
 
-      // Send a POST request to the server
-      final url = Uri.parse('${dotenv.env['LOCAL_IP']}/users/$userId');
+      // Debugging: Form field values
+      print('Form Values:');
+      print('Username: $username');
+      print('First Name: $firstName');
+      print('Last Name: $lastName');
+      print('Email: $email');
+      print('Contact: $contact');
+      print('Address: $address');
+
+      // Construct API URL
+      String? localIp;
+      try {
+        localIp = dotenv.env['LOCAL_IP'];
+      } catch (error) {
+        print('Error loading LOCAL_IP from .env: $error');
+      }
+
+      if (localIp == null) {
+        print('Error: LOCAL_IP is not set in .env file.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Server URL not configured. Please try again later.'),
+          backgroundColor: Colors.red,
+        ));
+        return;
+      }
+
+      final url = Uri.parse('$localIp/users/$userId');
+
+      // Debugging: URL and payload
+      print('API URL: $url');
+      print('Request Payload: ${{
+        "username": username,
+        "email": email,
+        "password": password,
+        "firstName": firstName,
+        "lastName": lastName,
+        "contactNumber": contact,
+        "address": address,
+      }}');
+
       try {
         final response = await http.put(url,
             headers: {
@@ -79,28 +120,35 @@ class _EditProfilePageState extends State<EditProfilePage> {
               "lastName": lastName,
               "contactNumber": contact,
               "address": address,
-            })); // Check if the response is successful
+            }));
+
+        // Debugging: Response status and body
+        print('Response Status: ${response.statusCode}');
+        print('Response Body: ${response.body}');
+
         if (response.statusCode == 200) {
-          // Parse the response
           final responseData = jsonDecode(response.body);
 
-          // Handle success, navigate to the home page
-          Navigator.push(
+          // Handle success
+          print('Profile updated successfully: $responseData');
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => ProfilePage()),
           );
         } else {
-          // Handle error, show a message
+          // Handle server-side error
           final responseData = jsonDecode(response.body);
+          print('Server Error: $responseData');
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(responseData['message'] ?? 'Failed to save the user'),
             backgroundColor: Colors.red,
           ));
         }
       } catch (error) {
-        print("Error: $error");
+        // Handle network or unexpected errors
+        print("Error occurred during API request: $error");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('An error occurred. Please try again later. : $error'),
+          content: Text('An error occurred. Please try again later.'),
           backgroundColor: Colors.red,
         ));
       }
