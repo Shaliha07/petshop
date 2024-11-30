@@ -9,19 +9,12 @@ import 'token_manager.dart'; // Import the Singleton
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
-  await TokenManager.instance.loadToken(); // Load token on app start
-
-  // Check if token exists and is valid
-  String? token = TokenManager.instance.accessToken;
-  bool isAuthenticated = token != null && token.isNotEmpty;
-
-  runApp(MyApp(isAuthenticated: isAuthenticated));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final bool isAuthenticated;
 
-  const MyApp({super.key, required this.isAuthenticated});
+  const MyApp();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: TokenManager.instance.accessToken == null
-          ? '/getstarted' // Show GetStarted if no token
-          : '/login', // Otherwise redirect to login (or home if logged in),
+      initialRoute: '/getstarted', // Show GetStarted if no token// Otherwise redirect to login (or home if logged in),
       routes: {
         '/getstarted': (context) => const GetStartedPage(),
         '/login': (context) => const LoginPage(),
