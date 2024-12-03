@@ -4,6 +4,7 @@ const logger = require("../middlewares/logger.js");
 //Create product
 exports.createProduct = async (req, res) => {
   const {
+    categoryId,
     productName,
     description,
     stockQty,
@@ -15,6 +16,7 @@ exports.createProduct = async (req, res) => {
     // Check if product already exists
     const existingProduct = await Product.findOne({
       where: {
+        categoryId,
         productName,
         description,
         stockQty,
@@ -28,6 +30,7 @@ exports.createProduct = async (req, res) => {
     }
     // Create new product
     const newProduct = await Product.create({
+      categoryId,
       productName,
       description,
       stockQty,
@@ -50,6 +53,7 @@ exports.createProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   const {
+    categoryId,
     productName,
     description,
     stockQty,
@@ -62,6 +66,9 @@ exports.updateProduct = async (req, res) => {
     const product = await Product.findByPk(id);
     if (!product) {
       return req.status(404).json({ message: "Product not found" });
+    }
+    if (categoryId) {
+      product.categoryId = categoryId;
     }
     if (productName) {
       product.productName = productName;
@@ -120,6 +127,25 @@ exports.getProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
+    logger.info("Product fetched successfully");
+    return res.status(200).json({ product });
+  } catch (error) {
+    logger.error("Error fetching the product", error);
+    return res
+      .status(500)
+      .json({ message: "Unable to get the product", error: error.message });
+  }
+};
+
+// Get a product by Category id
+exports.getProductByCategoryid = async (req, res) => {
+  const { categoryId } = req.params;
+
+  try {
+    // Find the product by ID
+    const product = await Product.findAll({
+        where:{categoryId},
+    });
     logger.info("Product fetched successfully");
     return res.status(200).json({ product });
   } catch (error) {

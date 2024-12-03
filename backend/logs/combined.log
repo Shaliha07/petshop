@@ -227,3 +227,101 @@
 2024-11-30T06:35:44.113Z [Pet Care Management System] info: User updated succesfully:${user.username}(${user.email});
 2024-11-30T06:40:04.903Z [Pet Care Management System] info: User logged in successfully: {"id":2,"username":"malith1","email":"malith1@gmail.com","firstName":"Malith","lastName":"Kumaranayake","contactNumber":"0711111111","address":"Somewhere","role":"user","status":true,"createdAt":"2024-11-23T06:25:16.750Z","updatedAt":"2024-11-30T06:35:44.106Z"};
 2024-11-30T06:40:47.769Z [Pet Care Management System] info: User updated succesfully:${user.username}(${user.email});
+2024-11-30T09:31:15.640Z [Pet Care Management System] info: User logged in successfully: {"id":2,"username":"malithKumara","email":"newemail@example.com","firstName":"malith","lastName":"kumara","contactNumber":"0776543789","address":"Home","role":"user","status":true,"createdAt":"2024-11-23T05:53:12.334Z","updatedAt":"2024-11-23T11:35:05.187Z"};
+2024-11-30T09:34:13.508Z [Pet Care Management System] info: User logged in successfully: {"id":2,"username":"malithKumara","email":"newemail@example.com","firstName":"malith","lastName":"kumara","contactNumber":"0776543789","address":"Home","role":"user","status":true,"createdAt":"2024-11-23T05:53:12.334Z","updatedAt":"2024-11-23T11:35:05.187Z"};
+2024-11-30T09:35:12.472Z [Pet Care Management System] info: User created successfully!;
+2024-11-30T09:45:55.059Z [Pet Care Management System] info: User created successfully!;
+2024-11-30T09:46:38.331Z [Pet Care Management System] info: User updated succesfully:${user.username}(${user.email});
+2024-12-03T14:14:48.393Z [Pet Care Management System] info: User logged in successfully: {"id":2,"username":"malithKumara","email":"newemail@example.com","firstName":"malith","lastName":"kumara","contactNumber":"0776543789","address":"Home","role":"user","status":true,"createdAt":"2024-11-23T05:53:12.334Z","updatedAt":"2024-11-23T11:35:05.187Z"};
+2024-12-03T14:14:48.883Z [Pet Care Management System] info: User logged in successfully: {"id":2,"username":"malithKumara","email":"newemail@example.com","firstName":"malith","lastName":"kumara","contactNumber":"0776543789","address":"Home","role":"user","status":true,"createdAt":"2024-11-23T05:53:12.334Z","updatedAt":"2024-11-23T11:35:05.187Z"};
+2024-12-03T14:48:54.145Z [Pet Care Management System] info: User created successfully!;
+2024-12-03T14:49:44.399Z [Pet Care Management System] info: User updated succesfully:${user.username}(${user.email});
+2024-12-03T15:06:18.255Z [Pet Care Management System] info: User logged in successfully: {"id":2,"username":"malithKumara","email":"newemail@example.com","firstName":"malith","lastName":"kumara","contactNumber":"0776543789","address":"Home","role":"user","status":true,"createdAt":"2024-11-23T05:53:12.334Z","updatedAt":"2024-11-23T11:35:05.187Z"};
+2024-12-03T15:08:58.718Z [Pet Care Management System] info: User created successfully!;
+2024-12-03T15:09:18.562Z [Pet Care Management System] info: User logged in successfully: {"id":8,"username":"admin","email":"admin@gmail.com","firstName":"","lastName":"","contactNumber":null,"address":null,"role":"admin","status":true,"createdAt":"2024-12-03T15:08:58.655Z","updatedAt":"2024-12-03T15:08:58.655Z"};
+2024-12-03T15:09:59.945Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async Category.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:21)
+    at async Category.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12)
+    at async exports.createCategory (D:\petshop-1\petshop\backend\controllers\category.js:9:30);
+2024-12-03T15:11:25.270Z [Pet Care Management System] info: Categories fetched successfully;
+2024-12-03T15:11:37.153Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async Category.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:21)
+    at async Category.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12)
+    at async exports.createCategory (D:\petshop-1\petshop\backend\controllers\category.js:9:30);
+2024-12-03T15:12:37.513Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async Category.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:21)
+    at async Category.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12)
+    at async exports.createCategory (D:\petshop-1\petshop\backend\controllers\category.js:9:30);
+2024-12-03T15:13:04.320Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:12)
+    at async Category.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:21)
+    at async Category.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12)
+    at async exports.createCategory (D:\petshop-1\petshop\backend\controllers\category.js:9:30);
+2024-12-03T15:13:27.581Z [Pet Care Management System] info: Category created successfully.;
+2024-12-03T15:21:54.441Z [Pet Care Management System] info: Product updated successfully;
+2024-12-03T15:23:10.783Z [Pet Care Management System] error: SequelizeQueryError: The argument passed to findAll must be an options object, use findByPk if you wish to pass a single primary key value
+    at Product.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1092:13)
+    at exports.getProductByCategoryid (D:\petshop-1\petshop\backend\controllers\product.js:139:35)
+    at Layer.handle [as handle_request] (D:\petshop-1\petshop\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\petshop-1\petshop\backend\node_modules\express\lib\router\route.js:149:13)
+    at exports.verifyToken (D:\petshop-1\petshop\backend\middlewares\authRole.js:21:5)
+    at Layer.handle [as handle_request] (D:\petshop-1\petshop\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\petshop-1\petshop\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\petshop-1\petshop\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\petshop-1\petshop\backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\petshop-1\petshop\backend\node_modules\express\lib\router\index.js:284:15;
+2024-12-03T15:27:58.648Z [Pet Care Management System] info: Product fetched successfully;
+2024-12-03T15:28:33.349Z [Pet Care Management System] info: Product updated successfully;
+2024-12-03T15:33:05.697Z [Pet Care Management System] info: Product fetched successfully;
+2024-12-03T15:36:19.499Z [Pet Care Management System] info: Product updated successfully;
+2024-12-03T15:36:34.448Z [Pet Care Management System] info: Product fetched successfully;
+2024-12-03T15:38:59.089Z [Pet Care Management System] info: Category created successfully.;
+2024-12-03T15:43:23.837Z [Pet Care Management System] error: Error: WHERE parameter "categoryId" has invalid "undefined" value
+    at PostgresQueryGenerator.whereItemQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1746:13)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1737:25
+    at Array.forEach (<anonymous>)
+    at PostgresQueryGenerator.whereItemsQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1735:35)
+    at PostgresQueryGenerator.getWhereConditions (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:2078:19)
+    at PostgresQueryGenerator.selectQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:991:28)
+    at PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:59)
+    at Product.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:47)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Product.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12);
+2024-12-03T15:46:43.210Z [Pet Care Management System] error: Error: WHERE parameter "categoryId" has invalid "undefined" value
+    at PostgresQueryGenerator.whereItemQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1746:13)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1737:25
+    at Array.forEach (<anonymous>)
+    at PostgresQueryGenerator.whereItemsQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1735:35)
+    at PostgresQueryGenerator.getWhereConditions (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:2078:19)
+    at PostgresQueryGenerator.selectQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:991:28)
+    at PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:59)
+    at Product.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:47)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Product.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12);
+2024-12-03T15:47:27.337Z [Pet Care Management System] error: Error: WHERE parameter "categoryId" has invalid "undefined" value
+    at PostgresQueryGenerator.whereItemQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1746:13)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1737:25
+    at Array.forEach (<anonymous>)
+    at PostgresQueryGenerator.whereItemsQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:1735:35)
+    at PostgresQueryGenerator.getWhereConditions (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:2078:19)
+    at PostgresQueryGenerator.selectQuery (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-generator.js:991:28)
+    at PostgresQueryInterface.select (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:407:59)
+    at Product.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:47)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Product.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12);
+2024-12-03T15:48:56.552Z [Pet Care Management System] info: Product created successfully.;
