@@ -297,3 +297,31 @@ exports.deleteTransaction = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+// Create a new Transaction Detail
+exports.createTransactionDetail = async (req, res) => {
+  try {
+    const { transactionId, productId, quantity, price } = req.body;
+
+    // Check if all required fields are provided
+    if (!transactionId || !productId || !quantity || !price) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // Calculate total price
+    const total = quantity * price;
+
+    // Create the new transaction detail
+    const newTransactionDetail = await Transactiondetails.create({
+      transactionId,
+      productId,
+      quantity,
+      price,
+      total,
+    });
+
+    return res.status(201).json(newTransactionDetail);
+  } catch (error) {
+    console.error('Error creating transaction detail:', error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};

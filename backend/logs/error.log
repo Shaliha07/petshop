@@ -216,3 +216,11 @@
     at Product.findAll (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1140:47)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async Product.findOne (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1240:12);
+2024-12-09T15:57:43.450Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.insert (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async Appointment.create (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1362:12)
+    at async exports.createAppointment (D:\petshop-1\petshop\backend\controllers\appointment.js:22:28);
