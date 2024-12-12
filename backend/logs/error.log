@@ -224,3 +224,38 @@
     at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
     at async Appointment.create (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1362:12)
     at async exports.createAppointment (D:\petshop-1\petshop\backend\controllers\appointment.js:22:28);
+2024-12-12T17:01:40.883Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.insert (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async Paymenthistory.create (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1362:12)
+    at async exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:59:5);
+2024-12-12T17:34:57.363Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.insert (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async Paymenthistory.create (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1362:12)
+    at async exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:81:5);
+2024-12-12T17:35:44.842Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.insert (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async Paymenthistory.create (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1362:12)
+    at async exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:81:5);
+2024-12-12T17:37:26.390Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.insert (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:308:21)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async Paymenthistory.create (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:1362:12)
+    at async exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:81:5);
+2024-12-12T17:41:30.410Z [Pet Care Management System] error: Error: Insufficient stock for product with ID 1
+    at exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:72:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5);

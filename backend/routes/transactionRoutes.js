@@ -3,7 +3,7 @@ const {
   updateTransaction,
   getTransactionById,
   getAllTransactions,
-  deleteTransaction,createTransactionDetail,
+  deleteTransaction,
 } = require("../controllers/transaction.js");
 const { verifyToken, isOwnerOrAdmin } = require("../middlewares/authRole.js");
 const express = require("express");
@@ -20,7 +20,5 @@ router.get("/:id", verifyToken,isOwnerOrAdmin, getTransactionById);
 router.get("/", verifyToken,isOwnerOrAdmin,getAllTransactions);
 //Delete transaction
 router.delete("/:id", verifyToken, isOwnerOrAdmin, deleteTransaction);
-
-router.post("/cart",createTransactionDetail);
 
 module.exports = router;

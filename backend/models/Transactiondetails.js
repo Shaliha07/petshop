@@ -45,31 +45,4 @@ const Transactiondetails = sequelize.define('Transactiondetails', {
   },
 }, { timestamps: true });
 
-// Add a trigger to update the product stock after a transaction detail is created
-Transactiondetails.afterCreate(async (transactionDetail, options) => {
-  try {
-    // Find the associated product based on productId in the transaction detail
-    const product = await Product.findByPk(transactionDetail.productId);
-
-    // Check if the product exists
-    if (!product) {
-      throw new Error('Product not found');
-    }
-
-    // Check if there is enough stock
-    if (product.stockQty < transactionDetail.quantity) {
-      throw new Error('Insufficient stock');
-    }
-
-    // Decrement the stock quantity by the quantity sold in the transaction
-    product.stockQty -= transactionDetail.quantity;
-
-    // Save the updated product with the new stock quantity
-    await product.save();
-  } catch (error) {
-    console.error('Error in stock quantity update trigger:', error.message);
-    throw error; // Re-throw the error so the transaction can handle it
-  }
-});
-
 module.exports = Transactiondetails;

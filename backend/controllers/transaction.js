@@ -1,6 +1,7 @@
 const Transaction = require("../models/Transaction.js");
+const Product = require("../models/Product.js");
 const Transactiondetails = require("../models/Transactiondetails.js");
-const PaymentHistory = require("../models/Paymenthistory.js")
+const PaymentHistory = require("../models/Paymenthistory.js");
 const logger = require("../middlewares/logger.js");
 
 exports.addTransaction = async (req, res) => {
@@ -55,6 +56,27 @@ exports.addTransaction = async (req, res) => {
       transaction: sequelizeTransaction,
     });
 
+    // Manually update product stock quantities
+    for (const item of items) {
+      const product = await Product.findByPk(item.productId, {
+        transaction: sequelizeTransaction,
+      });
+
+      if (!product) {
+        throw new Error(`Product with ID ${item.productId} not found`);
+      }
+
+      product.stockQty -= item.quantity;
+
+      if (product.stockQty < 0) {
+        throw new Error(
+          `Insufficient stock for product with ID ${item.productId}`
+        );
+      }
+
+      await product.save({ transaction: sequelizeTransaction });
+    }
+
     // Add an entry to the payment history table
     await PaymentHistory.create(
       {
@@ -81,10 +103,9 @@ exports.addTransaction = async (req, res) => {
     // Rollback the transaction in case of an error
     if (sequelizeTransaction) await sequelizeTransaction.rollback();
 
-    return res.status(500).json({ message: "Internal server error" });
-  }
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
-
 
 // Update Transaction
 exports.updateTransaction = async (req, res) => {
@@ -147,10 +168,20 @@ exports.updateTransaction = async (req, res) => {
         if (existingDetailsMap.has(item.productId)) {
           // Update existing detail
           const detail = existingDetailsMap.get(item.productId);
+          const quantityDiff = item.quantity - detail.quantity;
           detail.quantity = item.quantity;
           detail.price = item.price;
           detail.total = item.quantity * item.price;
           await detail.save();
+
+          // Update product stock quantity
+          const product = await Product.findByPk(item.productId);
+
+          if (product) {
+            product.stockQty -= quantityDiff;
+            await product.save();
+          }
+
           existingDetailsMap.delete(item.productId);
         } else {
           // Add new detail
@@ -163,11 +194,23 @@ exports.updateTransaction = async (req, res) => {
             total: item.quantity * item.price,
             status: true,
           });
+
+          // Update product stock for new detail
+          const product = await Product.findByPk(item.productId);
+          if (product) {
+            product.stockQty -= item.quantity;
+            await product.save();
+          }
         }
       }
 
       // Remove details not in the updated items
       for (const remainingDetail of existingDetailsMap.values()) {
+        const product = await Product.findByPk(remainingDetail.productId);
+        if (product) {
+          product.stockQty += remainingDetail.quantity;
+          await product.save();
+        }
         await remainingDetail.destroy();
       }
     }
@@ -200,9 +243,10 @@ exports.updateTransaction = async (req, res) => {
       .json({ message: "Transaction updated successfully" });
   } catch (error) {
     logger.error("Error updating transaction: ", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
+
 // Get Transaction by ID
 exports.getTransactionById = async (req, res) => {
   const { id } = req.params;
@@ -294,34 +338,6 @@ exports.deleteTransaction = async (req, res) => {
     // Rollback the transaction in case of an error
     if (sequelizeTransaction) await sequelizeTransaction.rollback();
 
-    return res.status(500).json({ message: "Internal server error" });
-  }
-};
-// Create a new Transaction Detail
-exports.createTransactionDetail = async (req, res) => {
-  try {
-    const { transactionId, productId, quantity, price } = req.body;
-
-    // Check if all required fields are provided
-    if (!transactionId || !productId || !quantity || !price) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
-
-    // Calculate total price
-    const total = quantity * price;
-
-    // Create the new transaction detail
-    const newTransactionDetail = await Transactiondetails.create({
-      transactionId,
-      productId,
-      quantity,
-      price,
-      total,
-    });
-
-    return res.status(201).json(newTransactionDetail);
-  } catch (error) {
-    console.error('Error creating transaction detail:', error.message);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
