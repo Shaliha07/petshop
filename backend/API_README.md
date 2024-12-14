@@ -80,7 +80,7 @@
 }
 ```
 
-#### 9. _\*\*Retrieve Categories_
+#### 9. **Retrieve Categories**
 
 - **URL:** `categories/`
 - **Method:** `GET`
@@ -153,14 +153,18 @@
   "imageUrl": "http://example.com/images/cat-laser-toy.jpg"
 }
 ```
+#### 17.**Get all products by category**
+- **URL:** `products/categories/1`
+- **Method:** `GET`
+- **Request Body:** `**`
 
-#### 17.**Delete a product**
+#### 18.**Delete a product**
 
 - **URL:** `products/:id`
 - **Method:** `DELETE`
 - **Request Body:**
 
-#### 18.**Create a service**
+#### 19.**Create a service**
 
 - **URL:** `services/`
 - **Method:** `POST`
@@ -175,19 +179,19 @@
 }
 ```
 
-#### 19.**Retrieve services**
+#### 20.**Retrieve services**
 
 - **URL:** `services/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 20.**Retrieve a service**
+#### 21.**Retrieve a service**
 
 - **URL:** `services/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 21.**Update a service**
+#### 22.**Update a service**
 
 - **URL:** `services/:id`
 - **Method:** `PUT`
@@ -199,13 +203,13 @@
 }
 ```
 
-#### 22.**Delete a service**
+#### 23.**Delete a service**
 
 - **URL:** `services/:id`
 - **Method:** `DELETE`
 - **Request Body:**
 
-#### 23.**Create a appointment**
+#### 24.**Create a appointment**
 
 - **URL:** `appointments/`
 - **Method:** `POST`
@@ -221,19 +225,19 @@
 }
 ```
 
-#### 24.**Retrieve appointments**
+#### 25.**Retrieve appointments**
 
 - **URL:** `appointments/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 25.**Retrieve a appointment**
+#### 26.**Retrieve a appointment**
 
 - **URL:** `appointments/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 26.**Update a appointment**
+#### 27.**Update a appointment**
 
 - **URL:** `appointments/:id`
 - **Method:** `PUT`
@@ -245,13 +249,13 @@
 }
 ```
 
-#### 27.**Delete a appointment**
+#### 28.**Delete a appointment**
 
 - **URL:** `appointments/:id`
 - **Method:** `DELETE`
 - **Request Body:**
 
-#### 28.**Creating a Inventory**
+#### 29.**Creating a Inventory**
 
 - **URL:** `transactions/`
 - **Method:** `POST`
@@ -270,19 +274,19 @@
 }
 ```
 
-#### 29.**Retrieve transactions**
+#### 30.**Retrieve transactions**
 
 - **URL:** `transactions/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 30.**Retrieve transaction**
+#### 31.**Retrieve transaction**
 
 - **URL:** `transactions/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 31.**Update transaction**
+#### 32.**Update transaction**
 
 - **URL:** `transactions/:id`
 - **Method:** `PUT`
@@ -294,27 +298,27 @@
 }
 ```
 
-#### 32.**Delete a transaction**
+#### 33.**Delete a transaction**
 
 - **URL:** `transactions/:id`
 - **Method:** `DELETE`
 - **Request Body:**
 
-#### 33.**Retrieve payment histories**
+#### 34.**Retrieve payment histories**
 
 - **URL:** `payments/`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 34.**Retrieve payment history**
+#### 35.**Retrieve payment history**
 
 - **URL:** `payments/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
 
-#### 35.**Communicating with Chatbot**
+#### 36.**Communicating with Chatbot**
 
-- **URL:** `chatbot/`
+- **URL:** `http://127.0.0.1:5000/chat`
 - **Method:** `POST`
 - **Request Body:**
 
