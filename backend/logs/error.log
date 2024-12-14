@@ -259,3 +259,16 @@
 2024-12-12T17:41:30.410Z [Pet Care Management System] error: Error: Insufficient stock for product with ID 1
     at exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:72:15)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5);
+2024-12-14T09:24:48.421Z [Pet Care Management System] error: TypeError: req.status is not a function
+    at exports.updateAppointment (D:\petshop-1\petshop\backend\controllers\appointment.js:54:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5);
+2024-12-14T09:31:14.169Z [Pet Care Management System] error: Error: Insufficient stock for product with ID 1
+    at exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:72:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5);
+2024-12-14T09:35:19.889Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.update (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:355:12)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async exports.updateUser (D:\petshop-1\petshop\backend\controllers\user.js:55:5);

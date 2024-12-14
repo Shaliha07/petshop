@@ -35,12 +35,24 @@ exports.isAdmin = (req, res, next) => {
   next();
 };
 
-//Middleware to check if the user is the owner of the account or an admin
+// Middleware to check if the user is the owner of the account or an admin
 exports.isOwnerOrAdmin = (req, res, next) => {
-  if (req.user.role !== "admin" && req.user.id !== parseInt(req.params.id)) {
+  // Extract the userId from various possible locations
+  const requestedUserId = parseInt(
+    req.params.userId || req.body.userId || req.query.userId,
+    10
+  );
+
+  if (!requestedUserId) {
+    return res.status(400).json({ message: "Invalid or missing user ID" });
+  }
+
+  // Check if the logged-in user is an admin or the owner of the account
+  if (req.user.role !== "admin" && req.user.id !== requestedUserId) {
     return res
       .status(403)
       .json({ message: "Access denied. Admin or Owner only" });
-  }
-  next();
+  }
+
+  next();
 };

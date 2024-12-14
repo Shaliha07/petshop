@@ -9,9 +9,9 @@ const express = require("express");
 const router = express.Router();
 
 // Get all payment histories
-router.get("/", isOwnerOrAdmin, verifyToken, getAllPaymenthistories);
+router.get("/", verifyToken, isOwnerOrAdmin,  getAllPaymenthistories);
 
 // Get a payment history by ID
-router.get("/:id", isOwnerOrAdmin, verifyToken, getPaymenthistory);
+router.get("/:id", verifyToken, isOwnerOrAdmin, getPaymenthistory);
 
-module.exports = router;
+module.exports = router;

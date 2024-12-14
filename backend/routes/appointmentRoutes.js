@@ -15,15 +15,15 @@ const router = express.Router();
 router.post("/", verifyToken, createAppointment);
 
 // Update a Appointment
-router.put("/:id", isOwnerOrAdmin,verifyToken, updateAppointment);
+router.put("/:id", verifyToken, isOwnerOrAdmin, updateAppointment);
 
 // Get all AppointmentS
-router.get("/", verifyToken,isOwnerOrAdmin, getAppointments);
+router.get("/", verifyToken, isOwnerOrAdmin, getAppointments);
 
 // Get a Appointment by ID
-router.get("/:id", verifyToken,isOwnerOrAdmin, getAppointment);
+router.get("/:id", verifyToken, isOwnerOrAdmin, getAppointment);
 
 // Delete a Appointment
-router.delete("/:id", isOwnerOrAdmin, verifyToken, deleteAppointment);
+router.delete("/:id", verifyToken, isOwnerOrAdmin, deleteAppointment);
 
-module.exports = router;
+module.exports = router;

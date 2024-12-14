@@ -5,25 +5,25 @@ const {
   getCategory,
   deleteCategory,
 } = require("../controllers/category.js");
-const { verifyToken,isAdmin } = require("../middlewares/authRole.js");
+const { verifyToken, isAdmin } = require("../middlewares/authRole.js");
 
 const express = require("express");
 
 const router = express.Router();
 
 //Create category
-router.post("/",verifyToken,isAdmin,createCategory);
+router.post("/", verifyToken, isAdmin, createCategory);
 
 // Update a category
-router.put("/:id", verifyToken,isAdmin, updateCategory);
+router.put("/:id", verifyToken, isAdmin, updateCategory);
 
 // Get all categories
-router.get("/",verifyToken, getCategories);
+router.get("/", verifyToken, getCategories);
 
 // Get a category by ID
 router.get("/:id", verifyToken, getCategory);
 
 // Delete a category
-router.delete("/:id", isAdmin, verifyToken, deleteCategory);
+router.delete("/:id", verifyToken, isAdmin, deleteCategory);
 
-module.exports = router;
+module.exports = router;

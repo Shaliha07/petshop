@@ -51,7 +51,7 @@ exports.updateAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findByPk(id);
     if (!appointment) {
-      return req.status(404).json({ MediaSession: "Appointment not found" });
+      return res.status(404).json({ MediaSession: "Appointment not found" });
     }
     if (userId) {
       appointment.userId = userId;

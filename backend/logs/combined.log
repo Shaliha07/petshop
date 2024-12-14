@@ -379,3 +379,47 @@
 2024-12-12T17:41:30.410Z [Pet Care Management System] error: Error: Insufficient stock for product with ID 1
     at exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:72:15)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5);
+2024-12-14T09:24:37.562Z [Pet Care Management System] info: User logged in successfully: {"id":8,"username":"admin","email":"admin@gmail.com","firstName":"","lastName":"","contactNumber":null,"address":null,"role":"admin","status":true,"createdAt":"2024-12-03T15:08:58.655Z","updatedAt":"2024-12-03T15:08:58.655Z"};
+2024-12-14T09:24:44.289Z [Pet Care Management System] info: Appointment created successfully.;
+2024-12-14T09:24:48.421Z [Pet Care Management System] error: TypeError: req.status is not a function
+    at exports.updateAppointment (D:\petshop-1\petshop\backend\controllers\appointment.js:54:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5);
+2024-12-14T09:25:26.610Z [Pet Care Management System] info: Appointments fetched successfully;
+2024-12-14T09:26:15.601Z [Pet Care Management System] info: Category updated successfully;
+2024-12-14T09:26:19.751Z [Pet Care Management System] info: Categories fetched successfully;
+2024-12-14T09:26:23.478Z [Pet Care Management System] info: Category fetched successfully;
+2024-12-14T09:27:33.888Z [Pet Care Management System] info: Product created successfully.;
+2024-12-14T09:27:38.737Z [Pet Care Management System] info: Product updated successfully;
+2024-12-14T09:27:44.022Z [Pet Care Management System] info: Products fetched successfully;
+2024-12-14T09:30:19.560Z [Pet Care Management System] info: Service created successfully.;
+2024-12-14T09:30:23.894Z [Pet Care Management System] info: Service updated successfully;
+2024-12-14T09:30:28.006Z [Pet Care Management System] info: Services fetched successfully;
+2024-12-14T09:30:31.749Z [Pet Care Management System] info: Service fetched successfully;
+2024-12-14T09:30:36.385Z [Pet Care Management System] info: Service deleted successfully;
+2024-12-14T09:31:14.169Z [Pet Care Management System] error: Error: Insufficient stock for product with ID 1
+    at exports.addTransaction (D:\petshop-1\petshop\backend\controllers\transaction.js:72:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5);
+2024-12-14T09:33:35.509Z [Pet Care Management System] info: User updated succesfully:${user.username}(${user.email});
+2024-12-14T09:33:39.899Z [Pet Care Management System] info: Users fetched successfully;
+2024-12-14T09:33:44.617Z [Pet Care Management System] info: User fetched successfully : ${user.username} (${user.email});
+2024-12-14T09:34:16.051Z [Pet Care Management System] info: User created successfully!;
+2024-12-14T09:34:20.818Z [Pet Care Management System] info: User logged in successfully: {"id":9,"username":"malith","email":"malith@mail.com","firstName":"","lastName":"","contactNumber":null,"address":null,"role":"user","status":true,"createdAt":"2024-12-14T09:34:15.978Z","updatedAt":"2024-12-14T09:34:15.978Z"};
+2024-12-14T09:35:19.889Z [Pet Care Management System] error: Error
+    at Query.run (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\postgres\query.js:50:25)
+    at D:\petshop-1\petshop\backend\node_modules\sequelize\lib\sequelize.js:315:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async PostgresQueryInterface.update (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\dialects\abstract\query-interface.js:355:12)
+    at async model.save (D:\petshop-1\petshop\backend\node_modules\sequelize\lib\model.js:2490:35)
+    at async exports.updateUser (D:\petshop-1\petshop\backend\controllers\user.js:55:5);
+2024-12-14T09:37:24.771Z [Pet Care Management System] info: User updated succesfully:${user.username}(${user.email});
+2024-12-14T09:37:47.500Z [Pet Care Management System] info: User fetched successfully : ${user.username} (${user.email});
+2024-12-14T09:38:11.089Z [Pet Care Management System] info: Category fetched successfully;
+2024-12-14T09:38:28.382Z [Pet Care Management System] info: Products fetched successfully;
+2024-12-14T09:38:36.290Z [Pet Care Management System] info: Services fetched successfully;
+2024-12-14T09:38:40.225Z [Pet Care Management System] info: Service fetched successfully;
+2024-12-14T09:38:46.074Z [Pet Care Management System] info: Appointment created successfully.;
+2024-12-14T09:39:43.026Z [Pet Care Management System] info: Appointment created successfully.;
+2024-12-14T09:54:58.866Z [Pet Care Management System] info: Appointment created successfully.;
+2024-12-14T09:55:51.103Z [Pet Care Management System] info: Appointment updated successfully;
+2024-12-14T09:56:06.038Z [Pet Care Management System] info: Appointments fetched successfully;
+2024-12-14T09:56:36.660Z [Pet Care Management System] info: Appointment fetched successfully;

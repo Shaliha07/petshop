@@ -13,10 +13,10 @@ const express = require("express");
 const router = express.Router();
 
 //Create Product
-router.post("/", verifyToken, createProduct);
+router.post("/", verifyToken, isAdmin, createProduct);
 
 // Update a Product
-router.put("/:id", verifyToken, updateProduct);
+router.put("/:id", verifyToken, isAdmin, updateProduct);
 
 // Get all ProductS
 router.get("/", verifyToken, getProducts);
@@ -25,9 +25,9 @@ router.get("/", verifyToken, getProducts);
 router.get("/:id", verifyToken, getProduct);
 
 // Get Product by category id
-router.get("/categories/:categoryId",verifyToken,getProductByCategoryid)
+router.get("/categories/:categoryId", verifyToken, getProductByCategoryid);
 
 // Delete a Product
-router.delete("/:id", isAdmin, verifyToken, deleteProduct);
+router.delete("/:id", verifyToken, isAdmin, deleteProduct);
 
-module.exports = router;
+module.exports = router;

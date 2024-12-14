@@ -12,18 +12,18 @@ const express = require("express");
 const router = express.Router();
 
 //Create Service
-router.post("/", verifyToken,isAdmin, createService);
+router.post("/", verifyToken, isAdmin, createService);
 
 // Update a Service
-router.put("/:id", verifyToken,isAdmin, updateService);
+router.put("/:id", verifyToken, isAdmin, updateService);
 
 // Get all ServiceS
 router.get("/", verifyToken, getServices);
 
 // Get a Service by ID
-router.get("/:id", verifyToken,getService);
+router.get("/:id", verifyToken, getService);
 
 // Delete a Service
-router.delete("/:id", verifyToken,isAdmin,deleteService);
+router.delete("/:id", verifyToken, isAdmin, deleteService);
 
-module.exports = router;
+module.exports = router;
