@@ -280,11 +280,23 @@
 - **Method:** `GET`
 - **Request Body:** `**`
 
+```json
+{
+  "userId":1
+}
+```
+
 #### 31.**Retrieve transaction**
 
 - **URL:** `transactions/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
+
+```json
+{
+  "userId":1
+}
+```
 
 #### 32.**Update transaction**
 
@@ -293,7 +305,7 @@
 - **Request Body:** `**`
 
 ```json
-{
+{ "userId":1,
   "items": [{ "productId": 1, "quantity": 5, "price": 40 }]
 }
 ```
@@ -310,11 +322,23 @@
 - **Method:** `GET`
 - **Request Body:** `**`
 
+```json
+{
+  "userId":1
+}
+```
+
 #### 35.**Retrieve payment history**
 
 - **URL:** `payments/:id`
 - **Method:** `GET`
 - **Request Body:** `**`
+
+```json
+{
+  "userId":1
+}
+```
 
 #### 36.**Communicating with Chatbot**
 
