@@ -4,7 +4,6 @@ import 'package:shane_and_shawn_petshop/summary_page.dart';
 
 class OrderConfirmation extends StatelessWidget {
   final bool isSuccess;
-
   final double amountPaid;
   final String paymentMethod;
   final int quantity;
@@ -57,9 +56,7 @@ class OrderConfirmation extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
-                const SizedBox(height: 20),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -102,21 +99,23 @@ class OrderConfirmation extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const ProductsPage(selectedFilter: "All")),
+                          builder: (context) =>
+                              const ProductsPage(selectedFilter: "All"),
+                        ),
                         (route) => false,
                       );
                     } else {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SummaryPage(
-                                  quantity: quantity,
-                                  productPrice: productPrice,
-                                  productId: productId,
-                                  discount: discount,
-                                  productName: productName,
-                                )),
+                          builder: (context) => SummaryPage(
+                            quantity: quantity,
+                            productPrice: productPrice,
+                            productId: productId,
+                            discount: discount,
+                            productName: productName,
+                          ),
+                        ),
                       );
                     }
                   },

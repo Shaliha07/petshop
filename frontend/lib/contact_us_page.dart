@@ -103,7 +103,7 @@ class ContactUsPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
-                            "Hello! We'd be happy to help. Can you please let us know your preferred date and time?",
+                            "Hello! We'd be happy to help. Can you please let us know what you want ?",
                             style: TextStyle(color: Colors.black),
                           ),
                         ),

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -39,13 +38,14 @@ class _SchedulingPageState extends State<SchedulingPage> {
   }
 
   Future<void> createAppointment() async {
-    // Step 1: Validate Token
     String? token = TokenManager.instance.accessToken;
     if (token == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("No access token available. Please log in again."),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("No access token available. Please log in again."),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
@@ -53,13 +53,14 @@ class _SchedulingPageState extends State<SchedulingPage> {
     print('Decoded JWT Payload: $payload');
     int userId = payload['id'];
 
-    // Step 2: Fetch API URL
     String? localIp = dotenv.env['LOCAL_IP'];
     if (localIp == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Server URL not configured. Please try again later."),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Server URL not configured. Please try again later."),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
@@ -74,7 +75,6 @@ class _SchedulingPageState extends State<SchedulingPage> {
     print("additionalInformation: ${specialNotesController.text}");
 
     try {
-      // Step 4: Send POST Request
       final response = await http.post(
         url,
         headers: {
@@ -96,10 +96,12 @@ class _SchedulingPageState extends State<SchedulingPage> {
       // Step 5: Handle Response
       if (response.statusCode == 201 || response.statusCode == 200) {
         print('Appointment created successfully: ${response.body}');
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Appointment created successfully!"),
-          backgroundColor: Colors.green,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Appointment created successfully!"),
+            backgroundColor: Colors.green,
+          ),
+        );
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -116,10 +118,12 @@ class _SchedulingPageState extends State<SchedulingPage> {
       }
     } catch (error) {
       print('Network Error: $error');
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Network error occurred. Please try again later."),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Network error occurred. Please try again later."),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -202,8 +206,10 @@ class _SchedulingPageState extends State<SchedulingPage> {
                       focusNode: FocusNode(),
                     ),
                     const SizedBox(height: 10),
-                    const Text('Appointment Type / Service',
-                        style: TextStyle(color: Colors.black, fontSize: 16)),
+                    const Text(
+                      'Appointment Type / Service',
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    ),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(

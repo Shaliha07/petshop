@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shane_and_shawn_petshop/token_manager.dart';
+import 'package:shane_and_shawn_petshop/under_construction_page.dart';
 import 'home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -37,14 +38,18 @@ class _LoginPageState extends State<LoginPage> {
       final url = Uri.parse('${dotenv.env['LOCAL_IP']}/auth/login');
 
       try {
-        final response = await http.post(url,
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: jsonEncode({
+        final response = await http.post(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonEncode(
+            {
               "username": username,
               "password": password,
-            }));
+            },
+          ),
+        );
 
         if (response.statusCode == 200) {
           globalUsername = username;
@@ -104,29 +109,34 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Image.asset('images/logo.png', height: 150),
                     Container(
-                        alignment: Alignment.centerLeft,
-                        child: Image.asset('images/hexagon_left.png',
-                            height: 125, fit: BoxFit.cover)),
+                      alignment: Alignment.centerLeft,
+                      child: Image.asset('images/hexagon_left.png',
+                          height: 125, fit: BoxFit.cover),
+                    ),
                     TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'Username',
-                            prefixIcon: const Icon(Icons.person_outline),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none),
-                            filled: true,
-                            fillColor: const Color(0xffE5E5E5)),
-                        onChanged: (value) {
-                          setState(() {
+                      decoration: InputDecoration(
+                        hintText: 'Username',
+                        prefixIcon: const Icon(Icons.person_outline),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none),
+                        filled: true,
+                        fillColor: const Color(0xffE5E5E5),
+                      ),
+                      onChanged: (value) {
+                        setState(
+                          () {
                             _username = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your username';
-                          }
-                          return null;
-                        }),
+                          },
+                        );
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username';
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(height: 20),
                     TextFormField(
                         obscureText: _obscureText,
@@ -153,9 +163,11 @@ class _LoginPageState extends State<LoginPage> {
                             filled: true,
                             fillColor: const Color(0xffE5E5E5)),
                         onChanged: (value) {
-                          setState(() {
-                            _password = value;
-                          });
+                          setState(
+                            () {
+                              _password = value;
+                            },
+                          );
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -194,7 +206,15 @@ class _LoginPageState extends State<LoginPage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const UnderConstructionPage(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Forgot Password?',
                           style: TextStyle(

@@ -25,7 +25,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
 
-  bool _isPasswordVisible = false; // State variable to toggle visibility
+  bool _isPasswordVisible = false;
 
   @override
   void dispose() {
@@ -43,23 +43,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (_formKey.currentState!.validate()) {
       String? token = TokenManager.instance.accessToken;
 
-      // Debugging: Token check
       print('Access Token: $token');
 
       if (token == null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('No access token available. Please log in again.'),
-          backgroundColor: Colors.red,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No access token available. Please log in again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
         return;
       }
 
-      // Decode the JWT to get the user ID
       Map<String, dynamic> payload = Jwt.parseJwt(token);
       print('Decoded JWT Payload: $payload');
       int userId = payload['id'];
 
-      // Get user details from form fields
       String username = usernameController.text.trim();
       String email = emailController.text.trim();
       String contact = contactController.text.trim();
@@ -68,7 +67,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       String firstName = firstNameController.text.trim();
       String lastName = lastNameController.text.trim();
 
-      // Debugging: Form field values
       print('Form Values:');
       print('Username: $username');
       print('First Name: $firstName');
@@ -77,7 +75,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       print('Contact: $contact');
       print('Address: $address');
 
-      // Construct API URL
       String? localIp;
       try {
         localIp = dotenv.env['LOCAL_IP'];
@@ -87,16 +84,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       if (localIp == null) {
         print('Error: LOCAL_IP is not set in .env file.');
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Server URL not configured. Please try again later.'),
-          backgroundColor: Colors.red,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Server URL not configured. Please try again later.'),
+            backgroundColor: Colors.red,
+          ),
+        );
         return;
       }
 
       final url = Uri.parse('$localIp/users/$userId');
 
-      // Debugging: URL and payload
       print('API URL: $url');
       print('Request Payload: ${{
         "username": username,
@@ -109,12 +107,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
       }}');
 
       try {
-        final response = await http.put(url,
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer $token",
-            },
-            body: jsonEncode({
+        final response = await http.put(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $token",
+          },
+          body: jsonEncode(
+            {
               "username": username,
               "email": email,
               "password": password,
@@ -122,37 +122,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
               "lastName": lastName,
               "contactNumber": contact,
               "address": address,
-            }));
+            },
+          ),
+        );
 
-        // Debugging: Response status and body
         print('Response Status: ${response.statusCode}');
         print('Response Body: ${response.body}');
 
         if (response.statusCode == 200) {
           final responseData = jsonDecode(response.body);
 
-          // Handle success
           print('Profile updated successfully: $responseData');
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const ProfilePage()),
           );
         } else {
-          // Handle server-side error
           final responseData = jsonDecode(response.body);
           print('Server Error: $responseData');
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(responseData['message'] ?? 'Failed to save the user'),
-            backgroundColor: Colors.red,
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:
+                  Text(responseData['message'] ?? 'Failed to save the user'),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       } catch (error) {
-        // Handle network or unexpected errors
         print("Error occurred during API request: $error");
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('An error occurred. Please try again later.'),
-          backgroundColor: Colors.red,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('An error occurred. Please try again later.'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
@@ -194,10 +197,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const UnderConstructionPage()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const UnderConstructionPage(),
+                                ),
+                              );
                             },
                             child: const CircleAvatar(
                               radius: 15,
@@ -252,9 +257,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             value.length < 6) {
                           return 'Password must be at least 6 characters long';
                         }
-                        return null; // Allow empty passwords
+                        return null;
                       },
-                      isPassword: true, // Pass true to enable password behavior
+                      isPassword: true,
                     ),
                     buildProfileTextField(
                       label: 'Email',

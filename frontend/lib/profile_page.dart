@@ -104,7 +104,6 @@ class _ProfilePageState extends State<ProfilePage> {
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     print('Decoded JWT Payload: $payload');
 
-    // Try to extract userId safely
     int? userId = payload['id'] ?? payload['userId'] ?? payload['sub'];
     print('User ID: $userId');
 
@@ -175,7 +174,7 @@ class _ProfilePageState extends State<ProfilePage> {
     int? userId;
     try {
       Map<String, dynamic> payload = Jwt.parseJwt(token);
-      userId = payload['id']; // Ensure 'id' is part of the payload
+      userId = payload['id'];
       if (userId == null) {
         throw Exception("User ID not found in token payload.");
       }
@@ -322,9 +321,13 @@ class _ProfilePageState extends State<ProfilePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Card Type: $cardType',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xff65558F))),
+                Text(
+                  'Card Type: $cardType',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff65558F),
+                  ),
+                ),
                 Text(
                   'Card Number: $cardNumber',
                   style: const TextStyle(

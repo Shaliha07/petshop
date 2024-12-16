@@ -59,7 +59,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
     int? userId;
     try {
       Map<String, dynamic> payload = Jwt.parseJwt(token);
-      userId = payload['id']; // Ensure 'id' is part of the payload
+      userId = payload['id'];
       if (userId == null) {
         throw Exception("User ID not found in token payload.");
       }
@@ -227,11 +227,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     ),
                   ),
                 ),
-                const Text('Select date',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black)),
+                const Text(
+                  'Select date',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                ),
                 const SizedBox(height: 10),
                 Card(
                   color: const Color(0xffECE6F0),
@@ -269,9 +271,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100),
                           onDateChanged: (date) {
-                            setState(() {
-                              selectedDate = date;
-                            });
+                            setState(
+                              () {
+                                selectedDate = date;
+                              },
+                            );
                           },
                         ),
                         const SizedBox(height: 10),
@@ -280,9 +284,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                setState(() {
-                                  selectedDate = DateTime.now();
-                                });
+                                setState(
+                                  () {
+                                    selectedDate = DateTime.now();
+                                  },
+                                );
                               },
                               child: const Text('Clear',
                                   style: TextStyle(color: Colors.purple)),
@@ -328,14 +334,16 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text('Current Appointments',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black)),
+                const Text(
+                  'Current Appointments',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                ),
                 const SizedBox(height: 10),
                 SizedBox(
-                  width: double.infinity, // or any desired size
+                  width: double.infinity,
                   height: 0 + (appointmentHistories.length * 200),
                   child: ClipRect(
                     child: appointmentHistories.isEmpty

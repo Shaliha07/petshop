@@ -45,12 +45,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
   bool isLoading = false;
   Future<void> addTransaction() async {
     setState(() {
-      isLoading = true; // Start loading
+      isLoading = true;
     });
 
     String? token = TokenManager.instance.accessToken;
 
-    // Debugging: Token check
     print('Access Token: $token');
 
     if (token == null) {
@@ -59,20 +58,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
         backgroundColor: Colors.red,
       ));
       setState(() {
-        isLoading = false; // Stop loading
+        isLoading = false;
       });
       return;
     }
 
-    // Decode the JWT to get the user ID
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     print('Decoded JWT Payload: $payload');
     int userId = payload['id'];
 
-    // Get the current date
     String currentDate = DateTime.now().toIso8601String().substring(0, 10);
 
-    // Construct API URL
     String? localIp = dotenv.env['LOCAL_IP'];
 
     if (localIp == null) {
@@ -86,7 +82,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     final url = Uri.parse('$localIp/transactions/');
 
-    // Debugging: URL and payload
     print('API URL: $url');
     print('Request Payload: ${{
       "userId": userId,
@@ -128,14 +123,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
         }),
       );
 
-      // Debugging: Response status and body
       print('Response Status: ${response.statusCode}');
       print('Response Body: ${response.body}');
 
       if (response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
 
-        // Handle success
         print('Transaction saved successfully: $responseData');
         Navigator.pushReplacement(
           context,
@@ -153,26 +146,30 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
         );
       } else {
-        // Handle server-side error
         final responseData = jsonDecode(response.body);
         print('Server Error: $responseData');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content:
-              Text(responseData['message'] ?? 'Failed to save the transaction'),
-          backgroundColor: Colors.red,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                responseData['message'] ?? 'Failed to save the transaction'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     } catch (error) {
-      // Handle network or unexpected errors
       print("Error occurred during API request: $error");
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('An error occurred. Please try again later.'),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred. Please try again later.'),
+          backgroundColor: Colors.red,
+        ),
+      );
     } finally {
-      setState(() {
-        isLoading = false; // Stop loading
-      });
+      setState(
+        () {
+          isLoading = false;
+        },
+      );
     }
   }
 
@@ -287,10 +284,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       child: ElevatedButton.icon(
                         onPressed: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ProfilePage(),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilePage(),
+                            ),
+                          );
                         },
                         icon: const Icon(Icons.add_circle),
                         label: const Text('Add another card'),
@@ -434,12 +432,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     const SizedBox(height: 30),
                     Center(
                       child: isLoading
-                          ? const CircularProgressIndicator() // Show loader during API call
+                          ? const CircularProgressIndicator()
                           : ElevatedButton(
                               onPressed: () async {
                                 await addTransaction();
                               },
-                              // Call the API
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.white,
                                 backgroundColor: Colors.red,

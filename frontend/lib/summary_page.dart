@@ -85,7 +85,6 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
-
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
@@ -97,7 +96,6 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: AddressCard(
@@ -210,7 +208,6 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Billing summary
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: BillingSummary(
@@ -219,7 +216,6 @@ class _SummaryPageState extends State<SummaryPage> {
                   total: totalPrice,
                 ),
               ),
-
               const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
@@ -227,14 +223,15 @@ class _SummaryPageState extends State<SummaryPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CheckoutPage(
-                                total: totalPrice,
-                                productId: widget.productId,
-                                quantity: widget.quantity,
-                                productPrice: widget.productPrice,
-                                discount: widget.discount,
-                                productName: widget.productName,
-                              )),
+                        builder: (context) => CheckoutPage(
+                          total: totalPrice,
+                          productId: widget.productId,
+                          quantity: widget.quantity,
+                          productPrice: widget.productPrice,
+                          discount: widget.discount,
+                          productName: widget.productName,
+                        ),
+                      ),
                     );
                   },
                   style: ElevatedButton.styleFrom(

@@ -521,3 +521,16 @@
 2024-12-15T20:22:50.964Z [Pet Care Management System] info: Products fetched successfully;
 2024-12-15T20:29:12.619Z [Pet Care Management System] info: Appointments fetched successfully;
 2024-12-15T20:30:30.506Z [Pet Care Management System] info: User logged in successfully: {"id":3,"username":"Malith","email":"malith12@gmail.com","firstName":null,"lastName":null,"contactNumber":null,"address":null,"role":"user","status":true,"createdAt":"2024-12-12T16:22:42.960Z","updatedAt":"2024-12-12T16:22:42.960Z"};
+2024-12-16T14:18:41.788Z [Pet Care Management System] info: User logged in successfully: {"id":3,"username":"Malith","email":"malith12@gmail.com","firstName":null,"lastName":null,"contactNumber":null,"address":null,"role":"user","status":true,"createdAt":"2024-12-12T16:22:42.960Z","updatedAt":"2024-12-12T16:22:42.960Z"};
+2024-12-16T14:18:46.793Z [Pet Care Management System] info: Products fetched successfully;
+2024-12-16T14:23:14.794Z [Pet Care Management System] info: User logged in successfully: {"id":3,"username":"Malith","email":"malith12@gmail.com","firstName":null,"lastName":null,"contactNumber":null,"address":null,"role":"user","status":true,"createdAt":"2024-12-12T16:22:42.960Z","updatedAt":"2024-12-12T16:22:42.960Z"};
+2024-12-16T16:34:21.877Z [Pet Care Management System] info: User logged in successfully: {"id":3,"username":"Malith","email":"malith12@gmail.com","firstName":null,"lastName":null,"contactNumber":null,"address":null,"role":"user","status":true,"createdAt":"2024-12-12T16:22:42.960Z","updatedAt":"2024-12-12T16:22:42.960Z"};
+2024-12-16T16:34:28.277Z [Pet Care Management System] info: Products fetched successfully;
+2024-12-16T16:34:41.763Z [Pet Care Management System] info: Product fetched successfully;
+2024-12-16T16:43:30.653Z [Pet Care Management System] info: Products fetched successfully;
+2024-12-16T16:43:30.658Z [Pet Care Management System] info: Product fetched successfully;
+2024-12-16T16:43:31.919Z [Pet Care Management System] info: Product fetched successfully;
+2024-12-16T16:44:00.241Z [Pet Care Management System] info: Appointments fetched successfully;
+2024-12-16T16:55:39.157Z [Pet Care Management System] info: User logged in successfully: {"id":3,"username":"Malith","email":"malith12@gmail.com","firstName":null,"lastName":null,"contactNumber":null,"address":null,"role":"user","status":true,"createdAt":"2024-12-12T16:22:42.960Z","updatedAt":"2024-12-12T16:22:42.960Z"};
+2024-12-16T16:55:43.232Z [Pet Care Management System] info: Products fetched successfully;
+2024-12-16T16:55:45.505Z [Pet Care Management System] info: Product fetched successfully;

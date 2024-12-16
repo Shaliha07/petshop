@@ -6,25 +6,25 @@ class TokenManager {
 
   TokenManager._privateConstructor();
 
-  String? get accessToken => _accessToken; // Read-only access
+  String? get accessToken => _accessToken;
 
   Future<void> setAccessToken(String token) async {
     _accessToken = token;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('accessToken', token);
-    print('Token saved: $token'); // Debugging line
+    print('Token saved: $token');
   }
 
   Future<void> clearAccessToken() async {
     _accessToken = null;
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('accessToken');
-    print('Token cleared'); // Debugging line
+    print('Token cleared');
   }
 
   Future<void> loadToken() async {
     final prefs = await SharedPreferences.getInstance();
     _accessToken = prefs.getString('accessToken') ?? null;
-    print('Token loaded: $_accessToken'); // Debugging line
+    print('Token loaded: $_accessToken');
   }
 }

@@ -303,29 +303,31 @@ class _ProductsPageState extends State<ProductsPage> {
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
-                        setState(() {
-                          selectedSorting = newValue!;
-                          switch (selectedSorting) {
-                            case 'Default':
-                              products.sort(
-                                  (a, b) => a.productID.compareTo(b.productID));
-                              break;
-                            case 'Order by Latest':
-                              products.sort(
-                                  (a, b) => b.createdAt.compareTo(a.createdAt));
-                              break;
-                            case 'Price: Low to High':
-                              products.sort((a, b) =>
-                                  a.sellingPrice.compareTo(b.sellingPrice));
-                              break;
-                            case 'Price: High to Low':
-                              products.sort((a, b) =>
-                                  b.sellingPrice.compareTo(a.sellingPrice));
-                              break;
-                            default:
-                              break;
-                          }
-                        });
+                        setState(
+                          () {
+                            selectedSorting = newValue!;
+                            switch (selectedSorting) {
+                              case 'Default':
+                                products.sort((a, b) =>
+                                    a.productID.compareTo(b.productID));
+                                break;
+                              case 'Order by Latest':
+                                products.sort((a, b) =>
+                                    b.createdAt.compareTo(a.createdAt));
+                                break;
+                              case 'Price: Low to High':
+                                products.sort((a, b) =>
+                                    a.sellingPrice.compareTo(b.sellingPrice));
+                                break;
+                              case 'Price: High to Low':
+                                products.sort((a, b) =>
+                                    b.sellingPrice.compareTo(a.sellingPrice));
+                                break;
+                              default:
+                                break;
+                            }
+                          },
+                        );
                       },
                     ),
                   ),

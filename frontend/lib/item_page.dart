@@ -144,7 +144,6 @@ class _ItemPageState extends State<ItemPage> {
 
   int quantity = 1;
   bool isFavorite = false;
-  int soldQuantity = 0;
 
   String categoryName = 'Medicine';
   int categoryID = 1;
@@ -268,23 +267,6 @@ class _ItemPageState extends State<ItemPage> {
                         ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const SizedBox(width: 10),
-                            Text(
-                              '$soldQuantity Sold',
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.green),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -378,7 +360,8 @@ class _ItemPageState extends State<ItemPage> {
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(8)),
+                        left: Radius.circular(8),
+                      ),
                     ),
                     child: const Padding(
                       padding:
@@ -399,9 +382,11 @@ class _ItemPageState extends State<ItemPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      quantity++;
-                    });
+                    setState(
+                      () {
+                        quantity++;
+                      },
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -427,14 +412,15 @@ class _ItemPageState extends State<ItemPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CartPage(
-                          imageUrl: widget.imageUrl,
-                          productID: widget.productID,
-                          productName: widget.productName,
-                          productPrice: widget.productPrice,
-                          stockQty: widget.stockQty,
-                          quantity: quantity,
-                        )),
+                  builder: (context) => CartPage(
+                    imageUrl: widget.imageUrl,
+                    productID: widget.productID,
+                    productName: widget.productName,
+                    productPrice: widget.productPrice,
+                    stockQty: widget.stockQty,
+                    quantity: quantity,
+                  ),
+                ),
               );
             },
             style: ElevatedButton.styleFrom(
@@ -453,9 +439,11 @@ class _ItemPageState extends State<ItemPage> {
           ),
           GestureDetector(
             onTap: () {
-              setState(() {
-                isFavorite = !isFavorite;
-              });
+              setState(
+                () {
+                  isFavorite = !isFavorite;
+                },
+              );
             },
             child: Container(
               padding: const EdgeInsets.all(10),
