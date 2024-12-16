@@ -27,8 +27,11 @@ class _ChatBotPageState extends State<ChatBotPage> {
     });
 
     final token = TokenManager.instance.accessToken;
-    final localIp = dotenv.env['LOCAL_IP'];
-    final url = Uri.parse('$localIp/chatbot/');
+
+    //final localIp = dotenv.env['LOCAL_IP'];
+    //final url = Uri.parse('$localIp/chatbot/');
+
+    final url = Uri.parse('https://4536-35-184-93-79.ngrok-free.app/chat');
 
     void addBotMessage(String text) {
       setState(() {
@@ -49,7 +52,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        body: json.encode({"query": userMessage}),
+        body: json.encode({"message": userMessage}),
+        //body: json.encode({"query": userMessage}),
       );
 
       if (response.statusCode == 200) {
@@ -231,7 +235,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 message["text"],
                 textAlign: isBot ? TextAlign.left : TextAlign.right,
                 style: TextStyle(
-                  color: isBot ? Colors.white : Colors.black,
+                  color: isBot ? Colors.black : Colors.black,
                 ),
               ),
             ),
