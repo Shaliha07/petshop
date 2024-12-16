@@ -7,7 +7,6 @@ import 'package:shane_and_shawn_petshop/services_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;
-
   const BottomNavBar({super.key, required this.currentIndex});
 
   @override
@@ -16,7 +15,6 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   late int currentIndex;
-
   @override
   void initState() {
     super.initState();
@@ -36,14 +34,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomePage(username: 'Max'),
+                builder: (context) => const HomePage(),
               ),
             );
           } else if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProductsPage(activeFilter: 'All'),
+                builder: (context) => const ProductsPage(
+                  selectedFilter: 'All',
+                ),
               ),
             );
           } else if (index == 2) {

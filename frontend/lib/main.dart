@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
 import 'getstarted.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'token_manager.dart'; // Import the Singleton
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-  const MyApp();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/getstarted', // Show GetStarted if no token// Otherwise redirect to login (or home if logged in),
+      initialRoute: '/getstarted',
       routes: {
         '/getstarted': (context) => const GetStartedPage(),
         '/login': (context) => const LoginPage(),

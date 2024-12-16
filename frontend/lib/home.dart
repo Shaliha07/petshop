@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'bottom_navbar.dart';
 import 'chatbot.dart';
 import 'products_page.dart';
+import 'package:carousel_slider/carousel_slider.dart' as cs;
+import 'globals.dart';
 
 class HomePage extends StatelessWidget {
-  final String username;
-
-  const HomePage({super.key, required this.username});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
-                    'Welcome , $username !',
+                    'Welcome ,  $globalUsername !',
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -118,7 +118,9 @@ class HomePage extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            ProductsPage(activeFilter: 'All'),
+                                            const ProductsPage(
+                                          selectedFilter: 'All',
+                                        ),
                                       ),
                                     );
                                   },
@@ -166,8 +168,9 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                ProductsPage(activeFilter: 'Toys'),
+                            builder: (context) => const ProductsPage(
+                              selectedFilter: 'Toys',
+                            ),
                           ),
                         );
                       },
@@ -179,8 +182,9 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                ProductsPage(activeFilter: 'Food'),
+                            builder: (context) => const ProductsPage(
+                              selectedFilter: 'Food',
+                            ),
                           ),
                         );
                       },
@@ -193,8 +197,9 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                ProductsPage(activeFilter: 'Medicine'),
+                            builder: (context) => const ProductsPage(
+                              selectedFilter: 'Medicine',
+                            ),
                           ),
                         );
                       },
@@ -207,24 +212,42 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductsPage(activeFilter: 'All'),
+                      builder: (context) =>
+                          const ProductsPage(selectedFilter: 'All'),
                     ),
                   );
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: Image.asset(
-                          'images/home_banner_brands.png',
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                    ],
+                child: cs.CarouselSlider(
+                  options: cs.CarouselOptions(
+                    height: 220,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    enlargeCenterPage: true,
+                    viewportFraction: 0.97,
                   ),
+                  items: [
+                    'images/homecover1.jpg',
+                    'images/homecover2.jpg',
+                    'images/homecover3.jpg',
+                    'images/homecover4.jpg',
+                    'images/homecover5.jpg',
+                    'images/homecover6.jpg',
+                  ].map((String imagePath) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage(imagePath),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
                 ),
               ),
             ],
@@ -250,8 +273,8 @@ class HomePage extends StatelessWidget {
               child: Image.asset(
                 'images/chatbot.png',
                 fit: BoxFit.cover,
-                width: 70,
-                height: 70,
+                width: 80,
+                height: 80,
               ),
             ),
           ),

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shane_and_shawn_petshop/globals.dart';
+import 'package:shane_and_shawn_petshop/token_manager.dart';
 
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({super.key});
@@ -9,15 +14,56 @@ class ChatBotPage extends StatefulWidget {
 
 class _ChatBotPageState extends State<ChatBotPage> {
   List<Map<String, dynamic>> messages = [
-    {"isBot": true, "text": "Hi Max, How can I help you today ?"},
-    {"isBot": false, "text": "Hi, I'm looking for a dog food recommendation"},
-    {
-      "isBot": true,
-      "text": "Can you please tell me the breed and age of your dog?"
-    },
+    {"isBot": true, "text": "Hi $globalUsername, How can I help you today?"},
   ];
 
-  bool showAttachments = false;
+  final TextEditingController _controller = TextEditingController();
+  bool isLoading = false;
+
+  Future<void> sendMessage(String userMessage) async {
+    setState(() {
+      messages.add({"isBot": false, "text": userMessage});
+      isLoading = true;
+    });
+
+    final token = TokenManager.instance.accessToken;
+    final localIp = dotenv.env['LOCAL_IP'];
+    final url = Uri.parse('$localIp/chatbot/');
+
+    void addBotMessage(String text) {
+      setState(() {
+        messages.add({"isBot": true, "text": text});
+        isLoading = false;
+      });
+    }
+
+    if (token == null) {
+      addBotMessage("No access token available. Please log in again.");
+      return;
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: json.encode({"query": userMessage}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body) as Map<String, dynamic>;
+        addBotMessage(data['response'] ?? "No response from server.");
+      } else {
+        final errorData = json.decode(response.body) as Map<String, dynamic>;
+        addBotMessage(errorData['message'] ?? "Failed to process the request.");
+      }
+    } catch (error) {
+      print("Error sending message: $error");
+      addBotMessage("Error connecting to the server. Please try again later.");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,29 +114,35 @@ class _ChatBotPageState extends State<ChatBotPage> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: Image.asset(
-                'images/chatbot.png',
-                height: 100,
-              ),
-            ),
-
             Expanded(
               child: SingleChildScrollView(
                 reverse: true,
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
-                  children: List.generate(messages.length, (index) {
-                    return buildMessage(messages[index]);
-                  }),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Image.asset(
+                        'images/chatbot.png',
+                        height: 100,
+                      ),
+                    ),
+                    ...List.generate(messages.length, (index) {
+                      return buildMessage(messages[index]);
+                    }),
+                  ],
                 ),
               ),
             ),
 
+            if (isLoading)
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CircularProgressIndicator(),
+              ),
+
             Column(
               children: [
-                if (showAttachments) buildAttachments(),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -104,9 +156,10 @@ class _ChatBotPageState extends State<ChatBotPage> {
                           ),
                           child: Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: TextField(
-                                  decoration: InputDecoration(
+                                  controller: _controller,
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Type Message",
                                     hintStyle:
@@ -114,28 +167,25 @@ class _ChatBotPageState extends State<ChatBotPage> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    showAttachments = !showAttachments;
-                                  });
-                                },
-                                child: const Icon(
-                                  Icons.attach_file,
-                                  color: Color(0xff65558F),
-                                ),
-                              ),
                             ],
                           ),
                         ),
                       ),
                       const SizedBox(width: 10.0),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        child: const Icon(
-                          Icons.send,
-                          color: Color(0xff65558F),
-                          size: 30,
+                      GestureDetector(
+                        onTap: () {
+                          if (_controller.text.trim().isNotEmpty) {
+                            sendMessage(_controller.text.trim());
+                            _controller.clear();
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          child: const Icon(
+                            Icons.send,
+                            color: Color(0xff65558F),
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],
@@ -154,6 +204,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
     return Align(
       alignment: isBot ? Alignment.centerLeft : Alignment.centerRight,
       child: Row(
+        mainAxisAlignment:
+            isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (isBot) ...[
@@ -195,44 +247,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
           ],
         ],
       ),
-    );
-  }
-
-  Widget buildAttachments() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildAttachmentIcon(Icons.photo, "Gallery"),
-          buildAttachmentIcon(Icons.camera_alt, "Camera"),
-          buildAttachmentIcon(Icons.audiotrack, "Audio"),
-        ],
-      ),
-    );
-  }
-
-  Widget buildAttachmentIcon(IconData icon, String label) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: const Color(0xff65558F)),
-          ),
-        ),
-        const SizedBox(height: 5.0),
-        Text(
-          label,
-          style: const TextStyle(color: Color(0xff65558F)),
-        ),
-      ],
     );
   }
 }

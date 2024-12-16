@@ -14,75 +14,77 @@ class GetStartedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                    child: Column(
-                      children: [
-                        // Logo
-                        SizedBox(
-                          width: 200,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Center(
+                        child: Image.asset(
+                          'images/logo.png',
                           height: 200,
-                          child: Center(
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: 300,
+                      height: 260,
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
                             child: Image.asset(
-                              'images/logo.png',
-                              height: 200,
+                              'images/get_started_decoration.png',
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        Container(
-                            width: 300,
-                            height: 260,
-                            alignment: Alignment.center,
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: Image.asset(
-                                    'images/get_started_decoration.png',
-                                    fit: BoxFit.cover,
+                          Center(
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: const TextSpan(
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    height: 1.52,
+                                    letterSpacing: 0.035,
+                                    color: Colors.black),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Helping you\n',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w400),
                                   ),
-                                ),
-                                Center(
-                                    child: RichText(
-                                        textAlign: TextAlign.center,
-                                        text: const TextSpan(
-                                            style: TextStyle(
-                                                fontSize: 30,
-                                                height: 1.52,
-                                                letterSpacing: 0.035,
-                                                color: Colors.black),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: 'Helping you\n',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              TextSpan(
-                                                text: 'to keep ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                  text: 'your bestie',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color: Color.fromARGB(
-                                                          255, 39, 120, 186))),
-                                              TextSpan(
-                                                text: '\nstay healthy!',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              )
-                                            ])))
-                              ],
-                            ))
-                      ],
-                    ))),
+                                  TextSpan(
+                                    text: 'to keep ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'your bestie',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      color: Color.fromARGB(255, 39, 120, 186),
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '\nstay healthy!',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Container(
               height: 317,
               padding: const EdgeInsets.only(top: 5),

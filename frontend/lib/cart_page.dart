@@ -3,23 +3,37 @@ import 'package:shane_and_shawn_petshop/summary_page.dart';
 import 'bottom_navbar.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+  final String imageUrl;
+  final String productID;
+  final String productName;
+  final double productPrice;
+  final int stockQty;
+  final int quantity;
+
+  const CartPage(
+      {super.key,
+      required this.imageUrl,
+      required this.productID,
+      required this.productName,
+      required this.productPrice,
+      required this.stockQty,
+      required this.quantity});
 
   @override
   _CartPageState createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-  int quantity = 1;
-  bool isSelected = false;
   int currentIndex = 1;
 
-  final String imageUrl = 'images/product.jpg';
-  final String productID = '001';
-  final String productName = 'Flexible Joint';
-  int stockQuantity = 4;
-  final double productPrice = 5500.00;
-  final double totalPrice = 5500.00;
+  late int quantity;
+  @override
+  void initState() {
+    super.initState();
+    quantity = widget.quantity;
+  }
+
+  double get totalPrice => widget.productPrice * quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -85,19 +99,14 @@ class _CartPageState extends State<CartPage> {
                     ),
                     const SizedBox(height: 5),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          '$quantity item',
+                          '${widget.quantity} item(s)',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xff65558F),
                           ),
-                        ),
-                        IconButton(
-                          icon:
-                              Icon(Icons.edit_square, color: Colors.grey[800]),
-                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -122,7 +131,7 @@ class _CartPageState extends State<CartPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Image.asset(
-                                imageUrl,
+                                widget.imageUrl,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover,
@@ -133,14 +142,14 @@ class _CartPageState extends State<CartPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      productName,
+                                      widget.productName,
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      productID,
+                                      widget.productID,
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black54,
@@ -148,7 +157,7 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      '$stockQuantity in stock',
+                                      '${widget.stockQty} in stock',
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.green,
@@ -156,7 +165,7 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      'LKR $productPrice',
+                                      'LKR ${widget.productPrice.toStringAsFixed(2)}',
                                       style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.red,
@@ -166,19 +175,6 @@ class _CartPageState extends State<CartPage> {
                                 ),
                               ),
                             ],
-                          ),
-                          Positioned(
-                            top: -8,
-                            right: -8,
-                            child: Checkbox(
-                              value: isSelected,
-                              onChanged: (value) {
-                                setState(() {
-                                  isSelected = value!;
-                                });
-                              },
-                              activeColor: Colors.grey[800],
-                            ),
                           ),
                           Positioned(
                             bottom: 0,
@@ -269,7 +265,7 @@ class _CartPageState extends State<CartPage> {
                                 ),
                               ),
                               TextSpan(
-                                text: 'LKR $totalPrice',
+                                text: 'LKR ${totalPrice.toStringAsFixed(2)}',
                                 style: const TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
@@ -285,14 +281,19 @@ class _CartPageState extends State<CartPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SummaryPage(),
+                                  builder: (context) => SummaryPage(
+                                    productId: widget.productID,
+                                    productPrice: widget.productPrice,
+                                    productName: widget.productName,
+                                    quantity: quantity,
+                                    discount: 0.0,
+                                  ),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
-                              backgroundColor:
-                                  const Color(0xffE53B3B), // Button color
+                              backgroundColor: const Color(0xffE53B3B),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 70, vertical: 13),
                               textStyle: const TextStyle(

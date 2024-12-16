@@ -1,0 +1,6 @@
+projectKey=petshop-frontend
+serverUrl=http://localhost:9000
+serverVersion=24.12.0.100206
+dashboardUrl=http://localhost:9000/dashboard?id=petshop-frontend
+ceTaskId=4465be45-4d07-4493-bb1b-6d321d092adb
+ceTaskUrl=http://localhost:9000/api/ce/task?id=4465be45-4d07-4493-bb1b-6d321d092adb

@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:shane_and_shawn_petshop/products_page.dart';
+import 'package:shane_and_shawn_petshop/summary_page.dart';
 
 class OrderConfirmation extends StatelessWidget {
   final bool isSuccess;
-  final String transactionNumber;
+
   final double amountPaid;
   final String paymentMethod;
+  final int quantity;
+  final double productPrice;
+  final double discount;
+  final String productId;
+  final String productName;
 
   const OrderConfirmation({
     super.key,
     required this.isSuccess,
-    required this.transactionNumber,
     required this.amountPaid,
     required this.paymentMethod,
+    required this.quantity,
+    required this.productPrice,
+    required this.discount,
+    required this.productId,
+    required this.productName,
   });
 
   @override
@@ -47,13 +58,6 @@ class OrderConfirmation extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  'Transaction Number: $transactionNumber',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
                 const SizedBox(height: 20),
                 const SizedBox(height: 20),
                 Row(
@@ -64,7 +68,7 @@ class OrderConfirmation extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      'Rs.$amountPaid',
+                      'Rs.${amountPaid.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -78,7 +82,7 @@ class OrderConfirmation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Payed by ',
+                      'Paid by ',
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
@@ -94,7 +98,27 @@ class OrderConfirmation extends StatelessWidget {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    if (isSuccess) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const ProductsPage(selectedFilter: "All")),
+                        (route) => false,
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SummaryPage(
+                                  quantity: quantity,
+                                  productPrice: productPrice,
+                                  productId: productId,
+                                  discount: discount,
+                                  productName: productName,
+                                )),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isSuccess ? Colors.green : Colors.red,

@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'cart_page.dart';
 import 'bottom_navbar.dart';
 import 'chatbot.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shane_and_shawn_petshop/token_manager.dart';
 
 class ItemPage extends StatefulWidget {
   final String productID;
   final String productName;
   final String imageUrl;
   final double productPrice;
+  final String description;
+  final int stockQty;
+  final int categoryId;
 
   const ItemPage({
     super.key,
@@ -15,27 +22,146 @@ class ItemPage extends StatefulWidget {
     required this.productName,
     required this.productPrice,
     required this.imageUrl,
+    required this.description,
+    required this.stockQty,
+    required this.categoryId,
   });
 
   @override
   _ItemPageState createState() => _ItemPageState();
 }
 
+class Product {
+  final int id;
+  final int categoryId;
+  final String productName;
+  final String description;
+  final int stockQty;
+  final double purchasingPrice;
+  final double sellingPrice;
+  final String imageUrl;
+  final bool status;
+
+  Product({
+    required this.id,
+    required this.categoryId,
+    required this.productName,
+    required this.description,
+    required this.stockQty,
+    required this.purchasingPrice,
+    required this.sellingPrice,
+    required this.imageUrl,
+    required this.status,
+  });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      categoryId: json['categoryId'],
+      productName: json['productName'],
+      description: json['description'],
+      stockQty: json['stockQty'],
+      purchasingPrice: json['purchasingPrice'].toDouble(),
+      sellingPrice: json['sellingPrice'].toDouble(),
+      imageUrl: json['imageUrl'],
+      status: json['status'],
+    );
+  }
+}
+
 class _ItemPageState extends State<ItemPage> {
+  List<Product> similarProducts = [];
+  bool isLoading = false;
+
+  Future<void> fetchProductsByCategory(String categoryId) async {
+    String? token = TokenManager.instance.accessToken;
+    if (token == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("No access token available. Please log in again."),
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
+
+    String? localIp = dotenv.env['LOCAL_IP'];
+    if (localIp == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Server URL not configured. Please try again later."),
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
+
+    final url = Uri.parse('$localIp/products/categories/$categoryId/');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        if (responseData is Map && responseData.containsKey('product')) {
+          setState(() {
+            similarProducts = (responseData['product'] as List<dynamic>)
+                .map<Product>((product) => Product.fromJson(product))
+                .toList();
+          });
+          print('Products fetched successfully: ${similarProducts.length}');
+        } else {
+          print('Unexpected response structure: $responseData');
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+                Text("Unexpected server response. Please try again later."),
+            backgroundColor: Colors.red,
+          ));
+        }
+      } else {
+        print('Failed to fetch products: ${response.body}');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Failed to fetch products: ${response.reasonPhrase}"),
+          backgroundColor: Colors.red,
+        ));
+      }
+    } catch (error) {
+      print('Network Error: $error');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('An error occurred: $error'),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProductsByCategory(widget.categoryId.toString());
+  }
+
   int quantity = 1;
   bool isFavorite = false;
-  int stockQuantity = 0;
-  double rating = 0;
   int soldQuantity = 0;
 
   String categoryName = 'Medicine';
   int categoryID = 1;
-  String description =
-      'Vetzyme High Strength Flexible Joint has been specifically formulated to help maintain supple and mobile joints, helping to ensure your dog has a better quality of life as it enters its golden years';
   bool status = false;
 
   @override
   Widget build(BuildContext context) {
+    if (widget.categoryId == 1) {
+      categoryName = "Medicine";
+    } else if (widget.categoryId == 2) {
+      categoryName = "Toys";
+    } else if (widget.categoryId == 3) {
+      categoryName = "Pet Food";
+    } else {
+      categoryName = "Other";
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -134,7 +260,7 @@ class _ItemPageState extends State<ItemPage> {
                         ),
                         const SizedBox(height: 1),
                         Text(
-                          '$stockQuantity in Stock',
+                          '${widget.stockQty} in Stock',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.green,
@@ -145,26 +271,13 @@ class _ItemPageState extends State<ItemPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Row(
-                          children: List.generate(5, (index) {
-                            return Icon(
-                              index < rating ? Icons.star : Icons.star_border,
-                              color: Colors.amber,
-                              size: 18,
-                            );
-                          }),
-                        ),
                         const SizedBox(height: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              '($soldQuantity Reviews)',
-                              style: const TextStyle(fontSize: 12),
-                            ),
                             const SizedBox(width: 10),
                             Text(
-                              '| $soldQuantity Sold',
+                              '$soldQuantity Sold',
                               style: const TextStyle(
                                   fontSize: 12, color: Colors.green),
                             ),
@@ -181,7 +294,7 @@ class _ItemPageState extends State<ItemPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  description,
+                  widget.description,
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
                 ),
               ),
@@ -313,7 +426,15 @@ class _ItemPageState extends State<ItemPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CartPage()),
+                MaterialPageRoute(
+                    builder: (context) => CartPage(
+                          imageUrl: widget.imageUrl,
+                          productID: widget.productID,
+                          productName: widget.productName,
+                          productPrice: widget.productPrice,
+                          stockQty: widget.stockQty,
+                          quantity: quantity,
+                        )),
               );
             },
             style: ElevatedButton.styleFrom(
@@ -349,73 +470,87 @@ class _ItemPageState extends State<ItemPage> {
       ),
     );
   }
-}
 
-Widget buildSimilarProducts() {
-  String similarImageUrl = 'images/product.jpg';
-
-  final List<Map<String, String>> similarProducts = [
-    {'image': similarImageUrl, 'name': 'Cat Food'},
-    {'image': similarImageUrl, 'name': 'Dog Food'},
-    {'image': similarImageUrl, 'name': 'Rubber Ball'},
-    {'image': similarImageUrl, 'name': 'Cat Toy'},
-  ];
-
-  return Padding(
-    padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 20.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Similar Products',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+  Widget buildSimilarProducts() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Similar Products',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        SizedBox(
-          height: 150,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: similarProducts.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 3,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Image.asset(
-                        similarProducts[index]['image']!,
-                        fit: BoxFit.cover,
+          const SizedBox(height: 10),
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : similarProducts.isEmpty
+                  ? const Text('No similar products available.')
+                  : SizedBox(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: similarProducts.length,
+                        itemBuilder: (context, index) {
+                          final product = similarProducts[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ItemPage(
+                                    productID: product.id.toString(),
+                                    productName: product.productName,
+                                    productPrice: product.sellingPrice,
+                                    imageUrl: product.imageUrl,
+                                    description: product.description,
+                                    stockQty: product.stockQty,
+                                    categoryId: product.categoryId,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 3,
+                                          blurRadius: 7,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Image.asset(
+                                      product.imageUrl,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    product.productName,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      similarProducts[index]['name']!,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }

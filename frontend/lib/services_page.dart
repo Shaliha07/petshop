@@ -180,59 +180,62 @@ class _ServicesPageState extends State<ServicesPage> {
                     SizedBox(
                       height: 150,
                       child: GestureDetector(
-                          child: const Image(
-                            image: AssetImage('images/service8.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AppointmentPage(
-                                  serviceID: 2,
-                                  serviceName: "Pet Training",
-                                ),
+                        child: const Image(
+                          image: AssetImage('images/service8.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AppointmentPage(
+                                serviceID: 2,
+                                serviceName: "Pet Training",
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: 150,
                       child: GestureDetector(
-                          child: const Image(
-                            image: AssetImage('images/service9.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AppointmentPage(
-                                  serviceID: 3,
-                                  serviceName: "Pet Grooming",
-                                ),
+                        child: const Image(
+                          image: AssetImage('images/service9.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AppointmentPage(
+                                serviceID: 3,
+                                serviceName: "Pet Grooming",
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: 150,
                       child: GestureDetector(
-                          child: const Image(
-                            image: AssetImage('images/service10.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AppointmentPage(
-                                  serviceID: 3,
-                                  serviceName: "Pet Grooming",
-                                ),
+                        child: const Image(
+                          image: AssetImage('images/service10.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AppointmentPage(
+                                serviceID: 3,
+                                serviceName: "Pet Grooming",
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shane_and_shawn_petshop/token_manager.dart';
+import 'package:shane_and_shawn_petshop/under_construction_page.dart';
 import 'profile_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -24,6 +24,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+
+  bool _isPasswordVisible = false; // State variable to toggle visibility
 
   @override
   void dispose() {
@@ -45,7 +47,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       print('Access Token: $token');
 
       if (token == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('No access token available. Please log in again.'),
           backgroundColor: Colors.red,
         ));
@@ -85,7 +87,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       if (localIp == null) {
         print('Error: LOCAL_IP is not set in .env file.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Server URL not configured. Please try again later.'),
           backgroundColor: Colors.red,
         ));
@@ -133,7 +135,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           print('Profile updated successfully: $responseData');
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => ProfilePage()),
+            MaterialPageRoute(builder: (context) => const ProfilePage()),
           );
         } else {
           // Handle server-side error
@@ -147,7 +149,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       } catch (error) {
         // Handle network or unexpected errors
         print("Error occurred during API request: $error");
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('An error occurred. Please try again later.'),
           backgroundColor: Colors.red,
         ));
@@ -190,7 +192,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           bottom: 0,
                           right: 0,
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const UnderConstructionPage()));
+                            },
                             child: const CircleAvatar(
                               radius: 15,
                               backgroundColor: Colors.white,
@@ -246,6 +254,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         }
                         return null; // Allow empty passwords
                       },
+                      isPassword: true, // Pass true to enable password behavior
                     ),
                     buildProfileTextField(
                       label: 'Email',
@@ -339,6 +348,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     required String label,
     required TextEditingController controller,
     required String? Function(String?)? validator,
+    bool isPassword = false,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -351,6 +361,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           const SizedBox(height: 8),
           TextFormField(
+            obscureText: isPassword && !_isPasswordVisible,
             decoration: InputDecoration(
               filled: true,
               fillColor: const Color(0xffE5E5E5),
@@ -358,6 +369,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide.none,
               ),
+              suffixIcon: isPassword
+                  ? IconButton(
+                      icon: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    )
+                  : null,
             ),
             controller: controller,
             validator: validator,

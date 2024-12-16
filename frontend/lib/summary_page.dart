@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:shane_and_shawn_petshop/checkout_page.dart';
+import 'package:shane_and_shawn_petshop/edit_profile_page.dart';
+import 'package:shane_and_shawn_petshop/under_construction_page.dart';
 
 class SummaryPage extends StatefulWidget {
-  const SummaryPage({super.key});
+  final int quantity;
+  final String productName;
+  final double productPrice;
+  final double discount;
+  final String productId;
+
+  const SummaryPage(
+      {super.key,
+      required this.quantity,
+      required this.productName,
+      required this.productPrice,
+      required this.discount,
+      required this.productId});
 
   @override
   State<SummaryPage> createState() => _SummaryPageState();
@@ -11,35 +25,12 @@ class SummaryPage extends StatefulWidget {
 class _SummaryPageState extends State<SummaryPage> {
   final String userAddress = '123 Main Street\nCity\nCountry';
 
-  final List<Map<String, dynamic>> products = [
-    {
-      'name': 'Flexible Joint',
-      'quantity': 1,
-      'price': 5500.00,
-      'discount': 0.0,
-    },
-    {
-      'name': 'Premium Dog Food',
-      'quantity': 2,
-      'price': 4500.00,
-      'discount': 10.0,
-    },
-  ];
-
   final double deliveryFee = 260.00;
 
   double calculateTotal() {
-    double total = 0;
-    for (var product in products) {
-      double price = product['price'];
-      double discount = product['discount'];
-      int quantity = product['quantity'];
-
-      double discountedPrice = price - (price * discount / 100);
-      total += discountedPrice * quantity;
-    }
-    total += deliveryFee;
-    return total;
+    double discountedPrice =
+        widget.productPrice - (widget.productPrice * widget.discount / 100);
+    return (discountedPrice * widget.quantity) + deliveryFee;
   }
 
   @override
@@ -106,18 +97,32 @@ class _SummaryPageState extends State<SummaryPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Address card
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: AddressCard(
                   address: userAddress,
-                  onEdit: () {},
+                  onEdit: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfilePage(),
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 20),
               Center(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UnderConstructionPage(),
+                      ),
+                    );
+                  },
                   child: Container(
                     width: 380,
                     height: 47,
@@ -132,7 +137,7 @@ class _SummaryPageState extends State<SummaryPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "Store Pickup",
+                            "Pay with Cash",
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(width: 10),
@@ -160,55 +165,47 @@ class _SummaryPageState extends State<SummaryPage> {
                       ),
                     ],
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: products.map((product) {
-                      double discountedPrice = product['price'] -
-                          (product['price'] * product['discount'] / 100);
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            product['name'],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'x${product['quantity']}',
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          if (product['discount'] > 0)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'LKR ${product['price'].toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    decoration: TextDecoration.lineThrough,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Text(
-                                  'LKR ${discountedPrice.toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.green,
-                                  ),
-                                ),
-                              ],
-                            )
-                          else
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.productName,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'x${widget.quantity}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      if (widget.discount > 0)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              'LKR ${product['price'].toStringAsFixed(2)}',
-                              style: const TextStyle(fontSize: 14),
+                              'LKR ${widget.productPrice.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                decoration: TextDecoration.lineThrough,
+                                color: Colors.grey,
+                              ),
                             ),
-                          const SizedBox(height: 50),
-                        ],
-                      );
-                    }).toList(),
+                            Text(
+                              'LKR ${(widget.productPrice - (widget.productPrice * widget.discount / 100)).toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        )
+                      else
+                        Text(
+                          'LKR ${widget.productPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                    ],
                   ),
                 ),
               ),
@@ -217,9 +214,7 @@ class _SummaryPageState extends State<SummaryPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: BillingSummary(
-                  itemsTotal: products.fold<int>(0, (int sum, product) {
-                    return sum + (product['quantity'] as int);
-                  }),
+                  itemsTotal: widget.quantity,
                   deliveryFee: deliveryFee,
                   total: totalPrice,
                 ),
@@ -232,8 +227,14 @@ class _SummaryPageState extends State<SummaryPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CheckoutPage(),
-                      ),
+                          builder: (context) => CheckoutPage(
+                                total: totalPrice,
+                                productId: widget.productId,
+                                quantity: widget.quantity,
+                                productPrice: widget.productPrice,
+                                discount: widget.discount,
+                                productName: widget.productName,
+                              )),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -334,7 +335,7 @@ class BillingSummary extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Delivery Fee'),
-            Text('LKR $deliveryFee'),
+            Text('LKR ${deliveryFee.toStringAsFixed(2)}'),
           ],
         ),
         const Divider(thickness: 3),

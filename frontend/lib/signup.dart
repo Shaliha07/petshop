@@ -4,7 +4,7 @@ import 'package:shane_and_shawn_petshop/token_manager.dart';
 import 'home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'globals.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -26,64 +26,68 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final String appleUserName = "AppleUser";
   final String googleUserName = "GoogleUser";
-  // final storage = FlutterSecureStorage();
 
   Future<void> register() async {
     if (_formKey.currentState!.validate()) {
-      // Get username, email and password
-      String username = _usernameController.text!;
-      String email = _emailController.text!;
-      String password = _confirmPasswordController.text!;
+      String username = _usernameController.text;
+      String email = _emailController.text;
+      String password = _confirmPasswordController.text;
 
-      // Send a POST request to the server
       final url = Uri.parse('${dotenv.env['LOCAL_IP']}/auth/register');
 
       try {
-        // Make the POST request
-        final response = await http.post(url,
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: jsonEncode({
+        final response = await http.post(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonEncode(
+            {
               "username": username,
               "email": email,
               "password": password,
-            }));
+            },
+          ),
+        );
 
-        // Check if the response is successful
         if (response.statusCode == 201) {
-          // Parse the response
+          globalUsername = username;
           final responseData = jsonDecode(response.body);
           String token = responseData['token'];
 
-          // Store token in TokenManager
           await TokenManager.instance.setAccessToken(token);
 
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Register Successful'),
-            backgroundColor: Colors.green,
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Register Successful'),
+              backgroundColor: Colors.green,
+            ),
+          );
 
-          // Handle success, navigate to the home page
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => HomePage(username: username)),
+              builder: (context) => const HomePage(),
+            ),
           );
         } else {
-          // Handle error, show a message
           final responseData = jsonDecode(response.body);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(responseData['message'] ?? 'Register Failed'),
-            backgroundColor: Colors.red,
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(responseData['message'] ?? 'Register Failed'),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       } catch (error) {
         print("Error: $error");
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('An error occurred. Please try again later. : $error'),
-          backgroundColor: Colors.red,
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content:
+                Text('An error occurred. Please try again later. : $error'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
@@ -318,9 +322,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => HomePage(
-                                            username: googleUserName,
-                                          ),
+                                          builder: (context) =>
+                                              const HomePage(),
                                         ),
                                       );
                                     },
@@ -339,9 +342,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => HomePage(
-                                            username: appleUserName,
-                                          ),
+                                          builder: (context) =>
+                                              const HomePage(),
                                         ),
                                       );
                                     },
@@ -365,7 +367,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         ),
-     ),
-);
-}
+      ),
+    );
+  }
 }
